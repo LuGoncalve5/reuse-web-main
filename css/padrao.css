@@ -1,0 +1,165 @@
+/* ===== IMPORTAÇÃO DE FONTES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+/* ===== ESTILO GLOBAL ===== */
+:root {
+    --verde: #5E7858;
+    --verde-transp: #5e7858d5;
+    --branco: #FAFBF9;
+    --cinza: #ccc;
+
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 10px rgba(0,0,0,0.1);
+
+    --radius-sm: 8px;
+    --radius-full: 25px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lexend', sans-serif;
+    background-color: var(--branco);
+}
+
+/* ===== LOGO ===== */
+.logo {
+    width: 45%;
+    height: auto;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 160px;
+    height: 100vh;
+    background-color: #5E7858;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    margin-right: 50px;
+    align-items: center;
+}
+.sidebar a, .logo{
+    text-decoration: none;
+    margin-bottom: 25px;
+    padding: 15px 20px;
+    transition: background 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 12px;
+    gap: 6px;
+    position: relative;
+    top: 10px;
+}
+.sidebar a:hover {
+    background-color: #FAFBF9;
+    color: #5E7858;
+    width: 100%;
+}
+.sidebar i {
+    font-size: 2rem;
+}   
+
+/* Tooltip styles */
+.sidebar a span {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background-color: #ebffe1;
+    color: #4a8a5f;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 8px;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.2s;
+    font-size: 12px;
+    z-index: 1;
+}
+.sidebar a:hover span {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ===== TOP-BAR ABA ===== */
+.topbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #134313;
+    font-family: 'Lexend', sans-serif;
+    margin-top: 20px;
+}
+
+/* ===== LINHA ESPECÍFICA ===== */
+hr {
+    margin: 16px 0; 
+    border: none; 
+    border-top: 2px solid #134313; 
+    opacity: 0.5;
+    margin-bottom: 30px;
+}
+
+/* ===== BOTÕES E LINKS DE PESQUISA TOP-BAR ABA ===== */
+.botoes {
+    display: flex;
+    gap: 10px;
+}
+.botoes a,
+.btn-pesquisa,
+.aba-pesquisa button {
+    background-color: var(--verde-transp);
+    color: var(--branco);
+    padding: 8px 15px;
+    border-radius: var(--radius-full);
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.botoes a:hover,
+.btn-pesquisa:hover,
+.aba-pesquisa button:hover {
+    background-color: var(--branco);
+    border: 1px solid var(--verde);
+    color: var(--verde);
+}
+
+/* ===== ABA DE PESQUISA ===== */
+.aba-pesquisa {
+    display: none;
+    gap: 10px;
+    align-items: center;
+}
+
+.aba-pesquisa input {
+    padding: 6px 12px;
+    border: 1px solid var(--cinza);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+}
+
+/* quando o checkbox está marcado, mostra a aba */
+#togglePesquisa:checked + .aba-pesquisa {
+    display: flex;
+}
+
+/* ===== CONTEÚDO PRINCIPAL ABA ===== */
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}

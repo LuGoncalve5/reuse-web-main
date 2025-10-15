@@ -1,0 +1,185 @@
+body, html {
+    background-color: #fafbf9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-family: 'Lexend', sans-serif; /* Lexend para o corpo do texto */
+}
+
+.container-fluid {
+    height: 100vh;
+    display: flex;
+    padding: 0;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+h1 {
+    color: #134313e0;
+    font-family: 'Playfair Display', sans-serif; /* Playfair para os títulos */
+    font-weight: 700;
+}
+
+.right-section {
+    background-color: #5E7858;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+
+
+.logo-img{
+    height: 80px;
+    width: auto;
+    margin-bottom: 30px;
+}
+
+.form-control {
+    background-color: #f3f9f7;
+    border: solid 1px #5b7858;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.btn-green {
+    background-color: #5E7858;
+    border: none;
+    color: #fafbf9;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 25px;
+}
+
+.btn-green:hover {
+    background-color: #fafbf9;
+    color: #5E7858;
+    border: solid 1px #5E7858;
+}
+
+.btn-neutro {
+    background-color: #fafbf9;
+    border: none;
+    color: #5E7858;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 25px;
+}
+
+.btn-neutro:hover {
+    background-color: #5E7858;
+    color: #fafbf9;
+    border: solid 1px #fafbf9;
+}
+
+.main-title {
+    color: #134313;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+@media (min-width: 768px) {
+    .main-title {
+        font-size: 2.2rem;
+    }
+}
+
+.profile-option {
+    background-color: #5b78584c;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem;
+    width: 20%;
+}
+
+.profile-option:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    color: #5E7858;
+}
+
+.btn-chooseprofile{
+    border: none;
+    background-color:#5E7858;
+    color: #fafbf9;
+    padding: 0.5rem;
+    width: 80%;
+    text-align: center;
+}
+
+/*mudar isso pq eu não gostei*/
+.btn-chooseprofile:hover{
+    background-color: #5b78584c;
+    color: #5E7858;
+    border: solid 1px #5E7858;
+    font: bold;
+}
+
+.forgot-password {
+    color: #134313;
+    font-size: 0.9em;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+}
+
+.green-radio {
+    margin-right: 0.5rem;
+}
+
+.form-check-input.green-radio:checked {
+    background-color: #134313 !important;
+    border-color: #134313 !important;
+}
+
+.form-check-input.green-radio:focus {
+    border-color: #134313 !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 128, 0, 0.25) !important;
+}
+
+.verificacao{
+    width: 60px;
+    height: 90px;
+}
+
+.back-button {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: #134313;
+    text-decoration: none;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações pessoais</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="cpf_perfil.css">
+    <link rel="stylesheet" href="../../css/padrao.css">
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <img class="logo" src="../../img/logoreuse.png">
+        <a href="../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a> <!-- mudar para uma casinha -->
+        <a href="../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
+        <a href="../cadastro closet/cadastro roupa/cr_cpf.html"><i class="bi bi-plus-square"></i><span>Nova roupa</span></a>
+        <a href="../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
+        <a href="../informacoes pessoais/cpf_perfil.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
+    </div>
+
+    <!-- ===== ABA GERAL ===== -->
+    <div class="content">
+
+        <!-- ===== TOP-BAR CONTAINER ===== -->
+        <div class="topbar-container">
+            <div><h1>Informações pessoais</h1></div>
+        </div>
+
+        <!-- ===== LINHA DIVISORA ===== -->
+        <hr>
+
+        <!-- ===== SECTION (ESPECÍFICA DE CADA PÁGINA) ===== -->
+        <section>
+            <div class="profile">
+            </div>
+    
+            <div class="profile-container">
+                <div class="profile-photo-section">
+                    <div class="profile-circle large-circle" id="profile-circle">
+                        <i class="bi bi-camera" id="camera-icon"></i>
+                        <span id="add-photo-text">adicionar foto</span>
+                        <img id="profile-image" src="" alt="Foto de perfil" style="display:none; border-radius:50%; width:100%; height:100%; object-fit:cover;">
+                        <input type="file" id="profile-upload" accept="image/*" style="display:none;">
+                    </div>
+                    <span class="username">nome do usuário</span>
+                </div>
+    
+                <div class="info-form-section">
+                    <form class="info-form">
+                        <label class="titulo">Nome completo</label>
+                        <input type="text" placeholder="Nome completo">
+    
+                        <label class="titulo">Email</label>
+                        <input type="email" placeholder="Email">
+    
+                        <label class="titulo">Senha</label>
+                        <div class="input-with-icon">
+                            <input type="password" placeholder="Senha">
+                            <i class="bi bi-eye-slash"></i>
+                        </div>
+                        
+                        <label class="titulo">CPF</label>
+                        <input type="text" placeholder="CPF">
+    
+                        <label class="titulo">Número de celular</label>
+                        <input type="tel" placeholder="Número de celular">
+    
+                        <label class="titulo">CEP</label>
+                        <input type="text" placeholder="CEP">
+    
+                        <div class="city-state-group">
+                            <div class="city-state-input">
+                                <label class="titulo">Estado</label>
+                                <input type="text" placeholder="Estado">
+                            </div>
+                            <div class="city-state-input">
+                                <label class="titulo">Cidade</label>
+                                <input type="text" placeholder="Cidade">
+                            </div>
+                        </div>
+                        
+                        <label class="titulo">Bairro</label>
+                        <input type="text" placeholder="Bairro">
+    
+                        <label class="titulo">Complemento</label>
+                        <input type="text" placeholder="Complemento (ex.: apt, nº, bloco, referência)">
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="usuario.js">
+        // Função para mostrar/esconder a senha
+        const togglePasswordVisibility = (input, icon) => {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Evento para o ícone de senha
+            const passwordInput = document.querySelector('input[type="password"]');
+            const passwordIcon = document.querySelector('.input-with-icon .bi');
+
+            if (passwordIcon) {
+                passwordIcon.addEventListener('click', () => {
+                    togglePasswordVisibility(passwordInput, passwordIcon);
+                });
+            }
+
+            // Validação de email
+            const emailInput = document.querySelector('input[type="email"]');
+            if (emailInput) {
+                emailInput.addEventListener('blur', () => {
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(emailInput.value)) {
+                        alert("Por favor, insira um email válido.");
+                    }
+                });
+            }
+
+            // Validação e formatação de CPF
+            const cpfInput = document.querySelector('input[placeholder="CPF"]');
+            if (cpfInput) {
+                cpfInput.addEventListener('blur', () => {
+                    let cpf = cpfInput.value.replace(/\D/g, '');
+                    if (cpf.length !== 11) {
+                        alert("O CPF deve conter 11 dígitos.");
+                    } else {
+                        cpfInput.value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+                    }
+                });
+            }
+
+            // Validação e formatação de Telefone
+            const telInput = document.querySelector('input[type="tel"]');
+            if (telInput) {
+                telInput.addEventListener('blur', () => {
+                    let tel = telInput.value.replace(/\D/g, '');
+                    if (tel.length < 10 || tel.length > 11) {
+                        alert("Por favor, insira um número de telefone válido.");
+                    } else {
+                        if (tel.length === 11) {
+                            telInput.value = tel.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+                        } else {
+                            telInput.value = tel.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+                        }
+                    }
+                });
+            }
+
+            // Upload e salvamento da foto de perfil
+            const profileUpload = document.getElementById("profile-upload");
+            const profileCircle = document.getElementById("profile-circle");
+            const profileImage = document.getElementById("profile-image");
+            const cameraIcon = document.getElementById("camera-icon");
+            const addPhotoText = document.getElementById("add-photo-text");
+
+            profileCircle.addEventListener("click", () => {
+                profileUpload.click();
+            });
+
+            profileUpload.addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageData = e.target.result;
+                        profileImage.src = imageData;
+                        profileImage.style.display = "block";
+                        cameraIcon.style.display = "none";
+                        addPhotoText.style.display = "none";
+                        localStorage.setItem("profileImage", imageData);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            const savedImage = localStorage.getItem("profileImage");
+            if (savedImage) {
+                profileImage.src = savedImage;
+                profileImage.style.display = "block";
+                cameraIcon.style.display = "none";
+                addPhotoText.style.display = "none";
+            }
+        });
+    </script>   
+</body>
+</html>

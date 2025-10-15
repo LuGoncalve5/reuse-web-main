@@ -1,0 +1,65 @@
+/* ===== CONTEÚDO PRINCIPAL ===== */
+section {
+    padding: 20px;
+}
+
+/* ===== FORMULÁRIO ===== */
+.form-section {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.form-section h2 {
+    color: #5E7858;
+    margin-bottom: 20px;
+    font-family: "Playfair Display", serif;
+}
+
+.label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #5E7858;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+}
+
+.toggle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: #5E7858;
+    color: #FAFBF9;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background-color: #466147;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}

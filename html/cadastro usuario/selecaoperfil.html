@@ -1,0 +1,59 @@
+<!--SELECIONA TIPO DE PERFIL-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReUse - Seleção de Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="c_inicial.css">
+</head>
+<body>
+
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
+        <img class="logo-img" src="../../img/LOGOVERDE-REUSE.png">
+        
+        <h1 class="mb-5">Seja bem-vindo.</h1>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center w-100"> 
+            <div class="profile-option" data-url="ci_usuario.html"> <!-- usuário -->
+                <div class="icon-container">
+                    <i class="bi bi-person-fill fs-1"></i>
+                </div>
+
+                <button class="btn btn-outline-success rounded-pill mt-3 btn-chooseprofile">Usuário</button>
+            </div>
+            
+            <div class="profile-option" data-url="ci_instituicao.html"> <!-- instituição -->
+                <div class="icon-container">
+                    <i class="bi bi-building fs-1"></i>
+                </div>
+
+                <button class="btn btn-outline-success rounded-pill mt-3 btn-chooseprofile">Instituição</button>
+            </div>
+
+            <div class="profile-option" data-url="ci_loja.html"> <!-- loja -->
+                <div class="icon-container">
+                    <i class="bi bi-house fs-1"></i>
+                </div>
+
+                <button class="btn btn-outline-success rounded-pill mt-3 btn-chooseprofile">Loja</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.profile-option').forEach(option => {
+            option.addEventListener('click', () => {
+                window.location.href = option.getAttribute('data-url');
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

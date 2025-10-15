@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa - Usuários</title>
+    <link rel="stylesheet" href="pesquisa.css">
+    <link rel="stylesheet" href="../../css/padrao.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <img class="logo" src="../../img/logoreuse.png">
+        <a href="../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a> <!-- mudar para uma casinha -->
+        <a href="../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
+        <a href="../cadastro closet/cadastro roupa/cr_cpf.html"><i class="bi bi-plus-square"></i><span>Nova roupa</span></a>
+        <a href="../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
+        <a href="../informacoes pessoais/cpf_perfil.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
+    </div>
+
+    <!-- ===== ABA GERAL ===== -->
+    <div class="content">
+
+        <!-- ===== TOP-BAR CONTAINER ===== -->
+        <div class="topbar-container">
+            <div><h1>Pesquisa</h1></div>
+        </div>
+
+        <!-- ===== LINHA DIVISORA ===== -->
+        <hr>
+
+        <!-- ===== SECTION (ESPECÍFICA DE CADA PÁGINA) ===== -->
+        <section>
+            <!-- ===== BARRA DE PESQUISA DE USUÁRIOS ===== -->
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="Buscar usuário...">
+            </div>
+        
+            <!-- ===== MENU DE CATEGORIAS (TABS) ===== -->
+            <nav class="tabs">
+                <button class="active" onclick="window.location.href='pesquisa.html'" >Usuários</button>
+                <button onclick="window.location.href='p_brecho.html'">Brechós</button>
+                <button onclick="p_vendas.html">Vendas</button>
+            </nav>
+
+            <!-- ===== LISTA DE USUÁRIOS ===== -->
+            <section class="user-list">
+                <!-- CARD DE USUÁRIO -->
+                <div class="user-card"> <!-- adicionar link com o banco de dados para o perfil do usuário selecionado -->
+                    <div class="user-info">
+                        <img src="img/0eeb373e5cfed57eaac500656a325065.jpg" alt="Foto Eduardo" class="user-photo">
+                        <div>
+                            <h3>Eduardo Neumann</h3>
+                            <p>@eduardo_neumann</p>
+                        </div>
+                    </div>
+                    <div class="user-rating">⭐⭐⭐⭐☆</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <img src="img/5c17ae84def7fb241c5160a215486633.jpg" alt="Foto Claudia" class="user-photo">
+                        <div>
+                            <h3>Claudia Silva</h3>
+                            <p>@silvaclaud</p>
+                        </div>
+                    </div>
+                    <div class="user-rating">☆☆☆☆☆</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <img src="img/82f86a2ec009d4e68cffe71b3fd1459b.jpg" alt="Foto João" class="user-photo">
+                        <div>
+                            <h3>João Barbosa</h3>
+                            <p>@barb_jao</p>
+                        </div>
+                    </div>
+                    <div class="user-rating">☆☆☆☆☆</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <img src="img/9bc11bd6d800cffd64ed4459c6a3c241.jpg" alt="Foto Isis" class="user-photo">
+                        <div>
+                            <h3>Isis Veloso</h3>
+                            <p>@velosis</p>
+                        </div>
+                    </div>
+                    <div class="user-rating">⭐⭐⭐⭐☆</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <img src="img/c1e6dbdf2affd5304e7aee51c937037b.jpg" alt="Foto Bruna" class="user-photo">
+                        <div>
+                            <h3>Bruna Bragança</h3>
+                            <p>@b_braganca</p>
+                        </div>
+                    </div>
+                    <div class="user-rating">⭐⭐⭐⭐☆</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <img src="img/f23923b13e732e951ba24a0230cd95f4.jpg" alt="Foto Whinderson" class="user-photo">
+                        <div>
+                            <h3>Whinderson da Silva</h3>
+                            <p>@wdasilva</p>
+                        </div>
+                    </div>
+                    <div class="user-rating">⭐⭐⭐⭐☆</div>
+                </div>
+            </section>
+        </section>
+    </div>
+</body>
+</html>

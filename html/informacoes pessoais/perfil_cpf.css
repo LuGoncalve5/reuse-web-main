@@ -1,0 +1,205 @@
+.section {
+    flex: 1;
+    padding: 30px;
+    position: relative;
+}
+
+.section h1 {
+    text-align: center;
+    color: #134313;
+    margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------- */
+/* Estilos para o Cabeçalho de Perfil (Social) */
+/* ------------------------------------------------------- */
+
+.profile-header-social {
+    display: flex;
+    align-items: flex-start; 
+    gap: 80px;
+    padding: 20px 0;
+    max-width: 900px; 
+    margin: 0 auto 40px; 
+    padding-left: 50px; 
+}
+
+/* Coluna da Foto de Perfil */
+.profile-photo-column {
+    position: relative;
+    flex-shrink: 0; 
+}
+
+.profile-circle.large-circle {
+    /* Base do círculo de perfil */
+    width: 150px; 
+    height: 150px;
+    background: #f0f0eb;
+    border: none; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.profile-picture img {
+    /* Estilo da imagem dentro do círculo */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* O botão de menu (três pontos) no canto superior */
+.profile-menu-icon {
+    position: absolute;
+    top: 5px; 
+    right: 5px; 
+    width: 30px; 
+    height: 30px;
+    background: #fff;
+    border-radius: 50%; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #444;
+    border: 1px solid #ccc;
+}
+
+/* Coluna das Informações e Bio */
+.profile-info-column {
+    flex-grow: 1;
+    padding-top: 0px; /* Manter este aqui */
+}
+
+.username-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.username-social {
+    font-size: 26px;
+    color: #000;
+    font-weight: 400;
+    margin: 0;
+    /* Faz com que o nome de usuário e as estrelas fiquem na mesma linha */
+    display: flex; 
+    align-items: center;
+    gap: 15px; /* Espaço entre o nome e as estrelas */
+}
+
+/* Estilos para as estrelas de avaliação */
+.rating-stars {
+    display: flex;
+    align-items: center;
+    font-size: 16px; /* Tamanho das estrelas */
+    color: gold; /* Cor amarela/dourada para as estrelas preenchidas */
+    margin-top: 0; 
+}
+
+.rating-stars i {
+    margin-right: 2px;
+}
+
+
+.full-name {
+    font-size: 17px;
+    color: #666;
+    margin: 8px 0;
+}
+
+.location-section {
+    display: flex;
+    align-items: center;
+    margin: 8px 0 20px 0; /* Espaço acima e abaixo da localização */
+    font-size: 16px;
+    color: #333;
+}
+
+.location-section i {
+    color: #5E7858;
+    margin-right: 5px;
+}
+
+/* Estatísticas (Publicações) */
+.stats-section {
+    display: flex;
+    gap: 40px;
+    margin-top: 15px; /* Adicionar uma margem superior para espaçar do nome completo */
+    margin-bottom: 15px;
+}
+
+.stat-item {
+    display: flex;
+    gap: 5px; 
+    font-size: 16px;
+}
+
+.stat-number {
+    font-weight: bold;
+    color: #000;
+}
+
+.stat-label {
+    color: #666;
+    font-weight: 300;
+}
+
+.bio-section p {
+    margin: 8px 0; /* Aumentado o espaçamento superior e inferior para 8px */
+    font-size: 16px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.bio-section i {
+    color: #5E7858;
+    margin-right: 5px;
+}
+
+/* Estilos para a Navegação de Abas (NAV) */
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    margin: 20px auto 40px; 
+    border-bottom: 1px solid #ddd;
+}
+
+.tabs button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s, border-bottom 0.2s;
+    margin: 0 10px;
+}
+
+.tabs button:hover {
+    color: #134313;
+}
+
+.tabs button.active {
+    color: #5E7858; 
+    border-bottom: 2px solid #5E7858;
+    font-weight: bold;
+}
+/* Limpeza de classes de outros arquivos/componentes */
+.profile-circle.large-circle i, 
+.profile-circle.large-circle span {
+    /* Esconde os ícones de upload que estavam no profile-circle */
+    display: none;
+}
+.profile-container, .profile-photo-section, .info-form-section, .city-state-group, .profile {
+    display: none; 
+}

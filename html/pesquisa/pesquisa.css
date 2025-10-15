@@ -1,0 +1,99 @@
+/* ===== BARRA DE PESQUISA ===== */
+.search-section {
+    margin-bottom: 30px;
+    width: 95%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #5e785e;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+section {
+    padding: 20px;
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title {
+    font-family: "Playfair Display", serif;
+    font-size: 36px;
+    color: #5E7858;
+    margin-bottom: 20px;
+}
+
+/* ===== TABS ===== */
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    flex: 1;
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #5E7858;
+    padding: 8px 20px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tabs button.active {
+    border-color: #5E7858;
+    font-weight: bold;
+}
+
+/* ===== LISTA DE USUÁRIOS ===== */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.user-info p {
+    margin: 0;
+    color: gray;
+    font-size: 14px;
+}
+
+.user-rating {
+    font-size: 18px;
+    color: #f5c518;
+}

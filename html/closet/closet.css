@@ -1,0 +1,39 @@
+/* ===== GRID DE CARDS ===== */
+section {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    max-width: 1600px;
+}
+
+.card {
+    background-color: var(--verde-transp);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 15px;
+    color: var(--branco);
+}
+
+.paragrafo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

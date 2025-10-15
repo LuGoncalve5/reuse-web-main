@@ -1,0 +1,233 @@
+/* ===== BARRA DE PESQUISA ===== */
+.search-section {
+    margin-bottom: 30px;
+    width: 95%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px; 
+    border: 2px solid var(--verde);
+    border-radius: var(--radius-full);
+    outline: none;
+    font-size: 16px;
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+section {
+    padding: 20px;
+}
+
+/* -------------------------------------- */
+/* ESTILOS DE NAVEGAÇÃO E FILTRO */
+/* -------------------------------------- */
+
+/* NOVO CONTÊINER para alinhar Tabs (esquerda) e Filtro (direita) na mesma linha */
+.tabs-and-filter-row {
+    display: flex;
+    /* Alinha Tabs à esquerda e Filtro à direita */
+    justify-content: space-between; 
+    align-items: flex-end; /* Alinha o conteúdo à base das tabs */
+    width: 95%;
+    margin-bottom: 5px; /* Espaço antes da linha divisória */
+}
+
+/* TABS (Padrao de Usuários/Brechós) */
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tabs button {
+    flex: 1;
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--verde);
+    padding: 8px 10px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tabs button.active {
+    border-color: var(--verde);
+    font-weight: bold;
+}
+
+/* ESTILO ESPECÍFICO PARA TABS DA TELA DE VENDAS (alinha à esquerda com espaçamento) */
+.tabs-vendas {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 40px; 
+}
+
+.tabs-vendas button {
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--verde);
+    padding: 8px 0px; 
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tabs-vendas button.active {
+    border-color: var(--verde);
+    font-weight: bold;
+}
+
+/* Linha divisória logo abaixo da linha de Tabs e Filtro */
+.tabs-separator {
+    margin-top: 5px;
+    border: none; /* Remove a borda padrão */
+    border-top: 1px solid var(--verde);
+    opacity: 0.6;
+    width: 95%;
+    margin-bottom: 20px; /* Espaço entre a linha e o grid de produtos */
+}
+
+/* Estilo do botão filtrar */
+.filter-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--branco); 
+    border: 1px solid var(--cinza); 
+    color: var(--verde);
+    padding: 8px 15px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-weight: normal; 
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* -------------------------------------- */
+/* ESTILOS ESPECÍFICOS PARA A TELA VENDAS */
+/* -------------------------------------- */
+
+/* ===== GRID DE PRODUTOS (Layout) ===== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column; 
+    position: relative;
+    height: 100%; 
+}
+
+/* ===== IMAGEM (Formato Vertical) ===== */
+.product-image {
+    width: 100%;
+    height: 380px; 
+    object-fit: cover;
+    display: block;
+}
+
+.bookmark-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+/* ===== INFORMAÇÕES (Fundo Verde Flexível) ===== */
+.product-info {
+    background-color: var(--verde); 
+    color: var(--branco);
+    padding: 10px 15px 15px;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px; 
+}
+
+.product-price {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.product-description {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.8;
+    flex-grow: 1; 
+}
+
+
+/* -------------------------------------- */
+/* ESTILOS DA TELA USUÁRIOS (REUTILIZADOS) */
+/* -------------------------------------- */
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.user-info p {
+    margin: 0;
+    color: gray;
+    font-size: 14px;
+}
+
+.user-rating {
+    font-size: 18px;
+    color: #f5c518;
+}

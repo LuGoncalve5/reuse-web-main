@@ -1,0 +1,270 @@
+section {
+  padding: 30px;
+}
+
+.section h1 {
+  text-align: center;
+  color: #134313;
+  margin-bottom: 20px;
+}
+
+/* Upload box */
+.upload-box {
+  width: 380px;
+  height: 350px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #666;
+  background: #f0f0eb;
+  cursor: pointer;
+}
+
+.upload-box i {
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+.form {
+  flex: 1;
+  max-width: none;
+  margin: 0;
+}
+
+.form input, .form textarea, .form select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: #eaece7;
+  font-size: 20px;
+  font-family: 'Lexend', sans-serif;
+}
+
+.form textarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Cores */
+.colors {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.color {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #e6dede;
+}
+
+.color.selected {
+  border: 2px solid #000;
+}
+
+/* Perfil */
+.profile {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.close {
+  font-size: 22px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0 20px;
+}
+
+.option {
+  padding: 6px 14px;
+  border: 1px solid #5e7858;
+  border-radius: 20px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 17px;
+  color: #2f3d2b;
+  font-family: 'Lexend', sans-serif;
+}
+
+.option.selected {
+  background: #5e7858;
+  color: white;
+}
+
+.tamanho {
+  justify-content: flex-start;
+}
+
+.finalidade-box {
+  border: 1px solid #5e7858;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 20px;
+  margin: 20px auto;
+}
+
+.btn-proximo {
+  width: 200px;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background: #5e7858;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  font-family: 'Lexend', sans-serif;
+}
+
+.btn-proximo:hover {
+  background: #8fa082;
+}
+
+.form-container {
+  display: flex;
+  gap: 50px;
+  max-width: 900px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.pasta {
+  color: gray;
+}
+
+.titulo {
+  font-size: 18px;
+  color: #29583c;
+  font-family: 'Lexend', sans-serif;
+}
+
+#valor-box {
+  margin: 15px 0;
+  width: 35%;
+}
+
+/* Novos estilos para a página de usuário */
+.profile-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.edit-link {
+  position: absolute;
+  right: 180px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5e7858;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Lexend', sans-serif;
+}
+
+.edit-link i {
+  margin-left: 5px;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  align-items: flex-start;
+}
+
+.profile-photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-circle.large-circle {
+  width: 220px;
+  height: 220px;
+  background: #f0f0eb;
+  border: 1px dashed #ccc;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.profile-circle.large-circle i {
+  font-size: 40px;
+  color: #29583c;
+}
+
+.profile-circle.large-circle span {
+  font-size: 15px;
+  color: #29583c;
+  margin-top: 5px;
+}
+
+.username {
+  font-size: 18px;
+  color: #134313;
+  font-weight: bold;
+  font-family: 'Lexend', sans-serif;
+}
+
+.info-form-section {
+  width: 500px;
+}
+
+.info-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: #f0f0eb;
+  font-size: 18px;
+  font-family: 'Lexend', sans-serif;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  cursor: pointer;
+}
+
+.city-state-group {
+  display: flex;
+  gap: 20px;
+}
+
+.city-state-input {
+  width: 50%;
+}
