@@ -94,6 +94,11 @@ section {
 }
 
 .user-rating {
-    font-size: 18px;
-    color: #f5c518;
+    font-size: 16px;
+    color: gold; /* Cor principal para as estrelas preenchidas */
+}
+
+/* Garante que ícones vazios tenham apenas a cor do contorno */
+.user-rating .bi-star {
+    color: #ccc; /* Cor cinza clara para o contorno */
 }

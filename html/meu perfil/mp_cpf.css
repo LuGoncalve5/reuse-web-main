@@ -18,7 +18,7 @@
     gap: 80px;
     padding: 20px 0;
     max-width: 900px; 
-    margin: 0 auto 40px; 
+    margin: 0 auto 10px; 
     padding-left: 50px; 
 }
 
@@ -144,27 +144,35 @@
 }
 
 /* Estilos para a Navegação de Abas (NAV) */
+/* --- Estilos para a Navegação de Abas (NAV) - ESTILO PREFERIDO --- */
 .tabs {
     display: flex;
-    justify-content: center;
+    /* Altera de 'center' para 'space-between' para espalhar os itens */
+    justify-content: space-between; 
     align-items: center;
     max-width: 900px;
-    margin: 5px auto 40px; 
+    margin: 0 auto 40px; 
     border-bottom: 1px solid #ddd;
+    gap: 10px; /* Adicionado um espaço entre os botões */
+    padding: 0 20px; /* Adicionado padding lateral para não colar nas bordas */
 }
 
 .tabs button {
+    /* Essa regra faz com que cada botão ocupe uma porção igual do espaço total */
+    flex: 1; 
+    
     background: none;
     border: none;
-    padding: 10px 20px;
+    padding: 0px 20px 8px 20px; /* Ajustado o padding inferior para o sublinhado */
     font-size: 16px;
     font-weight: 500;
     color: #666;
     cursor: pointer;
     transition: color 0.2s, border-bottom 0.2s;
-    margin: 0 10px;
+    text-align: center; /* Garante que o texto fique centralizado */
 }
 
+/* Os estilos abaixo podem permanecer, pois definem a aparência no hover e ativo */
 .tabs button:hover {
     color: #134313;
 }
@@ -190,7 +198,7 @@
     background-color: transparent;
     border: 0.5px solid transparent;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
@@ -199,7 +207,7 @@
     
     /* Ajuste de largura (opcional) */
     width: 100%; /* Faz o botão ter a largura total da coluna (150px) */
-    max-width: 140px; 
+    max-width: 150px; 
 }
 
 .edit-profile-btn i {
@@ -220,4 +228,44 @@
 }
 .profile-container, .profile-photo-section, .info-form-section, .city-state-group, .profile {
     display: none; 
+}
+
+.search-profile-btn {
+    /* Define a posição absoluta dentro da seção pai para flutuar o botão */
+    position: absolute;
+    top: 15px; /* Ajuste a distância do topo conforme necessário */
+    right: 30px; /* Distância da lateral */
+    z-index: 10;
+}
+
+/*botão de pesquisar*/
+.search-items-section {
+    /* Alinha com a largura máxima das abas para manter a centralização */
+    max-width: 300px; 
+    margin: 0 auto 30px; /* Centraliza e adiciona margem inferior */
+    padding: 0 10px; /* Evita que o input cole na lateral da tela */
+}
+
+.search-input-profile {
+    width: 100%;
+    /* Adiciona padding esquerdo para dar espaço ao ícone de lupa */
+    padding: 10px 15px 10px 40px; 
+    /* Adota o estilo de borda do campo de pesquisa padrão */
+    border: 1px solid #5e785e; 
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: transparent;
+    
+    /* Ícone de lupa injetado via CSS (SVG codificado) */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 16px;
+}
+
+.search-input-profile:focus {
+    border-color: #134313;
+    box-shadow: 0 0 5px rgba(94, 120, 88, 0.5);
 }
