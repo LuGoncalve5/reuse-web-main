@@ -1,63 +1,72 @@
-<!-- CADASTRO DE USUÁRIO -->
-
+<!-- ci_usuario.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Cadastro de usuário</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="c_inicial.css">
-    <script type="module" src="../../firebase connection/user register/registerComum.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script type="module" src="../../firebase connection/user register/registerComum.js" defer></script>
+    <link rel="stylesheet" href="c_inicial.css"/>
 </head>
 <body>
-
     <div class="col-12 col-md-6 left-section">
-        <img class="logo-img" src="../../img/LOGOVERDE-REUSE.png">
-        
+        <img class="logo-img" src="../../img/LOGOVERDE-REUSE.png" alt="ReUse logo">
+
         <div class="text-center w-75">
-            <h1 class="mb-5" style="color: #2c5f2d; font-weight: bold; border-radius: 10px;">Olá usuário! Insira seus dados.</h1>
+            <h1 class="mb-5" style="color: #2c5f2d; font-weight: bold;">Olá usuário! Insira seus dados.</h1>
 
-            <form id="formComum">
+            <form id="formComum" novalidate>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="nome" placeholder="Nome completo">
+                    <input type="text" class="form-control" id="nome" placeholder="Nome completo" required />
+                    <div class="invalid-feedback">Informe seu nome.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="Email">
+                    <input type="email" class="form-control" id="email" placeholder="Email" required />
+                    <div class="invalid-feedback">Informe um e-mail válido.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="tel" class="form-control" id="telefone" placeholder="Número de telefone">
+                    <input type="tel" class="form-control" id="telefone" placeholder="(27) 99999-9999" required maxlength="16"/>
+                    <div class="invalid-feedback">Telefone inválido.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="senha" placeholder="Senha">
+                    <input type="password" class="form-control" id="senha" placeholder="Senha (mín. 8 caracteres)" required minlength="8"/>
+                    <div class="invalid-feedback">Senha com pelo menos 8 caracteres.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="usuario" placeholder="Nome de usuário">
+                    <input type="text" class="form-control" id="usuario" placeholder="Nome de usuário" required />
+                    <div class="invalid-feedback">Informe um nome de usuário.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="cpf" placeholder="CPF">
+                    <input type="text" class="form-control" id="cpf" placeholder="CPF" required maxlength="14"/>
+                    <div class="invalid-feedback">CPF inválido.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="date" class="form-control" id="nascimento" placeholder="Data de nascimento">
+                    <input type="date" class="form-control" id="nascimento" required />
+                    <div class="invalid-feedback">Informe sua data de nascimento.</div>
                 </div>
 
                 <div class="text-start mb-3">
                     <a href="index.html" class="forgot-password">Fazer log-in</a>
                 </div>
-                <button id="submit" type="submit" class="btn btn-green">Acessar</button> <!---->
+
+                <!-- caixa de mensagens gerais -->
+                <div id="formAlert" class="alert d-none" role="alert"></div>
+
+                <button id="submit" type="submit" class="btn btn-green w-100">Acessar</button>
             </form>
         </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Inputmask (CDN) - necessário antes dos módulos que vão usar Inputmask -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js" integrity="sha512-Ff9B7t3e1v3...replaceWithRealSRI..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
