@@ -1,7 +1,6 @@
-<!-- CADASTRO DE INSTITUIÇÃO -->
-
+<!-- CADASTRO DE ENDEREÇO -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="c_inicial.css">
-    <script type="module" src="../../firebase connection/user register/registerEndereco.js"></script>
+    <script type="module" src="../../firebase connection/user register/registerEndereco.js" defer></script>
 </head>
 <body>
 
@@ -21,39 +20,45 @@
         <div class="text-center w-75">
             <h1 class="mb-5" style="color: #2c5f2d; font-weight: bold; border-radius: 10px;">Quase lá, Insira os dados do seu endereço.</h1>
 
-            <form id="formEndereco">
+            <form id="formEndereco" novalidate>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="cep" placeholder="CEP">
+                    <input type="text" class="form-control" id="cep" placeholder="CEP" required>
+                    <div class="invalid-feedback" id="err-cep">Informe um CEP válido (8 dígitos).</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="rua" placeholder="Rua">
+                    <input type="text" class="form-control" id="rua" placeholder="Rua" required>
+                    <div class="invalid-feedback" id="err-rua">Informe a rua.</div>
                 </div>
                 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="numero" placeholder="Número">
+                    <input type="text" class="form-control" id="numero" placeholder="Número" required>
+                    <div class="invalid-feedback" id="err-numero">Informe o número.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+                    <input type="text" class="form-control" id="bairro" placeholder="Bairro" required>
+                    <div class="invalid-feedback" id="err-bairro">Informe o bairro.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="cidade" placeholder="Cidade">
+                    <input type="text" class="form-control" id="cidade" placeholder="Cidade" required>
+                    <div class="invalid-feedback" id="err-cidade">Informe a cidade.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="estado" placeholder="Estado">
+                    <input type="text" class="form-control" id="estado" placeholder="Estado" required>
+                    <div class="invalid-feedback" id="err-estado">Informe o estado.</div>
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="complemento" placeholder="Complemento">
+                    <input type="text" class="form-control" id="complemento" placeholder="Complemento (opcional)">
                 </div>
 
                 <div class="text-start mb-3">
                     <a href="index.html" class="forgot-password">Fazer log-in</a>
                 </div>
-                <button id="submit" type="submit" class="btn btn-green">Acessar</button> <!-- mudar essa desgraça para o closet da instituição-->
+                <button id="submit" type="submit" class="btn btn-green">Acessar</button> 
             </form>
         </div>
     </div>
