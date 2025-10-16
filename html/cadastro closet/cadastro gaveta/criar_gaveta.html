@@ -33,14 +33,12 @@
         <!-- ===== SECTION (ESPECÍFICA DE CADA PÁGINA) ===== -->
         <section>
             <section class="form-section">
-                <h2>Criação de gaveta</h2>
-                
                 <label for="nome-gaveta" class="label">Digite o nome da gaveta:</label>
-                <input type="text" id="nome-gaveta" placeholder="casacos" class="input">
+                <input type="text" id="nome-gaveta" placeholder="ex: casacos, etc." class="input">
 
                 <div class="toggle">
-                    <button class="btn">Privado</button>
-                    <button class="btn">Público</button>
+                    <button id="btnPrivado" class="btn active">Privado</button>
+                    <button id="btnPublico" class="btn">Público</button>
                 </div>
 
                 <button class="btn btn-primary" onclick="event.preventDefault(); window.location.href='../../closet/closet.html';">Criar gaveta</button>
@@ -48,7 +46,22 @@
             </section>
         </section>
 
-        <script src="script.js"></script>
+        <script>
+            // Seleciona os botões pelos IDs
+            const btnPrivado = document.getElementById('btnPrivado');
+            const btnPublico = document.getElementById('btnPublico');
+        
+            // Função para ativar o botão clicado e desativar o outro
+            btnPrivado.onclick = function() {
+                btnPrivado.classList.add('active');
+                btnPublico.classList.remove('active');
+            };
+        
+            btnPublico.onclick = function() {
+                btnPublico.classList.add('active');
+                btnPrivado.classList.remove('active');
+            };
+        </script>
     </div>
 </body>
 </html>
