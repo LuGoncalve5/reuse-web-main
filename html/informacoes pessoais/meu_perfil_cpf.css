@@ -199,7 +199,7 @@
     
     /* Ajuste de largura (opcional) */
     width: 100%; /* Faz o botão ter a largura total da coluna (150px) */
-    max-width: 200px; 
+    max-width: 140px; 
 }
 
 .edit-profile-btn i {
