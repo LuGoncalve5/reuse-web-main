@@ -9,11 +9,9 @@
     color: #134313;
     margin-bottom: 20px;
 }
-
-/* ------------------------------------------------------- */
-/* Estilos para o Cabeçalho de Perfil (Social) */
-/* ------------------------------------------------------- */
-
+/**/
+/* --- Estilos para o Cabeçalho de Perfil --- */
+/**/
 .profile-header-social {
     display: flex;
     align-items: flex-start; 
@@ -50,25 +48,6 @@
     object-fit: cover;
     border-radius: 50%;
     display: block;
-}
-
-/* O botão de menu (três pontos) no canto superior */
-.profile-menu-icon {
-    position: absolute;
-    top: 5px; 
-    right: 5px; 
-    width: 30px; 
-    height: 30px;
-    background: #fff;
-    border-radius: 50%; 
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    cursor: pointer;
-    color: #444;
-    border: 1px solid #ccc;
 }
 
 /* Coluna das Informações e Bio */
@@ -117,7 +96,7 @@
 .location-section {
     display: flex;
     align-items: center;
-    margin: 8px 0 20px 0; /* Espaço acima e abaixo da localização */
+    margin: 5px 0 0 0; /* Espaço acima e abaixo da localização */
     font-size: 16px;
     color: #333;
 }
@@ -131,7 +110,7 @@
 .stats-section {
     display: flex;
     gap: 40px;
-    margin-top: 15px; /* Adicionar uma margem superior para espaçar do nome completo */
+    margin-top: 5px; /* Adicionar uma margem superior para espaçar do nome completo */
     margin-bottom: 15px;
 }
 
@@ -139,6 +118,7 @@
     display: flex;
     gap: 5px; 
     font-size: 16px;
+    margin-top: 5px;
 }
 
 .stat-number {
@@ -169,7 +149,7 @@
     justify-content: center;
     align-items: center;
     max-width: 900px;
-    margin: 20px auto 40px; 
+    margin: 5px auto 40px; 
     border-bottom: 1px solid #ddd;
 }
 
@@ -194,6 +174,44 @@
     border-bottom: 2px solid #5E7858;
     font-weight: bold;
 }
+
+.edit-profile-btn {
+    display: flex; 
+    margin: 10px 0 0 0;
+    
+    /* Configuração Flexbox para centralizar O CONTEÚDO do botão */
+    justify-content: center; /* Centraliza horizontalmente o ícone e o texto */
+    align-items: center; /* Centraliza verticalmente o ícone e o texto */
+    gap: 5px; /* Adiciona um pequeno espaço entre o ícone e o texto */
+
+    /* Estilo visual */
+    padding: 8px 15px;
+    color: #6d6d6d;
+    background-color: transparent;
+    border: 0.5px solid transparent;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    
+    font-family: 'Lexend', sans-serif;
+    
+    /* Ajuste de largura (opcional) */
+    width: 100%; /* Faz o botão ter a largura total da coluna (150px) */
+    max-width: 200px; 
+}
+
+.edit-profile-btn i {
+    font-size: 1em; /* Garante que o ícone tenha o mesmo tamanho da fonte do texto */
+}
+
+.edit-profile-btn:hover {
+    color: rgb(56, 90, 56); /* Cor do texto no hover */
+    border-color: rgb(156, 187, 156); /* Cor da borda no hover */
+    background-color: #d8eccd; /* Efeito ao passar o mouse */
+}
+
 /* Limpeza de classes de outros arquivos/componentes */
 .profile-circle.large-circle i, 
 .profile-circle.large-circle span {
