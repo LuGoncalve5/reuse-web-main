@@ -32,7 +32,7 @@ section  {
   justify-content: center;
   text-align: center;
   color: #666;
-  background: #f0f0eb;
+  background: #f4f7f3;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* sombra igual aos cards de pesquisa.css */
 }
@@ -52,11 +52,12 @@ section  {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border: none;
+  border: 1px solid #5e7858;
   border-radius: 8px;
-  background: #eaece7;
+  background: white;
   font-size: 20px;
   font-family: 'Lexend', sans-serif;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form textarea {
@@ -77,35 +78,13 @@ section  {
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #e6dede;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .color.selected {
   border: 2px solid #000;
 }
 
-/* Perfil */
-.profile {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.profile-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #ddd;
-}
-
-.close {
-  font-size: 22px;
-  cursor: pointer;
-  margin-left: 15px;
-  font-family: 'Lexend', sans-serif;
-}
 
 .options {
   display: flex;
@@ -123,6 +102,7 @@ section  {
   font-size: 17px;
   color: #2f3d2b;
   font-family: 'Lexend', sans-serif;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .option.selected {
@@ -141,7 +121,7 @@ section  {
   padding: 12px;
   margin-bottom: 20px;
   margin: 20px auto;
-  background: #fff;
+  background: white;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -174,6 +154,8 @@ section  {
 
 .pasta{
   color: gray;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .titulo{
@@ -184,4 +166,25 @@ section  {
 #valor-box {
   margin: 15px 0;
   width: 35%;
+}
+/* tamanho de todas as caixas iguais */
+.form .titulo,
+.form input,
+.form textarea,
+.form select,
+.form .options,
+.form .colors,
+.form #valor-box,
+.form .finalidade-box {
+  width: 100%;
+  box-sizing: border-box; /* garante que padding e borda não aumentem a largura total */
+}
+
+/* borda verde quando escreve dentro das caixas*/
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  border: 2px solid #5e7858; /* verde que já usa no resto do site */
+  outline: none; /* tira o contorno padrão preto */
+  box-shadow: 0 0 6px rgba(94, 120, 88, 0.3); /* brilho suave verde */
 }
