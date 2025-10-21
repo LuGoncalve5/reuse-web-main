@@ -163,3 +163,9 @@ hr {
     margin-left: 220px;
     padding: 20px;
 }
+.page-title {
+    font-family: "Playfair Display", serif;
+    font-size: 36px;
+    color: #5E7858;
+    margin-bottom: 20px;
+}
