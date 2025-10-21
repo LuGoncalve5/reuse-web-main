@@ -25,7 +25,7 @@
     <div class="content">
 
         <!-- ===== TOP-BAR CONTAINER ===== -->
-        <h1 class="page-title">Meu perfil</h1> <hr>
+        <h1 class="page-title">Cadastrar peça</h1> <hr>
 
         <!-- ===== SECTION (ESPECÍFICA DE CADA PÁGINA) ===== -->
         <section>
@@ -122,16 +122,6 @@
                     
                     // 2. Adiciona a classe 'selected' ao botão clicado
                     btn.classList.add("selected");
-                    
-                    // 3. Lógica específica para o botão 'Vender' (Finalidade)
-                    if (selector === ".finalidade") {
-                        const valorBox = document.getElementById("valor-box");
-                        if (btn.textContent.trim() === "Vender") {
-                            valorBox.style.display = "block";
-                        } else {
-                            valorBox.style.display = "none";
-                        }
-                    }
                 });
             });
         }

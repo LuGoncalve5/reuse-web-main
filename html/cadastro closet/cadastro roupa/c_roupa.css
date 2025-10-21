@@ -24,15 +24,15 @@ section  {
 .upload-box {
   width: 380px;
   height: 350px;
-  border: 2px dashed #ccc;
+  border: 2px dashed #5e785850;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #666;
-  background: #f4f7f3;
+  color: #5e7858;
+  background: #fbfbfb;;
   cursor: pointer;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* sombra igual aos cards de pesquisa.css */
 }
@@ -50,19 +50,20 @@ section  {
 
 .form input, .form textarea, .form select {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #5e7858;
+  padding: 10px 15px; /* Padding ajustado */
+  margin: 5px 0 10px; /* Espaçamento mais limpo */
+  border: 1px solid #ddd; /* Borda mais suave e clara */
   border-radius: 8px;
   background: white;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Lexend', sans-serif;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  transition: al 0.2s ease;
 }
 
 .form textarea {
-  height: 80px;
-  resize: none;
+  height: 100px;
+  resize: vertical;
 }
 
 /* Cores */
@@ -85,10 +86,16 @@ section  {
   border: 2px solid #000;
 }
 
+.color.multicolor.selected {
+    /* Efeito de seleção para a cor "arco-íris" */
+    border: 3px solid #fff;
+    outline: 3px solid #5e7858;
+    box-shadow: 0 0 0 2px #5e7858;
+}
 
 .options {
   display: flex;
-  gap: 10px; /* Padroniza o espaçamento para 10px */
+  gap: 8px;
   flex-wrap: wrap;
   margin: 10px 0 20px;
 }
@@ -100,14 +107,18 @@ section  {
   background: transparent;
   cursor: pointer;
   font-size: 17px;
-  color: #2f3d2b;
+  color: #5e7858;
   font-family: 'Lexend', sans-serif;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .option.selected {
   background: #5e7858;
   color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona sombra apenas no selecionado */
+}
+
+.option:hover {
+    background: #7f9a791a; /* Fundo suave no hover */
 }
 
 .tamanho {
@@ -116,7 +127,7 @@ section  {
 
 /* Finalidade box */
 .finalidade-box {
-  border: 1px solid #5e7858;
+  border: 1px solid #ddd;
   border-radius: 10px;
   padding: 12px;
   margin-bottom: 20px;
@@ -161,11 +172,12 @@ section  {
 .titulo{
   font-size: 18px;
   font-family: 'Lexend', sans-serif;
+  color: #333;
 }
 
 #valor-box {
-  margin: 15px 0;
-  width: 35%;
+  margin: 20px 0;
+  width: 50%;
 }
 /* tamanho de todas as caixas iguais */
 .form .titulo,
