@@ -1,0 +1,130 @@
+/* ===== ESTILO GLOBAL E CORES (É recomendado ter isso em um arquivo 'padrao.css' separado) ===== */
+:root {
+    --verde: #5E7858;
+    --verde-claro: #ebffe1;
+    --branco: #FAFBF9;
+    --cinza-texto: #333;
+
+    /* Variáveis de sombra para profissionalismo */
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.08); 
+    --shadow-md: 0 8px 20px rgba(0,0,0,0.15); 
+}
+
+body, html {
+    background-color: var(--branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-family: 'Lexend', sans-serif; 
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    height: 100vh;
+    padding: 0;
+}
+
+/* ===== TÍTULO E LOGO (TAMANHO ORIGINAL RESTAURADO) ===== */
+
+.logo-img{
+    height: 80px; /* Restaurado para o tamanho original: 80px */
+    width: auto;
+    margin-bottom: 30px; /* Restaurado para o tamanho original: 30px */
+}
+
+h1 {
+    color: var(--verde); 
+    font-family: 'Playfair Display', serif; 
+    font-weight: 700;
+    font-size: 2.5rem; /* Reduzido para um tamanho mais próximo do padrão de tela */
+    margin-bottom: 50px !important; /* Ajuste sutil de margem inferior */
+    text-align: center;
+}
+
+/* ===== CARDS DE SELEÇÃO DE PERFIL (PROFISSIONAL E REDUZIDOS) ===== */
+
+.profile-option {
+    /* Design: Fundo branco, borda sutil e sombra */
+    background-color: var(--branco);
+    border: 1px solid #eee; 
+    border-radius: 12px;
+    padding: 20px 15px; /* Reduzido o padding interno (diminui a caixa) */
+    margin: 1.2rem; /* Margem um pouco menor */
+    max-width: 230px; /* Largura máxima reduzida */
+    width: 100%;
+    
+    /* Transições e Sombras */
+    transition: all 0.3s ease-in-out; 
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-option:hover {
+    transform: translateY(-4px); /* Efeito de elevação sutil */
+    box-shadow: var(--shadow-sm); /* Usando a sombra menor no hover */
+    border-color: var(--verde); 
+}
+
+.icon-container {
+    /* Estilo para o círculo do ícone */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px; /* Tamanho do container reduzido */
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--verde-claro); 
+    color: var(--verde);
+    margin-bottom: 15px;
+}
+
+/* Tamanho do ícone interno */
+.profile-option .icon-container i {
+    font-size: 2.2rem !important; /* Tamanho do ícone reduzido */
+}
+
+/* ===== ESTILO DOS BOTÕES DE ESCOLHA ===== */
+
+.btn-chooseprofile {
+    /* Estilo sólido e coeso com a marca */
+    background-color: var(--verde);
+    color: var(--branco);
+    border: none;
+    padding: 8px 15px; /* Padding reduzido */
+    width: 100%; 
+    border-radius: 50px; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-decoration: none; 
+}
+
+.btn-chooseprofile:hover {
+    background-color: #4a6245; 
+    color: var(--branco);
+    border: none;
+}
+
+/* O resto do seu CSS original (que não foi alterado mas pode ser útil) */
+
+/* ... Mantenha os estilos .form-control, .btn-green, .btn-neutro, etc. para outras telas ... */
+
+/* Media Query para responsividade em telas menores */
+@media (max-width: 767px) {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 30px !important;
+    }
+    .profile-option {
+        margin: 0.8rem 0; 
+        max-width: 80%; 
+    }
+}
