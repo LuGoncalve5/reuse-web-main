@@ -32,11 +32,13 @@ section {
     margin-bottom: 5px; /* Espaço antes da linha divisória */
 }
 
-/* TABS (Padrao de Usuários/Brechós) */
+/* TABS (Geral) - Mantido para consistência dos links */
 .tabs {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    border-bottom: 1px solid var(--cinza); 
+    margin-bottom: 20px;
 }
 
 .tabs button {
@@ -47,9 +49,16 @@ section {
     font-size: 16px;
     color: var(--verde);
     padding: 8px 10px;
-    border-bottom: 3px solid transparent;
+    border-bottom: 3px solid transparent; 
+    margin-bottom: -1px; 
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease-in-out; 
+}
+
+/* Efeito de INTERAÇÃO (HOVER) para tabs NÃO ativas */
+.tabs button:not(.active):hover {
+    color: var(--verde-escuro, #3e5238); 
+    transform: translateY(-2px); 
 }
 
 .tabs button.active {
@@ -57,11 +66,12 @@ section {
     font-weight: bold;
 }
 
-/* ESTILO ESPECÍFICO PARA TABS DA TELA DE VENDAS (alinha à esquerda com espaçamento) */
+/* ESTILO ESPECÍFICO PARA TABS DA TELA DE VENDAS */
 .tabs-vendas {
     display: flex;
     justify-content: flex-start; 
     gap: 40px; 
+    border-bottom: 1px solid var(--cinza);
 }
 
 .tabs-vendas button {
@@ -72,8 +82,15 @@ section {
     color: var(--verde);
     padding: 8px 0px; 
     border-bottom: 3px solid transparent;
+    margin-bottom: -1px; 
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease-in-out; 
+}
+
+/* Efeito de INTERAÇÃO (HOVER) para tabs-vendas NÃO ativas */
+.tabs-vendas button:not(.active):hover {
+    color: var(--verde-escuro, #3e5238); 
+    transform: translateY(-2px); 
 }
 
 .tabs-vendas button.active {
@@ -84,11 +101,11 @@ section {
 /* Linha divisória logo abaixo da linha de Tabs e Filtro */
 .tabs-separator {
     margin-top: 5px;
-    border: none; /* Remove a borda padrão */
+    border: none; 
     border-top: 1px solid var(--verde);
     opacity: 0.6;
     width: 95%;
-    margin-bottom: 20px; /* Espaço entre a linha e o grid de produtos */
+    margin-bottom: 20px; 
 }
 
 /* Estilo do botão filtrar */
@@ -112,122 +129,105 @@ section {
 
 
 /* -------------------------------------- */
-/* ESTILOS ESPECÍFICOS PARA A TELA VENDAS */
+/* ESTILOS ESPECÍFICOS PARA A TELA VENDAS (Cards de Produto) */
 /* -------------------------------------- */
 
 /* ===== GRID DE PRODUTOS (Layout) ===== */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
     gap: 20px;
     padding-top: 20px;
 }
 
+/* CARD INDIVIDUAL */
 .product-card {
+    display: block; 
+    text-decoration: none;
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
     overflow: hidden; 
-    display: flex;
-    flex-direction: column; 
     position: relative;
-    height: 100%; 
+    /* INTERAÇÃO: Transição de lift e cursor de mão */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer; 
 }
 
-/* ===== IMAGEM (Formato Vertical) ===== */
-.product-image {
+.product-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
+}
+
+/* Container da Imagem para posicionar o ícone e garantir a proporção */
+.product-image-container {
     width: 100%;
-    height: 380px; 
+    padding-top: 100%; 
+    position: relative;
+    overflow: hidden;
+}
+
+/* Imagem dentro do Container */
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
 
+
+/* Ícone de Favorito */
 .bookmark-icon {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: white;
+    color: white; 
     font-size: 1.5rem;
     filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.3rem; 
 }
 
-/* ===== INFORMAÇÕES (Fundo Verde Flexível) ===== */
-.product-info {
-    background-color: var(--verde); 
-    color: var(--branco);
-    padding: 10px 15px 15px;
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
+.bookmark-icon.favorite {
+    color: #ff3355; 
+}
+
+/* Detalhes do produto (Fundo Branco, Texto Preto/Verde) */
+.product-details {
+    padding: 10px;
+    text-align: left;
+    min-height: 80px; 
 }
 
 .product-title {
     margin: 0;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
     margin-bottom: 5px; 
 }
 
 .product-price {
     margin: 0;
-    font-size: 14px;
-    font-weight: normal;
-    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--verde); 
 }
 
-.product-description {
-    margin: 0;
+.product-description-snippet {
+    margin: 5px 0 0 0;
     font-size: 12px;
-    opacity: 0.8;
-    flex-grow: 1; 
+    color: #666;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
-
-/* -------------------------------------- */
-/* ESTILOS DA TELA USUÁRIOS (REUTILIZADOS) */
-/* -------------------------------------- */
-
-.user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.user-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    border-radius: 20px;
-    padding: 10px 15px;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.user-info h3 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.user-info p {
-    margin: 0;
-    color: gray;
-    font-size: 14px;
-}
-
-.user-rating {
-    font-size: 18px;
-    color: #f5c518;
+/* Opcional: Adiciona espaçamento vertical para a aba de Vendas, se necessário */
+.tabs-separator {
+    margin-bottom: 20px; 
 }
