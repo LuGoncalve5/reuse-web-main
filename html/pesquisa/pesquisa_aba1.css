@@ -227,7 +227,6 @@ section {
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    max-width: var(--max-width-perfil);
     margin: 0 auto 40px; 
     border-bottom: 1px solid var(--cinza); /* #ddd */
     gap: 10px;
