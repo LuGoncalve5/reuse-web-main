@@ -1,0 +1,135 @@
+:root {
+    --verde: #5E7858;
+    --verde-escuro: #134313;
+    --branco: #FAFBF9;
+    --cinza: #ccc;
+}
+
+.content {
+    margin-left: 110px;
+    padding: 25px;
+    font-family: 'Lexend', sans-serif;
+}
+
+.produto-detalhe {
+    max-width: 700px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.voltar {
+    color: var(--verde);
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.vendedor-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 15px 0 25px 0;
+}
+
+.foto-vendedor {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nome-vendedor {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* espaçamento entre o nome e as estrelas */
+}
+
+
+.user {
+    color: #555;
+    font-size: 14px;
+}
+
+.card-produto {
+    background-color: #dff2d5e8;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.img-produto {
+    width: 50%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.titulo {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.preco {
+    font-size: 20px;
+    color: var(--verde);
+    font-weight: bold;
+}
+
+.info {
+    font-size: 15px;
+    color: #333;
+    margin: 15px 0;
+}
+
+.btn-comprar {
+    background-color: var(--verde);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-comprar:hover {
+    background-color: var(--verde-escuro);
+}
+
+.mais-opcoes {
+    margin-top: 30px;
+    color: #333;
+    font-size: 18px;
+}
+
+.outros-itens {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.mini-item {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.mini-item:hover {
+    transform: scale(1.05);
+}
+
+.rating-stars {
+  display: flex;
+  color: gold;
+  font-size: 16px;
+  margin-top: 0;
+}
+
+
+.rating-stars i {
+    margin-right: 2px;
+}
