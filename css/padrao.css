@@ -30,7 +30,7 @@ html, body {
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-    width: 160px;
+    width: 100px;
     height: 100vh;
     background-color: #5E7858;
     position: fixed;
@@ -45,7 +45,7 @@ html, body {
 }
 .sidebar a, .logo{
     text-decoration: none;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     padding: 15px 20px;
     transition: background 0.3s;
     display: flex;
@@ -53,7 +53,7 @@ html, body {
     align-items: center;
     color: #ffffff;
     font-size: 12px;
-    gap: 6px;
+    gap: 0px;
     position: relative;
     top: 10px;
 }
@@ -63,7 +63,7 @@ html, body {
     width: 100%;
 }
 .sidebar i {
-    font-size: 2rem;
+    font-size: 1.65rem;
 }   
 
 /* Tooltip styles */
@@ -160,7 +160,7 @@ hr {
 
 /* ===== CONTEÚDO PRINCIPAL ABA ===== */
 .content {
-    margin-left: 220px;
+    margin-left: 110px;
     padding: 20px;
 }
 .page-title {
