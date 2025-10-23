@@ -242,14 +242,16 @@ section {
     font-weight: 500;
     color: var(--cor-texto-claro); /* #666 */
     cursor: pointer;
-    transition: color 0.2s, border-bottom 0.2s;
+    transition: color 0.2s, border-bottom 0.2s, transform 0.2s ease;
     text-align: center;
     font-family: 'Lexend', sans-serif;
     font-weight: 300;
 }
 
-.tabs button:hover {
+.tabs button:not(.active):hover {
     color: var(--verde-escuro);
+    /* ADICIONE O TRANSFORM AQUI para o efeito de "levantar" */
+    transform: translateY(-2px); 
 }
 
 .tabs button.active {
