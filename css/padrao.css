@@ -43,6 +43,7 @@ html, body {
     margin-right: 50px;
     align-items: center;
 }
+
 .sidebar a, .logo{
     text-decoration: none;
     margin-bottom: 15px;
@@ -57,11 +58,13 @@ html, body {
     position: relative;
     top: 10px;
 }
+
 .sidebar a:hover {
     background-color: #FAFBF9;
     color: #5E7858;
     width: 100%;
 }
+
 .sidebar i {
     font-size: 1.65rem;
 }   
@@ -84,6 +87,7 @@ html, body {
     font-size: 12px;
     z-index: 1;
 }
+
 .sidebar a:hover span {
     visibility: visible;
     opacity: 1;
@@ -113,6 +117,7 @@ hr {
     display: flex;
     gap: 10px;
 }
+
 .botoes a,
 .btn-pesquisa,
 .aba-pesquisa button {
@@ -161,11 +166,5 @@ hr {
 /* ===== CONTEÚDO PRINCIPAL ABA ===== */
 .content {
     margin-left: 110px;
-    padding: 20px;
-}
-.page-title {
-    font-family: "Playfair Display", serif;
-    font-size: 36px;
-    color: #5E7858;
-    margin-bottom: 20px;
+    padding: 15px;
 }
