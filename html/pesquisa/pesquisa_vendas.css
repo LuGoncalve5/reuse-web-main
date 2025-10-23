@@ -13,14 +13,12 @@
     font-size: 16px;
 }
 
-/* ===== CONTEÚDO PRINCIPAL ===== */
+/* CONTEÚDO PRINCIPAL */
 section {
     padding: 20px;
 }
 
-/* -------------------------------------- */
 /* ESTILOS DE NAVEGAÇÃO E FILTRO */
-/* -------------------------------------- */
 
 /* NOVO CONTÊINER para alinhar Tabs (esquerda) e Filtro (direita) na mesma linha */
 .tabs-and-filter-row {
@@ -53,6 +51,8 @@ section {
     margin-bottom: -1px; 
     cursor: pointer;
     transition: all 0.3s ease-in-out; 
+    font-family: 'Lexend', sans-serif;
+    font-weight: 300;
 }
 
 /* Efeito de INTERAÇÃO (HOVER) para tabs NÃO ativas */
@@ -127,12 +127,9 @@ section {
     background-color: #f0f0f0;
 }
 
-
-/* -------------------------------------- */
 /* ESTILOS ESPECÍFICOS PARA A TELA VENDAS (Cards de Produto) */
-/* -------------------------------------- */
 
-/* ===== GRID DE PRODUTOS (Layout) ===== */
+/* GRID DE PRODUTOS (Layout) */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 

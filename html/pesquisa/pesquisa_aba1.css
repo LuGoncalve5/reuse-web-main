@@ -1,0 +1,494 @@
+:root {
+    /* Variáveis base (assumidas do Código 2) */
+    --verde: #5E7858; /* Assumindo que este era o 'verde' original */
+    --verde-escuro: #134313;
+    --cinza: #ddd;
+    --radius-full: 25px; /* Assumindo do search-input */
+
+    /* Novas Variáveis para Otimização */
+    --max-width-perfil: 900px;
+    --cor-texto-claro: #666;
+    --cor-texto-escuro: #333;
+    --border-radius-card: 10px;
+    --sombra-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* BARRA DE PESQUISA  */
+.search-section {
+    margin-bottom: 30px;
+    width: 95%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px; 
+    border: 2px solid var(--verde);
+    border-radius: var(--radius-full);
+    outline: none;
+    font-size: 16px;
+}
+
+/* ESTRUTURA E TÍTULOS GERAIS  */
+section {
+    padding: 20px;
+}
+
+.section {
+    flex: 1;
+    padding: 30px;
+    position: relative;
+}
+
+.section h1 {
+    text-align: center;
+    color: var(--verde-escuro);
+    margin-bottom: 20px;
+}
+
+.search-profile-btn {
+    /* Define a posição absoluta dentro da seção pai para flutuar o botão */
+    position: absolute;
+    top: 15px; 
+    right: 30px; 
+    z-index: 10;
+}
+
+/* Estilos para o Cabeçalho de Perfil */
+.profile-header-social {
+    display: flex;
+    align-items: flex-start; 
+    gap: 80px;
+    padding: 20px 0;
+    max-width: var(--max-width-perfil); 
+    margin: 0 auto 10px; 
+    padding-left: 50px; 
+}
+
+/* Coluna da Foto de Perfil */
+.profile-photo-column {
+    position: relative;
+    flex-shrink: 0; 
+}
+
+.profile-circle.large-circle {
+    width: 150px; 
+    height: 150px;
+    background: #f0f0eb;
+    border: none; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Coluna das Informações e Bio */
+.profile-info-column {
+    flex-grow: 1;
+    padding-top: 0;
+}
+
+.username-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.username-social {
+    font-size: 26px;
+    color: #000;
+    font-weight: 400;
+    margin: 0;
+    display: flex; 
+    align-items: center;
+    gap: 15px;
+}
+
+/* Estilos para as estrelas de avaliação */
+.rating-stars {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: gold; 
+    margin-top: 0; 
+}
+
+.rating-stars i {
+    margin-right: 2px;
+}
+
+.full-name {
+    font-size: 17px;
+    color: var(--cor-texto-claro);
+    margin: 8px 0;
+}
+
+.location-section {
+    display: flex;
+    align-items: center;
+    margin: 5px 0 0 0;
+    font-size: 16px;
+    color: var(--cor-texto-escuro);
+}
+
+.location-section i {
+    color: var(--verde);
+    margin-right: 5px;
+}
+
+/* Estatísticas */
+.stats-section {
+    display: flex;
+    gap: 40px;
+    margin: 5px 0 15px 0;
+}
+
+.stat-item {
+    display: flex;
+    gap: 5px; 
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.stat-number {
+    font-weight: bold;
+    color: #000;
+}
+
+.stat-label {
+    color: var(--cor-texto-claro);
+    font-weight: 300;
+}
+
+.bio-section p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: var(--cor-texto-escuro);
+    line-height: 1.4;
+}
+
+.bio-section i {
+    color: var(--verde);
+    margin-right: 5px;
+}
+
+/* Botão Editar Perfil */
+.edit-profile-btn {
+    display: flex; 
+    margin: 10px 0 0 0;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    padding: 8px 15px;
+    color: #6d6d6d;
+    background-color: transparent;
+    border: 0.5px solid transparent;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    font-family: 'Lexend', sans-serif;
+    width: 100%;
+    max-width: 150px; 
+}
+
+.edit-profile-btn i {
+    font-size: 1em;
+}
+
+.edit-profile-btn:hover {
+    color: rgb(56, 90, 56);
+    border-color: rgb(156, 187, 156);
+    background-color: #d8eccd;
+}
+
+/* Limpeza */
+.profile-circle.large-circle i, 
+.profile-circle.large-circle span {
+    display: none;
+}
+.profile-container, .profile-photo-section, .info-form-section, .city-state-group, .profile {
+    display: none; 
+}
+
+
+/* Navegação de Abas (NAV) (Novo) */
+.tabs {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin: 0 auto 40px; 
+    border-bottom: 1px solid var(--cinza); /* #ddd */
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.tabs button {
+    flex: 1; 
+    background: none;
+    border: none;
+    padding: 0 20px 8px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--cor-texto-claro); /* #666 */
+    cursor: pointer;
+    transition: color 0.2s, border-bottom 0.2s;
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 300;
+}
+
+.tabs button:hover {
+    color: var(--verde-escuro);
+}
+
+.tabs button.active {
+    color: var(--verde); 
+    border-bottom: 2px solid var(--verde);
+    font-weight: bold;
+}
+
+/* Pesquisa de Itens (NOVO)*/
+.search-items-section {
+    max-width: 300px; 
+    margin: 0 auto 30px;
+    padding: 0 10px;
+}
+
+.search-input-profile {
+    width: 100%;
+    padding: 10px 15px 10px 40px; 
+    border: 1px solid #5e785e; 
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: transparent;
+    
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 16px;
+}
+
+.search-input-profile:focus {
+    border-color: var(--verde-escuro);
+    box-shadow: 0 0 5px rgba(94, 120, 88, 0.5);
+}
+
+/*  GRID DE PRODUTOS E CLOSET */
+
+/* Estilos de GRID Comuns */
+.product-grid, .closet-grid {
+    max-width: var(--max-width-perfil);
+    margin: 0 auto;
+    padding: 0 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.closet-grid {
+    margin-bottom: 40px;
+}
+
+/* Estilos de CARD Comuns */
+.product-card, .closet-card {
+    display: block; 
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: var(--border-radius-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover, .closet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
+}
+
+/* Imagem Comum */
+.product-image-container, .closet-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image-container img, .closet-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Detalhes Comuns */
+.product-details, .closet-details {
+    padding: 10px;
+    text-align: left;
+}
+.closet-details {
+    min-height: 60px;
+}
+
+.product-title, .closet-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-escuro);
+    margin: 0 0 5px 0;
+}
+.closet-title {
+    margin: 5px 0 0 0;
+}
+
+/* Preço */
+.product-price, .closet-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--verde);
+    margin: 0;
+}
+
+/* Status de Doação */
+.closet-price.status-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #b87800d1;
+}
+
+/* BADGE DE STATUS*/
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.status-venda .status-badge {
+    background-color: var(--verde);
+}
+
+.status-doacao .status-badge {
+    background-color: #f7a300;
+}
+
+/* Botão Ver Mais*/
+.load-more-btn {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    margin: 40px auto;
+    border: 1px solid var(--verde);
+    border-radius: 50px;
+    background: #fff;
+    color: var(--verde);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.load-more-btn:hover {
+    background: var(--verde);
+    color: #fff;
+}
+
+/* Mensagem de Fim */
+.end-message {
+    text-align: center;
+    font-size: 16px;
+    color: #666666c8;
+    margin: 40px auto;
+    font-style: italic;
+    padding-bottom: 20px;
+}
+
+/* LISTA DE PERFIS (Usuários/Brechós) */
+.tabs-and-filter-row {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-end; 
+    width: 95%;
+    margin-bottom: 5px; 
+}
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px; 
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); 
+    cursor: pointer; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15); 
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 0.5px solid #e6eae6;
+}
+
+.user-info h3 {
+    margin: 0;
+    font-size: 17px; 
+    color: #000000;
+    font-weight: 600;
+}
+
+.user-info p {
+    margin: 0;
+    color: #888; 
+    font-size: 13px; 
+}
+
+.user-rating {
+    font-size: 16px;
+    color: gold; 
+}
+
+.user-rating .bi-star {
+    color: rgba(255, 217, 0, 0.425); 
+}
