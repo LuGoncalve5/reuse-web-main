@@ -1,0 +1,413 @@
+:root {
+    /* Variáveis Base (assumidas de padrao.css ou definidas anteriormente) */
+    --verde: #5E7858;
+    --verde-escuro: #134313;
+    --cinza: #ddd;
+    --radius-full: 25px;
+
+    /* Variáveis de Otimização */
+    --max-width-perfil: 900px;
+    --cor-texto-claro: #666;
+    --cor-texto-escuro: #333;
+    --border-radius-card: 10px;
+    --sombra-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Estrutura Geral e Títulos */
+section {
+    padding: 20px;
+}
+
+.section {
+    flex: 1;
+    padding: 30px;
+    position: relative;
+}
+
+.page-titleh3 {
+    margin-bottom: 5px;
+}
+
+/* Estilos do Cabeçalho com Botão de Voltar */
+.back-button {
+    font-size: 24px;
+    color: var(--verde, #5E7858); 
+    margin-right: 15px; 
+    text-decoration: none; 
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.back-button:hover {
+    color: var(--verde-escuro, #3e5238);
+}
+
+/* Cabeçalho do Perfil (Foto, Info, Stats) */
+.profile-header-social {
+    display: flex;
+    align-items: flex-start; 
+    gap: 80px;
+    padding: 20px 0;
+    max-width: var(--max-width-perfil); 
+    margin: 0 auto 10px; 
+    padding-left: 50px; 
+}
+
+/* Foto de Perfil */
+.profile-photo-column {
+    position: relative;
+    flex-shrink: 0; 
+}
+
+.profile-circle.large-circle {
+    width: 150px; 
+    height: 150px;
+    background: #f0f0eb;
+    border: none; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Informações do Perfil */
+.profile-info-column {
+    flex-grow: 1;
+    padding-top: 0;
+}
+
+.username-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.username-social {
+    font-size: 26px;
+    color: #000;
+    font-weight: 400;
+    margin: 0;
+    display: flex; 
+    align-items: center;
+    gap: 15px;
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    font-size: 16px; 
+    color: gold; 
+    margin-top: 0; 
+}
+
+.rating-stars i {
+    margin-right: 2px;
+}
+
+.full-name {
+    font-size: 17px;
+    color: var(--cor-texto-claro);
+    margin: 8px 0;
+}
+
+.location-section {
+    display: flex;
+    align-items: center;
+    margin: 5px 0 0 0;
+    font-size: 16px;
+    color: var(--cor-texto-escuro);
+}
+
+.location-section i {
+    color: var(--verde);
+    margin-right: 5px;
+}
+
+/* Estatísticas (Peças) */
+.stats-section {
+    display: flex;
+    gap: 40px;
+    margin-top: 5px; 
+    margin-bottom: 15px;
+}
+
+.stat-item {
+    display: flex;
+    gap: 5px; 
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.stat-number {
+    font-weight: bold;
+    color: #000;
+}
+
+.stat-label {
+    color: var(--cor-texto-claro);
+    font-weight: 300;
+}
+
+/* Navegação de Abas (Tabs) */
+.tabs {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    max-width: var(--max-width-perfil);
+    margin: 0 auto 40px; 
+    border-bottom: 1px solid var(--cinza);
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.tabs button {
+    flex: 1; 
+    background: none;
+    border: none;
+    padding: 0 20px 8px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--cor-texto-claro);
+    cursor: pointer;
+    transition: color 0.2s, border-bottom 0.2s;
+    text-align: center;
+}
+
+.tabs button:hover {
+    color: var(--verde-escuro);
+}
+
+.tabs button.active {
+    color: var(--verde); 
+    border-bottom: 2px solid var(--verde);
+    font-weight: bold;
+}
+
+/* Campo de Pesquisa Específico (Buscar peça/gaveta) */
+.search-items-section {
+    max-width: 300px; 
+    margin: 0 auto 30px;
+    padding: 0 10px;
+}
+
+.search-input-profile {
+    width: 100%;
+    padding: 10px 15px 10px 40px; 
+    border: 1px solid #5e785e; 
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: transparent;
+    
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 16px;
+}
+
+.search-input-profile:focus {
+    border-color: var(--verde-escuro);
+    box-shadow: 0 0 5px rgba(94, 120, 88, 0.5);
+}
+
+/* Grids e Cards (Produto - À Venda) */
+.product-grid {
+    max-width: var(--max-width-perfil);
+    margin: 0 auto;
+    padding: 0 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    display: block; 
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: var(--border-radius-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
+}
+
+.product-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.product-details {
+    padding: 10px;
+    text-align: left;
+}
+
+.product-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-escuro);
+    margin: 0 0 5px 0;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--verde);
+    margin: 0;
+}
+
+/* Grids e Cards (Closet - Todas as Peças) */
+.closet-grid {
+    max-width: var(--max-width-perfil);
+    margin: 0 auto 40px;
+    padding: 0 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.closet-card {
+    display: block; 
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: var(--border-radius-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.closet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
+}
+
+.closet-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.closet-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.closet-details {
+    padding: 10px;
+    text-align: left;
+    min-height: 60px;
+}
+
+.closet-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-escuro);
+    margin: 5px 0 0 0;
+}
+
+.closet-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--verde);
+    margin: 0;
+}
+
+/* Status de Doação */
+.closet-price.status-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #b87800d1;
+}
+
+/* Badge de Status (Venda/Doação) */
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.status-venda .status-badge {
+    background-color: var(--verde);
+}
+
+.status-doacao .status-badge {
+    background-color: #f7a300;
+}
+
+/* Botão "Ver Mais" */
+.load-more-btn {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    margin: 40px auto;
+    border: 1px solid var(--verde);
+    border-radius: 50px;
+    background: #fff;
+    color: var(--verde);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.load-more-btn:hover {
+    background: var(--verde);
+    color: #fff;
+}
+
+/* Mensagem de Fim de Lista */
+.end-message {
+    text-align: center;
+    font-size: 16px;
+    color: #666666c8;
+    margin: 40px auto;
+    font-style: italic;
+    padding-bottom: 20px;
+}
+
+/* Limpeza de Classes Não Usadas */
+.profile-circle.large-circle i, 
+.profile-circle.large-circle span {
+    display: none;
+}
+.profile-container, .profile-photo-section, .info-form-section, .city-state-group, .profile {
+    display: none; 
+}
