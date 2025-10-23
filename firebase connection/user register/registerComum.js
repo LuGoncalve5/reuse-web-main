@@ -1,11 +1,8 @@
-// registerComum.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { aplicarMascaras, validarCPF, validarTelefone, validarEmail } from './validacoes.js';
 
-import { aplicarMascaras, validarCPF, validarTelefone, validarEmail } from '../../html/cadastro usuario/validacoes.js';
-
-/* ========== Firebase config ========== */
 const firebaseConfig = {
     apiKey: "AIzaSyDfYcoijl5D_0EJk4pO1SjPFjeOnzzrsTM",
     authDomain: "reuse-1512f.firebaseapp.com",
@@ -19,16 +16,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-/* ========= Helper para escrever dados do usuário (sem salvar senha em texto) ========= */
-function writeUserDataComum(uid, nome, email, telefone, nomeUsuario, cpf, nascimento) {
-    const userRef = ref(database, `usuarios/pessoaFisica/comuns/${uid}`);
+function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento) {
+    const userRef = ref(database, `usuarios/pessoaFisica/${uid}`);
     return set(userRef, {
-        nome,
+        nomeCompleto: nome,
         email,
         telefone,
-        nomeUsuario,
+        nomeDeUsuario: usuario,
         cpf,
-        nascimento,
+        dataNascimento: nascimento,
         tipoPessoa: 'pessoaFisica',
         tipoUsuario: 'comum',
         dataCadastro: new Date().toISOString()
