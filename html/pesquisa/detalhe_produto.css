@@ -24,6 +24,7 @@
     color: var(--verde);
     font-size: 24px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .vendedor-info {
@@ -54,10 +55,11 @@
 }
 
 .card-produto {
-    background-color: #dff2d5e8;
+    background-color: #e8f1e3e8;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
+    position: relative;
 }
 
 .img-produto {
@@ -111,8 +113,8 @@
 }
 
 .mini-item {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border-radius: 10px;
     cursor: pointer;
@@ -135,24 +137,29 @@
     margin-right: 2px;
 }
 
-.favorite-button {
-    /* Posiciona em relação ao .img-container */
+.favoritar-btn {
     position: absolute;
-    top: 10px; /* Distância do topo da imagem */
-    right: 10px; /* Distância da lateral direita da imagem */
+    top: 20px; /* Distância do topo do .produto-detalhe */
+    right: 20px; /* Distância da direita do .produto-detalhe */
+    background-color: transparent;
+    border-radius: 0;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+    transition: transform 0.2s;
     z-index: 10;
-    font-size: 1.7rem;
-    color: #fff; 
-    text-shadow: 0 0 5px rgba(0,0,0,0.4);
-    cursor: pointer;
-    transition: color 0.2s;
+    cursor: pointer
 }
 
-.favorite-button:hover {
-    color: #ff3355; /* Fica vermelho ao passar o mouse */
+.favoritar-btn i {
+    font-size: 24px;
+    color: rgb(216, 90, 90);
 }
 
-/* Estilo para quando o item JÁ estiver favoritado (para ser usado com a classe bi-heart-fill) */
-.favorite-button .bi-heart-fill {
-    color: #ff3355; 
+.favoritar-btn:hover {
+    transform: scale(1.15);
+    background-color: #f0f0f0;
 }

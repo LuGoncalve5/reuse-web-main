@@ -20,7 +20,7 @@
 
     <div class="content">
         <section class="produto-detalhe">
-            <a href="pesquisa_perfil.html" class="voltar"><i class="bi bi-arrow-left"></i></a>
+            <a onclick="history.back()" class="voltar"><i class="bi bi-arrow-left"></i></a>
 
             <div class="vendedor-info">
                 <img src="../../img/perfil_usuario.PNG" alt="foto do vendedor" class="foto-vendedor">
@@ -41,10 +41,10 @@
             </div>
 
             <div class="card-produto">
-                <img src="../../img/meu perfil/blusa.PNG" alt="Camiseta Fluminense" class="img-produto">
-                <a href="#" class="favorite-button" title="Adicionar aos Favoritos">
+                <div class="favoritar-btn">
                     <i class="bi bi-heart"></i>
-                </a>
+                </div>
+                <img src="../../img/meu perfil/blusa.PNG" alt="Camiseta Fluminense" class="img-produto">
                 <div class="descricao-produto">
                     <h1 class="titulo">Blusa branca Farm</h1>
                     <p class="preco">R$ 65,00</p>
@@ -62,7 +62,39 @@
                 <img src="../../img/meu perfil/colar.jpg" class="mini-item">
                 <img src="../../img/meu perfil/blusaonca.PNG" class="mini-item">
             </div>
+
+            <h3 class="mais-opcoes">Baseado no seu gosto...</h3>
+            <div class="outros-itens">
+                <img src="../../img/banco de fotos/salto.jpg" class="mini-item">
+                <img src="../../img/banco de fotos/body.jpg"class="mini-item">
+                <img src="../../img/banco de fotos/bolsa.webp" class="mini-item">
+                <img src="../../img/banco de fotos/tenis.jpg" class="mini-item">
+                <img src="../../img/banco de fotos/conjunto.jpg" class="mini-item">
+                <img src="../../img/banco de fotos/bolsa2.jpg" class="mini-item">
+            </div>
         </section>
     </div>
+
+    <script>
+        const botaoFavoritar = document.querySelector('.favoritar-btn');
+        const iconeFavoritar = botaoFavoritar.querySelector('i');
+
+         botaoFavoritar.addEventListener('click', () => {
+             // 1. Troca o estado do botão
+             botaoFavoritar.classList.toggle('favoritado');
+
+             // 2. Troca o ícone de coração (vazio/cheio)
+            if (botaoFavoritar.classList.contains('favoritado')) {
+                iconeFavoritar.classList.remove('bi-heart');
+                iconeFavoritar.classList.add('bi-heart-fill');
+                console.log("Item Favoritado!");
+            } else {
+                iconeFavoritar.classList.remove('bi-heart-fill');
+                iconeFavoritar.classList.add('bi-heart');
+                console.log("Item Desfavoritado.");
+            }
+        });
+    </script>
+
 </body>
 </html>

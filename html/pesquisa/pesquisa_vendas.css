@@ -6,11 +6,16 @@
 
 .search-input {
     width: 100%;
-    padding: 10px 15px; 
+    padding: 10px 15px 10px 45px; 
     border: 2px solid var(--verde);
     border-radius: var(--radius-full);
     outline: none;
     font-size: 16px;
+
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 16px;
 }
 
 /* CONTEÚDO PRINCIPAL */
