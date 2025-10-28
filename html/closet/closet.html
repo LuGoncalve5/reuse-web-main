@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-    <!-- inverter as cores
-        agora sidebar #5e7858b0
-        card #5E7858 -->
-
+    
     <!-- ===== SIDEBAR ===== -->
     <div class="sidebar">
         <img class="logo" src="../../img/logoreuse.png">
@@ -40,16 +37,18 @@
                 <button>Buscar</button>
             </div>
         </div>
+
         <hr>
+
         <section>
             <!-- Card individual -->
-            <div class="card"> <!-- adicionar o location para o gaveta.html-->
+            <div class="card" id="redGaveta" onclick="redGavetas()">
 
                 <!-- atualizar as imagens dessas gavetas-->
-                <img src="../../img/doacaomao.png" alt="doação"/>
+                <img src="../../img/doacaomao.png" alt="doação">
                 <div class="paragrafo">
                     <p>Doação</p>
-                    <p>1</p>
+                    <p>0</p>
                 </div>
             </div>
 
@@ -57,10 +56,16 @@
                 <img src="../../img/dinheiro.png" />
                 <div class="paragrafo">
                     <p>Vendas</p>
-                    <p>1</p>
+                    <p>0</p>
                 </div>
             </div>
         </section>
     </div>
+
+    <script>
+        function redGavetas() {
+            window.location.href = "gavetas/gavetas.html"
+        }
+    </script>
 </body>
 </html>
