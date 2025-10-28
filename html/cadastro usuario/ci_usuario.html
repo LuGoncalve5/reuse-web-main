@@ -4,12 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Cadastro de usuário</title>
+    <title>Cadastro de Usuário</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="c_inicial.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js" integrity="sha512-Ff9B7t3e1v3...replaceWithRealSRI..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="../../firebase connection/user register/validacoes.js" defer></script>
+
+    <!-- Inputmask (carregado antes de validacoes.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+    <!-- validacoes.js -->
+    <script src="../../firebase connection/user register/validacoes.js" defer></script>
+
+    <!-- registerComum.js -->
     <script type="module" src="../../firebase connection/user register/registerComum.js" defer></script>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -66,5 +76,10 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if(window.aplicarMascaras) aplicarMascaras();
+        });
+    </script>
 </body>
 </html>

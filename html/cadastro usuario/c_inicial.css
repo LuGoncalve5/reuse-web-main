@@ -183,3 +183,7 @@ h1 {
     color: #134313;
     text-decoration: none;
 }
+
+.mascara-placeholder {
+    color: #aaa !important;
+}
