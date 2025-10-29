@@ -15,6 +15,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+function exibirErro(campo, mensagem) {
+    const feedback = campo.parentElement.querySelector('.invalid-feedback');
+    if (feedback) {
+        feedback.textContent = mensagem;
+        campo.classList.add('is-invalid');
+    }
+}
+
+function limparErro(campo) {
+    const feedback = campo.parentElement.querySelector('.invalid-feedback');
+    if (feedback) {
+        feedback.textContent = '';
+        campo.classList.remove('is-invalid');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaras();
 
@@ -23,11 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Busca automática de endereço ao sair do campo CEP
     cepInput.addEventListener('blur', async () => {
         const cep = cepInput.value.trim();
+        limparErro(cepInput);
+
         if (!cep) return;
 
         const valido = await validarCEP(cep);
         if (!valido) {
-            alert('CEP inválido ou inexistente.');
+            exibirErro(cepInput, 'CEP inválido ou inexistente.');
             return;
         }
 
@@ -35,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dados) {
             preencherCamposEndereco(dados);
         } else {
-            alert('CEP não encontrado.');
+            exibirErro(cepInput, 'CEP não encontrado.');
         }
     });
 });
@@ -49,11 +67,6 @@ form.addEventListener('submit', async (e) => {
     const uid = localStorage.getItem('currentUserUID');
     const tipoUsuario = localStorage.getItem('currentUserTipo');
 
-    if (!uid || !tipoUsuario) {
-        alert('Erro: dados do usuário não encontrados.');
-        return;
-    }
-
     const cep = document.getElementById('cep').value.trim();
     const rua = document.getElementById('rua').value.trim();
     const numero = document.getElementById('numero').value.trim();
@@ -62,16 +75,32 @@ form.addEventListener('submit', async (e) => {
     const estado = document.getElementById('estado').value.trim();
     const complemento = document.getElementById('complemento').value.trim();
 
-    // Validação extra
-    if (!cep || !rua || !numero || !bairro || !cidade || !estado) {
-        alert('Preencha todos os campos obrigatórios.');
+    const campos = [cep, rua, numero, bairro, cidade, estado];
+    let valido = true;
+
+    // Limpar erros antigos
+    campos.forEach(campo => limparErro(campo));
+
+    if (!uid || !tipoUsuario) {
+        exibirErro(cep, 'Erro interno: usuário não encontrado.');
         return;
     }
 
-    if (!(await validarCEP(cep))) {
-        alert('CEP inválido ou inexistente.');
-        return;
+    // Validação obrigatória
+    campos.forEach(campo => {
+        if (!campo.value.trim()) {
+            exibirErro(campo, 'Campo obrigatório.');
+            valido = false;
+        }
+    });
+
+    // Validação do CEP
+    if (cep.value.trim() && !(await validarCEP(cep.value.trim()))) {
+        exibirErro(cep, 'CEP inválido ou inexistente.');
+        valido = false;
     }
+
+    if (!valido) return;
 
     try {
         // Salva endereço no Realtime Database
@@ -80,7 +109,13 @@ form.addEventListener('submit', async (e) => {
         const enderecoId = novoEnderecoRef.key;
 
         await set(novoEnderecoRef, {
-            cep, rua, numero, bairro, cidade, estado, complemento
+            cep: cep.value.trim(),
+            rua: rua.value.trim(),
+            numero: numero.value.trim(),
+            bairro: bairro.value.trim(),
+            cidade: cidade.value.trim(),
+            estado: estado.value.trim(),
+            complemento: complemento.value.trim()
         });
 
         // Vincula o endereço ao usuário correto
@@ -96,7 +131,8 @@ form.addEventListener('submit', async (e) => {
                 usuarioRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
                 break;
             default:
-                throw new Error('Tipo de usuário desconhecido');
+                exibirErro(cep, 'Tipo de usuário desconhecido.');
+                return;
         }
 
         await update(usuarioRef, { enderecos: { enderecoPrincipal: enderecoId } });
@@ -104,11 +140,11 @@ form.addEventListener('submit', async (e) => {
         // Finaliza cadastro
         localStorage.removeItem('currentUserUID');
         localStorage.removeItem('currentUserTipo');
+        alert('Endereço salvo com sucesso! Você será redirecionado para o closet.');
+        setTimeout(() => window.location.href = '../closet/closet.html', 1500);
 
-        alert('Cadastro concluído com sucesso!');
-        window.location.href = '../closet/closet.html';
     } catch (err) {
         console.error(err);
-        alert('Erro ao salvar endereço. Tente novamente.');
+        exibirErro(cep, 'Erro ao salvar endereço. Tente novamente.');
     }
 });

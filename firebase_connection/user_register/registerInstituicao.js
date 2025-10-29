@@ -40,14 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Controle do formulário
 const form = document.getElementById('formInstituicao');
-const alertBox = document.getElementById('formAlert');
 const submitBtn = document.getElementById('submit');
 
-function showAlert(type, message) {
-    alertBox.classList.remove('d-none', 'alert-success', 'alert-danger', 'alert-warning', 'alert-info');
-    alertBox.classList.add('alert-' + type);
-    alertBox.textContent = message;
+// Funções de erro
+function mostrarErro(campoId, mensagem) {
+    const campo = document.getElementById(campoId);
+    const feedback = campo.parentElement.querySelector('.invalid-feedback');
+    campo.classList.add('is-invalid');
+    if (feedback) feedback.textContent = mensagem;
 }
+
+function limparErro(campoId) {
+    const campo = document.getElementById(campoId);
+    const feedback = campo.parentElement.querySelector('.invalid-feedback');
+    campo.classList.remove('is-invalid');
+    if (feedback) feedback.textContent = '';
+}
+
+// Ativa limpeza automática ao digitar
+['nome', 'email', 'telefone', 'senha', 'usuario', 'cnpj'].forEach(id => {
+    const campo = document.getElementById(id);
+    if (campo) campo.addEventListener('input', () => limparErro(id));
+});
 
 // Validação e criação do usuário
 form.addEventListener('submit', async (e) => {
@@ -61,59 +75,63 @@ form.addEventListener('submit', async (e) => {
     const nomeUsuario = document.getElementById('usuario').value.trim();
     const cnpj = document.getElementById('cnpj').value.trim();
 
-
-    // campos obrigatórios
-    if (!nomeFantasia || !email || !telefone || !senha || !nomeUsuario || !cnpj) {
-        showAlert('danger', 'Preencha todos os campos obrigatórios.');
-        return;
+    let valido = true;
+    
+    // Campos obrigatórios
+    if (!nomeFantasia) { mostrarErro('nome', 'Informe o nome fantasia do brechó.'); valido = false; }
+    if (!email) { mostrarErro('email', 'Informe um e-mail.'); valido = false; }
+    if (!telefone) { mostrarErro('telefone', 'Informe um telefone.'); valido = false; }
+    if (!senha) { mostrarErro('senha', 'Informe uma senha.'); valido = false; }
+    if (!nomeUsuario) { mostrarErro('usuario', 'Informe um nome de usuário.'); valido = false; }
+    if (!cnpj) { mostrarErro('cnpj', 'Informe o CNPJ.'); valido = false; }
+    
+    if (!valido) return;
+    
+    // Nome fantasia
+    if (!validarNomeCompleto(nomeFantasia)) { 
+        mostrarErro('nome', 'Informe o nome completo da instituição (duas ou mais palavras).'); 
+        return; 
     }
 
-    // e-mail válido e existente
+    // E-mail
     const emailValido = await validarEmail(email);
-    if (!emailValido) {
-        showAlert('danger', 'E-mail inválido ou inexistente.');
-        return;
+    if (!emailValido) { 
+        mostrarErro('email', 'E-mail inválido ou inexistente.'); 
+        return; 
     }
-
-    // telefone
-    if (!validarTelefone(telefone)) {
-        showAlert('danger', 'Telefone inválido. Use o formato (DD) 9xxxx-xxxx.');
-        return;
+    
+    // Telefone
+    if (!validarTelefone(telefone)) { 
+        mostrarErro('telefone', 'Telefone inválido. Use o formato (DD) 9xxxx-xxxx.'); 
+        return; 
     }
-
-    // senha
-    if (!validarSenha(senha)) {
-        showAlert('danger', 'Senha deve ter pelo menos 8 caracteres.');
-        return;
+    
+    // Senha
+    if (!validarSenha(senha)) { 
+        mostrarErro('senha', 'A senha deve ter pelo menos 8 caracteres.'); 
+        return; 
     }
-
-    if (!validarNomeCompleto(nomeFantasia)) {
-        showAlert('danger', 'Informe seu nome completo (duas ou mais palavras).');
-        return;
-    }
-
-    // ✅ nome de usuário (formato válido)
+    
+    // Nome de usuário
     if (!validarNomeUsuario(nomeUsuario)) {
-        showAlert('danger', 'Nome de usuário inválido. Use apenas letras, números, "_" ou "." e mínimo 3 caracteres.');
+        mostrarErro('usuario', 'Nome de usuário inválido. Use apenas letras, números, "_" ou "." e mínimo 3 caracteres.');
         return;
     }
-
-    // nome de usuário único
+    
     const usuarioUnico = await validarUsuarioUnico(nomeUsuario);
-    if (!usuarioUnico) {
-        showAlert('danger', 'Nome de usuário já está em uso. Escolha outro.');
-        return;
+    if (!usuarioUnico) { 
+        mostrarErro('usuario', 'Nome de usuário já está em uso. Escolha outro.'); 
+        return; 
     }
-
+    
     // CNPJ
-    if (!validarCNPJ(cnpj)) {
-        showAlert('danger', 'CNPJ inválido.');
-        return;
+    if (!validarCNPJ(cnpj)) { 
+        mostrarErro('cnpj', 'CNPJ inválido.'); 
+        return; 
     }
-
-    // criar usuário
+    
+    // Criação do usuário
     submitBtn.disabled = true;
-    showAlert('info', 'Criando usuário...');
 
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
@@ -123,13 +141,18 @@ form.addEventListener('submit', async (e) => {
 
         await writeUserDataInstituicao(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
 
-        showAlert('success', 'Cadastro criado com sucesso! Redirecionando...');
         setTimeout(() => {
             window.location.href = 'ci_endereco.html';
         }, 1000);
     } catch (err) {
         console.error(err);
-        showAlert('danger', 'Erro ao criar usuário: ' + (err.message || err));
+        
+        if (err.code === 'auth/email-already-in-use') {
+            mostrarErro('email', 'Este e-mail já está em uso. Use outro e-mail.');
+        } else {
+            mostrarErro('email', 'Erro ao criar usuário: ' + (err.message || err));
+        }
+
         submitBtn.disabled = false;
     }
 });
