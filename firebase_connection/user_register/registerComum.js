@@ -18,9 +18,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-/* ==========================================================
-   🔹 Função para gravar dados do usuário comum
-   ========================================================== */
 function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento) {
     const userRef = ref(database, `usuarios/pessoaFisica/${uid}`);
     return set(userRef, {
@@ -36,21 +33,16 @@ function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento
     });
 }
 
-/* ==========================================================
-   🔹 Inicialização (máscaras)
-   ========================================================== */
+// Inicialização (máscaras)
 document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaras();
 });
 
-/* ==========================================================
-   🔹 Controle do formulário
-   ========================================================== */
-
+// Controle do formulário
 const form = document.getElementById('formComum');
 const submitBtn = document.getElementById('submit');
 
-// 🔸 Função para mostrar erro embaixo do campo
+// Função para mostrar erro embaixo do campo
 function mostrarErro(campoId, mensagem) {
     const campo = document.getElementById(campoId);
     const feedback = campo.parentElement.querySelector('.invalid-feedback');
@@ -58,7 +50,7 @@ function mostrarErro(campoId, mensagem) {
     if (feedback) feedback.textContent = mensagem;
 }
 
-// 🔸 Função para limpar erro ao digitar
+// Função para limpar erro ao digitar
 function limparErro(campoId) {
     const campo = document.getElementById(campoId);
     const feedback = campo.parentElement.querySelector('.invalid-feedback');
@@ -72,9 +64,7 @@ function limparErro(campoId) {
     campo.addEventListener('input', () => limparErro(id));
 });
 
-/* ==========================================================
-   🔹 Validação e criação do usuário
-   ========================================================== */
+// Validação e criação do usuário
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -162,10 +152,7 @@ form.addEventListener('submit', async (e) => {
 
         await writeUserDataComum(user.uid, nome, email, telefone, nomeUsuario, cpf, nascimento);
 
-        const successAlert = document.createElement('div');
-        successAlert.className = 'alert alert-success mt-3';
-        successAlert.textContent = 'Cadastro criado com sucesso! Redirecionando...';
-        form.appendChild(successAlert);
+        alert('Usuário criado com sucesso! Você será redirecionado para a próxima etapa do cadastro.');
         
         setTimeout(() => {
             window.location.href = 'ci_endereco.html';
@@ -173,10 +160,11 @@ form.addEventListener('submit', async (e) => {
     } catch (err) {
         console.error(err);
 
-        const erroCampo = document.createElement('div');
-        erroCampo.className = 'alert alert-danger mt-3';
-        erroCampo.textContent = 'Erro ao criar usuário: ' + (err.message || err);
-        form.appendChild(erroCampo);
+        if (err.code === 'auth/email-already-in-use') {
+            mostrarErro('email', 'Este e-mail já está em uso. Use outro e-mail.');
+        } else {
+            mostrarErro('email', 'Erro ao criar usuário: ' + (err.message || err));
+        }
 
         submitBtn.disabled = false;
     }
