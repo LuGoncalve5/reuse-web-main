@@ -1,7 +1,8 @@
+// REGISTE INSTITUIÇÃO USER - FIREBASE CONNECTION
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-import { aplicarMascaras, validarCPF, validarTelefone, validarEmail, validarData, validarUsuarioUnico } from './validacoes.js';
+import { aplicarMascaras, validarCNPJ, validarTelefone, validarEmail, validarNomeCompleto, validarSenha, validarUsuarioUnico, validarNomeUsuario } from './validacoes.js';
 
 // Configuração Firebase
 const firebaseConfig = {
@@ -17,35 +18,28 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-/* ==========================================================
-   🔹 Função para gravar dados do usuário comum
-   ========================================================== */
-function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento) {
-    const userRef = ref(database, `usuarios/pessoaFisica/${uid}`);
+function writeUserDataComum(uid, nome, email, telefone, senha, usuario, cnpj) {
+    const userRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
     return set(userRef, {
-        nomeCompleto: nome,
+        nomeFantasia: nome,
         email,
         telefone,
+        senha,
         nomeDeUsuario: usuario,
-        cpf,
-        dataNascimento: nascimento,
-        tipoPessoa: 'pessoaFisica',
-        tipoUsuario: 'comum',
+        cnpj,
+        tipoPessoa: 'pessoaJuridica',
+        tipoUsuario: 'brecho',
         dataCadastro: new Date().toISOString()
     });
 }
 
-/* ==========================================================
-   🔹 Inicialização (máscaras)
-   ========================================================== */
+// Inicialização (máscaras)
 document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaras();
 });
 
-/* ==========================================================
-   🔹 Controle do formulário
-   ========================================================== */
-const form = document.getElementById('formComum');
+// Controle do formulário
+const form = document.getElementById('formLoja');
 const alertBox = document.getElementById('formAlert');
 const submitBtn = document.getElementById('submit');
 
@@ -55,23 +49,21 @@ function showAlert(type, message) {
     alertBox.textContent = message;
 }
 
-/* ==========================================================
-   🔹 Validação e criação do usuário
-   ========================================================== */
+// Validação e criação do usuário
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // valores e trims
-    const nome = document.getElementById('nome').value.trim();
+    const nomeFantasia = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
     const telefone = document.getElementById('telefone').value.trim();
     const senha = document.getElementById('senha').value;
     const nomeUsuario = document.getElementById('usuario').value.trim();
-    const cpf = document.getElementById('cpf').value.trim();
-    const nascimento = document.getElementById('nascimento').value;
+    const cnpj = document.getElementById('cnpj').value.trim();
+
 
     // campos obrigatórios
-    if (!nome || !email || !telefone || !senha || !nomeUsuario || !cpf || !nascimento) {
+    if (!nomeFantasia || !email || !telefone || !senha || !nomeUsuario || !cnpj) {
         showAlert('danger', 'Preencha todos os campos obrigatórios.');
         return;
     }
@@ -89,15 +81,20 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    // CPF
-    if (!validarCPF(cpf)) {
-        showAlert('danger', 'CPF inválido.');
+    // senha
+    if (!validarSenha(senha)) {
+        showAlert('danger', 'Senha deve ter pelo menos 8 caracteres.');
         return;
     }
 
-    // data
-    if (!validarData(nascimento)) {
-        showAlert('danger', 'Data de nascimento inválida ou futura.');
+    if (!validarNomeCompleto(nomeFantasia)) {
+        showAlert('danger', 'Informe seu nome completo (duas ou mais palavras).');
+        return;
+    }
+
+    // ✅ nome de usuário (formato válido)
+    if (!validarNomeUsuario(nomeUsuario)) {
+        showAlert('danger', 'Nome de usuário inválido. Use apenas letras, números, "_" ou "." e mínimo 3 caracteres.');
         return;
     }
 
@@ -108,9 +105,9 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    // senha
-    if (senha.length < 8) {
-        showAlert('danger', 'Senha deve ter pelo menos 8 caracteres.');
+    // CNPJ
+    if (!validarCNPJ(cnpj)) {
+        showAlert('danger', 'CNPJ inválido.');
         return;
     }
 
@@ -122,9 +119,9 @@ form.addEventListener('submit', async (e) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
         const user = userCredential.user;
         localStorage.setItem('currentUserUID', user.uid);
-        localStorage.setItem('currentUserTipo', 'pessoaFisica');
+        localStorage.setItem('currentUserTipo', 'brecho');
 
-        await writeUserDataComum(user.uid, nome, email, telefone, nomeUsuario, cpf, nascimento);
+        await writeUserDataComum(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
 
         showAlert('success', 'Cadastro criado com sucesso! Redirecionando...');
         setTimeout(() => {
