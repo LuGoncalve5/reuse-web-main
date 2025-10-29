@@ -187,3 +187,9 @@ h1 {
 .mascara-placeholder {
     color: #aaa !important;
 }
+
+label{
+    font-weight: bold;
+    font-size: small;
+    color: #134313e0;
+}
