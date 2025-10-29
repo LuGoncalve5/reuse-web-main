@@ -1,4 +1,4 @@
-// REGISTE INSTITUIÇÃO USER - FIREBASE CONNECTION
+// REGISTE LOJA USER - FIREBASE CONNECTION
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-function writeUserDataComum(uid, nome, email, telefone, senha, usuario, cnpj) {
+function writeUserDataBrecho(uid, nome, email, telefone, senha, usuario, cnpj) {
     const userRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
     return set(userRef, {
         nomeFantasia: nome,
@@ -121,7 +121,7 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'brecho');
 
-        await writeUserDataComum(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
+        await writeUserDataBrecho(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
 
         showAlert('success', 'Cadastro criado com sucesso! Redirecionando...');
         setTimeout(() => {

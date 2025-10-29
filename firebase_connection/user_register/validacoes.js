@@ -1,4 +1,3 @@
-// validacoes.js
 console.log("✅ validacoes.js carregado");
 
 /* ==========================================================
@@ -100,135 +99,95 @@ export function validarCNPJ(cnpj) {
 
 // Telefone válido
 export function validarTelefone(telRaw) {
-	if (!telRaw) return false;
-	const tel = telRaw.replace(/\D/g, '');
-
-	// deve ter 10 ou 11 dígitos (ex: 27999998888)
-	if (tel.length < 10 || tel.length > 11) return false;
-
-	const ddd = parseInt(tel.slice(0, 2));
-	if (isNaN(ddd) || ddd < 11 || ddd > 99) return false; // DDD brasileiro válido
-
-	// número não pode ter todos os dígitos iguais
-	if (/^(\d)\1+$/.test(tel)) return false;
-
-	// se tiver 11 dígitos, o terceiro deve ser 9 (celulares)
-	if (tel.length === 11 && tel[2] !== '9') return false;
-
-	return true;
+    if (!telRaw) return false;
+    const tel = telRaw.replace(/\D/g, '');
+    if (tel.length < 10 || tel.length > 11) return false;
+    if (/^(\d)\1+$/.test(tel)) return false;
+    if (tel.length === 11 && tel[2] !== '9') return false;
+    return true;
 }
 
-
-// E-mail válido e existente (checa domínio)
+// E-mail válido
 export async function validarEmail(email) {
     const padrao = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!padrao.test(email)) return false;
-
     const dominio = email.split('@')[1].toLowerCase();
     const dominiosComuns = ['gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com', 'icloud.com', 'live.com'];
-
-    // se tiver "." e pelo menos 2 letras no final, considera válido
-    const dominioValido = dominiosComuns.includes(dominio) || /\.[a-z]{2,}$/.test(dominio);
-
-    return dominioValido;
+    return dominiosComuns.includes(dominio) || /\.[a-z]{2,}$/.test(dominio);
 }
 
-// Valida senha (mínimo 8 caracteres)
+// Valida senha
 export function validarSenha(senha) {
-    if (!senha) return false;
-    return senha.length >= 8;
+    return senha && senha.length >= 8;
 }
 
-// Valida nome completo (duas ou mais palavras)
+// Valida nome completo
 export function validarNomeCompleto(nome) {
     if (!nome) return false;
-    // Divide pelo espaço, remove palavras vazias e verifica se tem >= 2
     const palavras = nome.trim().split(/\s+/);
     return palavras.length >= 2;
 }
 
-// Nome de usuário válido (sem espaços, caracteres especiais)
+// Nome de usuário válido
 export function validarNomeUsuario(username) {
-	if (!username) return false;
-	// não permite espaços e exige apenas letras, números, "_" ou "."
-	const regex = /^[a-zA-Z0-9._]+$/;
-	return regex.test(username) && username.length >= 3;
+    if (!username) return false;
+    const regex = /^[a-zA-Z0-9._]+$/;
+    return regex.test(username) && username.length >= 3;
 }
 
-// Nome de usuário único no Firebase
+// Nome de usuário único
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 export async function validarUsuarioUnico(usuario) {
     const db = getDatabase();
-
     const snapshotFisica = await get(child(ref(db), 'usuarios/pessoaFisica'));
     const snapshotBrechos = await get(child(ref(db), 'usuarios/pessoaJuridica/brechos'));
     const snapshotInstituicoes = await get(child(ref(db), 'usuarios/pessoaJuridica/instituicoes'));
-
-    const jaExiste = (snap) => {
-        if (!snap.exists()) return false;
-        return Object.values(snap.val()).some(u => u.nomeDeUsuario?.toLowerCase() === usuario.toLowerCase());
-    };
-
+    const jaExiste = (snap) => snap.exists() ? Object.values(snap.val()).some(u => u.nomeDeUsuario?.toLowerCase() === usuario.toLowerCase()) : false;
     return !(jaExiste(snapshotFisica) || jaExiste(snapshotBrechos) || jaExiste(snapshotInstituicoes));
 }
 
-// Data válida (não futura, nem impossível)
+// Data válida
 export function validarData(dataStr) {
     if (!dataStr) return false;
     const data = new Date(dataStr);
     const hoje = new Date();
-
-    if (isNaN(data.getTime())) return false; // inválida
-    if (data > hoje) return false; // futura
-
-    const partes = dataStr.split('-');
-    const ano = parseInt(partes[0]);
-    const mes = parseInt(partes[1]) - 1;
-    const dia = parseInt(partes[2]);
-
-    const valida = new Date(ano, mes, dia);
-    return valida.getFullYear() === ano && valida.getMonth() === mes && valida.getDate() === dia;
+    if (isNaN(data.getTime()) || data > hoje) return false;
+    const [ano, mes, dia] = dataStr.split('-').map(Number);
+    const valida = new Date(ano, mes - 1, dia);
+    return valida.getFullYear() === ano && valida.getMonth() === mes - 1 && valida.getDate() === dia;
 }
 
-// Valida se o CEP é real e existente
+// Valida CEP
 export async function validarCEP(cep) {
     if (!cep) return false;
     const limpo = cep.replace(/\D/g, '');
     if (!/^[0-9]{8}$/.test(limpo)) return false;
-
     try {
         const res = await fetch(`https://viacep.com.br/ws/${limpo}/json/`);
         const data = await res.json();
-        if (data.erro) return false;
-        return true;
+        return !data.erro;
     } catch (e) {
         console.warn('⚠️ Erro ao validar CEP:', e);
         return false;
     }
 }
 
-// Busca o endereço completo no ViaCEP
+// Buscar endereço via CEP
 export async function buscarEnderecoPorCEP(cep) {
     const limpo = cep.replace(/\D/g, '');
     if (!/^[0-9]{8}$/.test(limpo)) return null;
-
     try {
         const res = await fetch(`https://viacep.com.br/ws/${limpo}/json/`);
         const data = await res.json();
         if (data.erro) return null;
-        return {
-            rua: data.logradouro,
-            bairro: data.bairro,
-            cidade: data.localidade,
-            estado: data.uf
-        };
+        return { rua: data.logradouro, bairro: data.bairro, cidade: data.localidade, estado: data.uf };
     } catch (e) {
         console.warn('⚠️ Erro ao buscar endereço por CEP:', e);
         return null;
     }
 }
 
-// Preenche automaticamente os campos de endereço no formulário
+// Preenche campos de endereço
 export function preencherCamposEndereco(dados) {
     if (!dados) return;
     if (document.getElementById('rua')) document.getElementById('rua').value = dados.rua || '';
