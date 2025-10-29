@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-function writeUserDataComum(uid, nome, email, telefone, senha, usuario, cnpj) {
+function writeUserDataInstituicao(uid, nome, email, telefone, senha, usuario, cnpj) {
     const userRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
     return set(userRef, {
         nomeFantasia: nome,
@@ -121,7 +121,7 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'instituicao');
 
-        await writeUserDataComum(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
+        await writeUserDataInstituicao(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
 
         showAlert('success', 'Cadastro criado com sucesso! Redirecionando...');
         setTimeout(() => {

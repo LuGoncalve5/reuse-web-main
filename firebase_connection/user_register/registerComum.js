@@ -46,15 +46,31 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ==========================================================
    🔹 Controle do formulário
    ========================================================== */
+
 const form = document.getElementById('formComum');
-const alertBox = document.getElementById('formAlert');
 const submitBtn = document.getElementById('submit');
 
-function showAlert(type, message) {
-    alertBox.classList.remove('d-none', 'alert-success', 'alert-danger', 'alert-warning', 'alert-info');
-    alertBox.classList.add('alert-' + type);
-    alertBox.textContent = message;
+// 🔸 Função para mostrar erro embaixo do campo
+function mostrarErro(campoId, mensagem) {
+    const campo = document.getElementById(campoId);
+    const feedback = campo.parentElement.querySelector('.invalid-feedback');
+    campo.classList.add('is-invalid');
+    if (feedback) feedback.textContent = mensagem;
 }
+
+// 🔸 Função para limpar erro ao digitar
+function limparErro(campoId) {
+    const campo = document.getElementById(campoId);
+    const feedback = campo.parentElement.querySelector('.invalid-feedback');
+    campo.classList.remove('is-invalid');
+    if (feedback) feedback.textContent = '';
+}
+
+// Ativa limpeza automática ao digitar
+['nome', 'email', 'telefone', 'senha', 'usuario', 'cpf', 'nascimento'].forEach(id => {
+    const campo = document.getElementById(id);
+    campo.addEventListener('input', () => limparErro(id));
+});
 
 /* ==========================================================
    🔹 Validação e criação do usuário
@@ -71,64 +87,72 @@ form.addEventListener('submit', async (e) => {
     const cpf = document.getElementById('cpf').value.trim();
     const nascimento = document.getElementById('nascimento').value;
 
+    let valido = true;
+
     // campos obrigatórios
-    if (!nome || !email || !telefone || !senha || !nomeUsuario || !cpf || !nascimento) {
-        showAlert('danger', 'Preencha todos os campos obrigatórios.');
-        return;
-    }
+    if (!nome) { mostrarErro('nome', 'Informe seu nome completo.'); valido = false; }
+    if (!email) { mostrarErro('email', 'Informe um e-mail.'); valido = false; }
+    if (!telefone) { mostrarErro('telefone', 'Informe um telefone.'); valido = false; }
+    if (!senha) { mostrarErro('senha', 'Informe uma senha.'); valido = false; }
+    if (!nomeUsuario) { mostrarErro('usuario', 'Informe um nome de usuário.'); valido = false; }
+    if (!cpf) { mostrarErro('cpf', 'Informe seu CPF.'); valido = false; }
+    if (!nascimento) { mostrarErro('nascimento', 'Informe sua data de nascimento.'); valido = false; }
+
+    if (!valido) return;
+
 
     // e-mail válido e existente
     const emailValido = await validarEmail(email);
     if (!emailValido) {
-        showAlert('danger', 'E-mail inválido ou inexistente.');
+        mostrarErro('email', 'E-mail inválido ou inexistente.');
         return;
     }
 
     // telefone
     if (!validarTelefone(telefone)) {
-        showAlert('danger', 'Telefone inválido. Use o formato (DD) 9xxxx-xxxx.');
+        mostrarErro('telefone', 'Telefone inválido. Use o formato (DD) 9xxxx-xxxx.');
         return;
     }
 
     // senha
     if (!validarSenha(senha)) {
-        showAlert('danger', 'Senha deve ter pelo menos 8 caracteres.');
+        mostrarErro('senha', 'A senha deve ter pelo menos 8 caracteres.');
         return;
     }
 
+    // nome completo
     if (!validarNomeCompleto(nome)) {
-        showAlert('danger', 'Informe seu nome completo (duas ou mais palavras).');
+        mostrarErro('nome', 'Informe seu nome completo (duas ou mais palavras).');
         return;
     }
 
-    // ✅ nome de usuário (formato válido)
+    // nome de usuário (formato válido)
     if (!validarNomeUsuario(nomeUsuario)) {
-        showAlert('danger', 'Nome de usuário inválido. Use apenas letras, números, "_" ou "." e mínimo 3 caracteres.');
+        mostrarErro('usuario', 'Nome de usuário inválido. Use apenas letras, números, "_" ou "." e mínimo 3 caracteres.');
         return;
     }
 
     // nome de usuário único
     const usuarioUnico = await validarUsuarioUnico(nomeUsuario);
     if (!usuarioUnico) {
-        showAlert('danger', 'Nome de usuário já está em uso. Escolha outro.');
+        mostrarErro('usuario', 'Nome de usuário já está em uso. Escolha outro.');
         return;
     }
 
     // CPF
     if (!validarCPF(cpf)) {
-        showAlert('danger', 'CPF inválido.');
+        mostrarErro('cpf', 'CPF inválido.');
         return;
     }
 
     // data
     if (!validarData(nascimento)) {
-        showAlert('danger', 'Data de nascimento inválida ou futura.');
+        mostrarErro('nascimento', 'Data de nascimento inválida ou futura.');
         return;
     }
 
     // criar usuário
     submitBtn.disabled = true;
-    showAlert('info', 'Criando usuário...');
 
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
@@ -138,13 +162,22 @@ form.addEventListener('submit', async (e) => {
 
         await writeUserDataComum(user.uid, nome, email, telefone, nomeUsuario, cpf, nascimento);
 
-        showAlert('success', 'Cadastro criado com sucesso! Redirecionando...');
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success mt-3';
+        successAlert.textContent = 'Cadastro criado com sucesso! Redirecionando...';
+        form.appendChild(successAlert);
+        
         setTimeout(() => {
             window.location.href = 'ci_endereco.html';
         }, 1000);
     } catch (err) {
         console.error(err);
-        showAlert('danger', 'Erro ao criar usuário: ' + (err.message || err));
+
+        const erroCampo = document.createElement('div');
+        erroCampo.className = 'alert alert-danger mt-3';
+        erroCampo.textContent = 'Erro ao criar usuário: ' + (err.message || err);
+        form.appendChild(erroCampo);
+
         submitBtn.disabled = false;
     }
 });
