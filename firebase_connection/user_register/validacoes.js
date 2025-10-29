@@ -124,15 +124,52 @@ export async function validarEmail(email) {
     const padrao = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!padrao.test(email)) return false;
 
-    const dominio = email.split('@')[1];
-    try {
-        const res = await fetch(`https://dns.google/resolve?name=${dominio}&type=MX`);
-        const data = await res.json();
-        return data && data.Answer && data.Answer.length > 0;
-    } catch (e) {
-        console.warn('⚠️ Falha ao verificar domínio do e-mail:', e);
-        return true; // se offline, considera válido
-    }
+    const dominio = email.split('@')[1].toLowerCase();
+    const dominiosComuns = ['gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com', 'icloud.com', 'live.com'];
+
+    // se tiver "." e pelo menos 2 letras no final, considera válido
+    const dominioValido = dominiosComuns.includes(dominio) || /\.[a-z]{2,}$/.test(dominio);
+
+    return dominioValido;
+}
+
+// Valida senha (mínimo 8 caracteres)
+export function validarSenha(senha) {
+    if (!senha) return false;
+    return senha.length >= 8;
+}
+
+// Valida nome completo (duas ou mais palavras)
+export function validarNomeCompleto(nome) {
+    if (!nome) return false;
+    // Divide pelo espaço, remove palavras vazias e verifica se tem >= 2
+    const palavras = nome.trim().split(/\s+/);
+    return palavras.length >= 2;
+}
+
+// Nome de usuário válido (sem espaços, caracteres especiais)
+export function validarNomeUsuario(username) {
+	if (!username) return false;
+	// não permite espaços e exige apenas letras, números, "_" ou "."
+	const regex = /^[a-zA-Z0-9._]+$/;
+	return regex.test(username) && username.length >= 3;
+}
+
+// Nome de usuário único no Firebase
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+export async function validarUsuarioUnico(usuario) {
+    const db = getDatabase();
+
+    const snapshotFisica = await get(child(ref(db), 'usuarios/pessoaFisica'));
+    const snapshotBrechos = await get(child(ref(db), 'usuarios/pessoaJuridica/brechos'));
+    const snapshotInstituicoes = await get(child(ref(db), 'usuarios/pessoaJuridica/instituicoes'));
+
+    const jaExiste = (snap) => {
+        if (!snap.exists()) return false;
+        return Object.values(snap.val()).some(u => u.nomeDeUsuario?.toLowerCase() === usuario.toLowerCase());
+    };
+
+    return !(jaExiste(snapshotFisica) || jaExiste(snapshotBrechos) || jaExiste(snapshotInstituicoes));
 }
 
 // Data válida (não futura, nem impossível)
@@ -153,25 +190,49 @@ export function validarData(dataStr) {
     return valida.getFullYear() === ano && valida.getMonth() === mes && valida.getDate() === dia;
 }
 
-// Nome de usuário único no Firebase
-import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+// Valida se o CEP é real e existente
+export async function validarCEP(cep) {
+    if (!cep) return false;
+    const limpo = cep.replace(/\D/g, '');
+    if (!/^[0-9]{8}$/.test(limpo)) return false;
 
-export async function validarUsuarioUnico(usuario) {
-    const db = getDatabase();
-    const snapshotFisica = await get(child(ref(db), 'usuarios/pessoaFisica'));
-    const snapshotJuridica = await get(child(ref(db), 'usuarios/pessoaJuridica'));
-
-    const jaExiste = (snap) => {
-        if (!snap.exists()) return false;
-        return Object.values(snap.val()).some(u => u.nomeDeUsuario?.toLowerCase() === usuario.toLowerCase());
-    };
-
-    return !(jaExiste(snapshotFisica) || jaExiste(snapshotJuridica));
+    try {
+        const res = await fetch(`https://viacep.com.br/ws/${limpo}/json/`);
+        const data = await res.json();
+        if (data.erro) return false;
+        return true;
+    } catch (e) {
+        console.warn('⚠️ Erro ao validar CEP:', e);
+        return false;
+    }
 }
 
-export function validarNomeUsuario(username) {
-	if (!username) return false;
-	// não permite espaços e exige apenas letras, números, "_" ou "."
-	const regex = /^[a-zA-Z0-9._]+$/;
-	return regex.test(username) && username.length >= 3;
+// Busca o endereço completo no ViaCEP
+export async function buscarEnderecoPorCEP(cep) {
+    const limpo = cep.replace(/\D/g, '');
+    if (!/^[0-9]{8}$/.test(limpo)) return null;
+
+    try {
+        const res = await fetch(`https://viacep.com.br/ws/${limpo}/json/`);
+        const data = await res.json();
+        if (data.erro) return null;
+        return {
+            rua: data.logradouro,
+            bairro: data.bairro,
+            cidade: data.localidade,
+            estado: data.uf
+        };
+    } catch (e) {
+        console.warn('⚠️ Erro ao buscar endereço por CEP:', e);
+        return null;
+    }
+}
+
+// Preenche automaticamente os campos de endereço no formulário
+export function preencherCamposEndereco(dados) {
+    if (!dados) return;
+    if (document.getElementById('rua')) document.getElementById('rua').value = dados.rua || '';
+    if (document.getElementById('bairro')) document.getElementById('bairro').value = dados.bairro || '';
+    if (document.getElementById('cidade')) document.getElementById('cidade').value = dados.cidade || '';
+    if (document.getElementById('estado')) document.getElementById('estado').value = dados.estado || '';
 }
