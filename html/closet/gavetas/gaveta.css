@@ -1,24 +1,25 @@
 /* ===== GRID DE CARDS ===== */
 section {
     padding: 0px 120px;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 25px;
+    gap: 20px;
 }
 
 .card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
 }
 
-.card:hover {
+.roupa{
+    border-radius: 8px;
+}
+
+.roupa:hover {
     transform: translateY(-5px);
 }
 
-.card img {
+.roupa img {
     width: 100%;
-    height: auto;
+    max-height: 200px;
     object-fit: cover;
 }

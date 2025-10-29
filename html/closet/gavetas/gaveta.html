@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Nome da gaveta</title>
+    <title>Nome da gaveta</title> <!-- lembrar de atualizar isso daqui com o banco de dados -->
     <link rel="stylesheet" href="gaveta.css">
     <link rel="stylesheet" href="../../../css/padrao.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -29,156 +29,32 @@
     <hr>
 
     <section>
-        <!-- Card individual -->
-        <div class="card"> <!-- adicionar o location para o gaveta.html-->
-            <img src="../../../img/botarosa.webp" alt="bota rosa"/>
-        </div>
-
+        <a onclick="history.back()" class="voltar"><i class="bi bi-arrow-left"></i></a>
         <div class="card">
-            <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
+            <div class="roupa" onclick="window.location.href='roupas/roupa.html'"> <!-- adicionar o location para o a página individual da roupa-->
+                <img src="../../../img/botarosa.webp" alt="bota rosa"/>
+            </div>
+
+            <div class="roupa">
+                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
+            </div>
+
+            <div class="roupa">
+                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
+            </div>
+
+            <div class="roupa">
+                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
+            </div>
+
+            <div class="roupa">
+                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
+            </div>
+
+            <div class="roupa">
+                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
+            </div>
         </div>
     </section>
-
-    <!-- <div class="content">
-        <div class="closet-grid">
-            <a href="#" class="closet-card status-venda">
-                <div class="closet-image-container">
-                    <img src="../../../img/meu perfil/blusaonca.PNG " alt="Vestido Florido" loading="lazy">
-                    <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                </div>
-                    
-                <div class="closet-details">
-                    <p class="closet-price">R$ 35,00</p>
-                    <h4 class="closet-title">Vestido de Verão</h4>
-                </div>
-            </a>
-
-            <a href="#" class="closet-card">
-                <div class="closet-image-container">
-                    <img src="../../img/meu perfil/blusabranca.PNG" alt="Blusa Cropped" loading="lazy">
-                    </div>
-                <div class="closet-details">
-                    <h4 class="closet-title">Blusa Branca com manga</h4>
-                </div>
-            </a>
-
-            <a href="#" class="closet-card status-doacao">
-                <div class="closet-image-container">
-                    <img src="../../../img/meu perfil/jaquetajeans.jpg" alt="Jaqueta Jeans" loading="lazy">
-                    <div class="status-badge"><i class="bi bi-gift-fill"></i> Doação</div>
-                </div>
-                <div class="closet-details">
-                    <p class="closet-price status-text">Para Doação</p>
-                    <h4 class="closet-title">Jaqueta Jeans</h4>
-                </div>
-            </a>
-                
-            <a href="#" class="closet-card status-venda">
-                <div class="closet-image-container">
-                    <img src="../../img/meu perfil/calcajeans1.jpg" alt="Calça Jeans" loading="lazy">
-                    <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                </div>
-                <div class="closet-details">
-                    <p class="closet-price">R$ 120,00</p>
-                    <h4 class="closet-title">Calça Jeans M</h4>
-                </div>
-            </a>
-
-            <a href="#" class="closet-card">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/bolsabege.jpg" alt="Bolsa Bege" loading="lazy">
-                    </div>
-                    <div class="closet-details">
-                        <h4 class="closet-title">Bolsa com bolinhas</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/saltodourado.jpg" alt="Calça Preta" loading="lazy">
-                    </div>
-                    <div class="closet-details">
-                        <h4 class="closet-title">Salto dourado amarração</h4>
-                    </div>
-                </a>
-                
-                <a href="#" class="closet-card status-venda">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/blusa.PNG" alt="Saia Xadrez" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price">R$ 65,00</p>
-                        <h4 class="closet-title">Blusa branca Farm</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card status-doacao">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/papetehorrivel.jpeg" alt="Jaqueta Jeans" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-gift-fill"></i> Doação</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price status-text">Para Doação</p>
-                        <h4 class="closet-title">Papete preta</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card status-venda">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/jaqueta.jpg" alt="Jaqueta Ferrari" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price">R$ 280,00</p>
-                        <h4 class="closet-title">Jaqueta Ferrari</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card status-venda">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/bolsa.PNG" alt="Bolsa Branca" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price">R$ 70,00</p>
-                        <h4 class="closet-title">Bolsa Branca</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card status-venda">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/cinto.PNG" alt="Cinto boho" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price">R$ 15,00</p>
-                        <h4 class="closet-title">Cinto boho</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card status-venda">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/colar.jpg" alt="Colar" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price">R$ 20,00</p>
-                        <h4 class="closet-title">Colar</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="closet-card status-venda">
-                    <div class="closet-image-container">
-                        <img src="../../img/meu perfil/salto.jpg" alt="Salto dourado Arezzo" loading="lazy">
-                        <div class="status-badge"><i class="bi bi-tag"></i> Venda</div>
-                    </div>
-                    <div class="closet-details">
-                        <p class="closet-price">R$ 95,00</p>
-                        <h4 class="closet-title">Salto dourado Arezzo</h4>
-                    </div>
-                </a>
-        </div>
-    </div> -->
-
+</body>    
 </html>
