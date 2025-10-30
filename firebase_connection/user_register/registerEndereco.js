@@ -1,33 +1,8 @@
 // REGISTE ENDEREÇO USUÁRIO - FIREBASE CONNECTION
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getDatabase, ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { database } from '../firebaseConfig.js';
+import { ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import { aplicarMascaras, validarCEP, buscarEnderecoPorCEP, preencherCamposEndereco } from './validacoes.js';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDfYcoijl5D_0EJk4pO1SjPFjeOnzzrsTM",
-    authDomain: "reuse-1512f.firebaseapp.com",
-    projectId: "reuse-1512f",
-    storageBucket: "reuse-1512f.firebasestorage.app",
-    messagingSenderId: "296992709188",
-    appId: "1:296992709188:web:d1135e3a8beee9ac1f7a11"
-};
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-function exibirErro(campoId, mensagem) {
-    const campo = document.getElementById(campoId);
-    const feedback = campo.parentElement.querySelector('.invalid-feedback');
-    campo.classList.add('is-invalid');
-    if (feedback) feedback.textContent = mensagem;
-}
-
-function limparErro(campoId) {
-    const campo = document.getElementById(campoId);
-    const feedback = campo.parentElement.querySelector('.invalid-feedback');
-    campo.classList.remove('is-invalid');
-    if (feedback) feedback.textContent = '';
-}
+import { exibirErro, limparErro } from './uiHelpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaras();

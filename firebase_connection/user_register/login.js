@@ -1,22 +1,8 @@
 // LOGIN USER - FIREBASE CONNECTION
 console.log("✅ login.js carregado com sucesso!");
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; 
-
-// Seu web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDfYcoijl5D_0EJk4pO1SjPFjeOnzzrsTM",
-    authDomain: "reuse-1512f.firebaseapp.com",
-    projectId: "reuse-1512f",
-    storageBucket: "reuse-1512f.firebasestorage.app",
-    messagingSenderId: "296992709188",
-    appId: "1:296992709188:web:d1135e3a8beee9ac1f7a11"
-};
-
-// Inicializa Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { auth } from '../firebaseConfig.js';
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; 
 
 // Seleciona o botão de login
 const loginEnviar = document.getElementById('loginEnviar');
