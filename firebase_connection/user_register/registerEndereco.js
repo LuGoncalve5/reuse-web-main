@@ -15,37 +15,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-function exibirErro(campo, mensagem) {
+function exibirErro(campoId, mensagem) {
+    const campo = document.getElementById(campoId);
     const feedback = campo.parentElement.querySelector('.invalid-feedback');
-    if (feedback) {
-        feedback.textContent = mensagem;
-        campo.classList.add('is-invalid');
-    }
+    campo.classList.add('is-invalid');
+    if (feedback) feedback.textContent = mensagem;
 }
 
-function limparErro(campo) {
+function limparErro(campoId) {
+    const campo = document.getElementById(campoId);
     const feedback = campo.parentElement.querySelector('.invalid-feedback');
-    if (feedback) {
-        feedback.textContent = '';
-        campo.classList.remove('is-invalid');
-    }
+    campo.classList.remove('is-invalid');
+    if (feedback) feedback.textContent = '';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaras();
 
+    const form = document.getElementById('formEndereco');
     const cepInput = document.getElementById('cep');
 
     // Busca automática de endereço ao sair do campo CEP
     cepInput.addEventListener('blur', async () => {
         const cep = cepInput.value.trim();
-        limparErro(cepInput);
+        limparErro('cep');
 
         if (!cep) return;
 
         const valido = await validarCEP(cep);
         if (!valido) {
-            exibirErro(cepInput, 'CEP inválido ou inexistente.');
+            exibirErro('cep', 'CEP inválido ou inexistente.');
             return;
         }
 
@@ -53,98 +52,98 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dados) {
             preencherCamposEndereco(dados);
         } else {
-            exibirErro(cepInput, 'CEP não encontrado.');
-        }
-    });
-});
-
-
-const form = document.getElementById('formEndereco');
-
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const uid = localStorage.getItem('currentUserUID');
-    const tipoUsuario = localStorage.getItem('currentUserTipo');
-
-    const cep = document.getElementById('cep').value.trim();
-    const rua = document.getElementById('rua').value.trim();
-    const numero = document.getElementById('numero').value.trim();
-    const bairro = document.getElementById('bairro').value.trim();
-    const cidade = document.getElementById('cidade').value.trim();
-    const estado = document.getElementById('estado').value.trim();
-    const complemento = document.getElementById('complemento').value.trim();
-
-    const campos = [cep, rua, numero, bairro, cidade, estado];
-    let valido = true;
-
-    // Limpar erros antigos
-    campos.forEach(campo => limparErro(campo));
-
-    if (!uid || !tipoUsuario) {
-        exibirErro(cep, 'Erro interno: usuário não encontrado.');
-        return;
-    }
-
-    // Validação obrigatória
-    campos.forEach(campo => {
-        if (!campo.value.trim()) {
-            exibirErro(campo, 'Campo obrigatório.');
-            valido = false;
+            exibirErro('cep', 'CEP não encontrado.');
         }
     });
 
-    // Validação do CEP
-    if (cep.value.trim() && !(await validarCEP(cep.value.trim()))) {
-        exibirErro(cep, 'CEP inválido ou inexistente.');
-        valido = false;
-    }
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    if (!valido) return;
+        const uid = localStorage.getItem('currentUserUID');
+        const tipoUsuario = localStorage.getItem('currentUserTipo');
 
-    try {
-        // Salva endereço no Realtime Database
-        const enderecosRef = ref(database, 'enderecos');
-        const novoEnderecoRef = push(enderecosRef);
-        const enderecoId = novoEnderecoRef.key;
+        const cep = document.getElementById('cep').value.trim();
+        const rua = document.getElementById('rua').value.trim();
+        const numero = document.getElementById('numero').value.trim();
+        const bairro = document.getElementById('bairro').value.trim();
+        const cidade = document.getElementById('cidade').value.trim();
+        const estado = document.getElementById('estado').value.trim();
+        const complemento = document.getElementById('complemento').value.trim();
 
-        await set(novoEnderecoRef, {
-            cep: cep.value.trim(),
-            rua: rua.value.trim(),
-            numero: numero.value.trim(),
-            bairro: bairro.value.trim(),
-            cidade: cidade.value.trim(),
-            estado: estado.value.trim(),
-            complemento: complemento.value.trim()
+        const campos = ['cep', 'rua', 'numero', 'bairro', 'cidade', 'estado'];
+        let valido = true;
+
+        // Limpar erros antigos
+        campos.forEach(campo => limparErro(campo));
+
+        if (!uid || !tipoUsuario) {
+            exibirErro('cep', 'Erro interno: usuário não encontrado.');
+            return;
+        }
+
+        // Validação obrigatória
+        campos.forEach(id => {
+            const input = document.getElementById(id);
+            if (!input.value.trim()) {
+                exibirErro(id, 'Campo obrigatório.');
+                valido = false;
+            }
         });
 
-        // Vincula o endereço ao usuário correto
-        let usuarioRef;
-        switch (tipoUsuario) {
-            case 'pessoaFisica':
-                usuarioRef = ref(database, `usuarios/pessoaFisica/${uid}`);
-                break;
-            case 'instituicao':
-                usuarioRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
-                break;
-            case 'brecho':
-                usuarioRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
-                break;
-            default:
-                exibirErro(cep, 'Tipo de usuário desconhecido.');
-                return;
+
+        // Validação do CEP
+        if (cep && !(await validarCEP(cep))) {
+            exibirErro('cep', 'CEP inválido ou inexistente.');
+            valido = false;
         }
 
-        await update(usuarioRef, { enderecos: { enderecoPrincipal: enderecoId } });
+        if (!valido) return;
 
-        // Finaliza cadastro
-        localStorage.removeItem('currentUserUID');
-        localStorage.removeItem('currentUserTipo');
-        alert('Endereço salvo com sucesso! Você será redirecionado para o closet.');
-        setTimeout(() => window.location.href = '../closet/closet.html', 1500);
+        try {
+            // Salva endereço no Realtime Database
+            const enderecosRef = ref(database, 'enderecos');
+            const novoEnderecoRef = push(enderecosRef);
+            const enderecoId = novoEnderecoRef.key;
 
-    } catch (err) {
-        console.error(err);
-        exibirErro(cep, 'Erro ao salvar endereço. Tente novamente.');
-    }
+            await set(novoEnderecoRef, {
+                cep,
+                rua,
+                numero,
+                bairro,
+                cidade,
+                estado,
+                complemento
+            });
+
+
+            // Vincula o endereço ao usuário correto
+            let usuarioRef;
+            switch (tipoUsuario) {
+                case 'pessoaFisica':
+                    usuarioRef = ref(database, `usuarios/pessoaFisica/${uid}`);
+                    break;
+                case 'instituicao':
+                    usuarioRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
+                    break;
+                case 'brecho':
+                    usuarioRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
+                    break;
+                default:
+                    exibirErro(cep, 'Tipo de usuário desconhecido.');
+                    return;
+            }
+
+            await update(usuarioRef, { enderecos: { enderecoPrincipal: enderecoId } });
+
+            // Finaliza cadastro
+            localStorage.removeItem('currentUserUID');
+            localStorage.removeItem('currentUserTipo');
+            alert('Endereço salvo com sucesso! Você será redirecionado para o closet.');
+            setTimeout(() => window.location.href = '../closet/closet.html', 1500);
+
+        } catch (err) {
+            console.error(err);
+            exibirErro(cep, 'Erro ao salvar endereço. Tente novamente.');
+        }
+    });
 });
