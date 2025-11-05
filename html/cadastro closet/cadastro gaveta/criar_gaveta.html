@@ -1,3 +1,4 @@
+<!-- criar_gaveta.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="c_gaveta.css">
     <link rel="stylesheet" href="../../../css/padrao.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script type="module" src="../../../firebase_connection/gaveta_register/gavetaRegister.js"></script>
 </head>
 <body>
     <!-- ===== SIDEBAR ===== -->
@@ -32,16 +34,16 @@
 
         <!-- ===== SECTION (ESPECÍFICA DE CADA PÁGINA) ===== -->
         <section>
-            <section class="form-section">
+            <section class="form-section" id="formGaveta">
                 <label for="nome-gaveta" class="label">Digite o nome da gaveta:</label>
-                <input type="text" id="nome-gaveta" placeholder="ex: casacos, etc." class="input">
+                <input type="text" id="nomeGaveta" placeholder="Ex: Casacos, Sapatos, etc." class="input">
 
                 <div class="toggle">
                     <button id="btnPrivado" class="btn active">Privado</button>
                     <button id="btnPublico" class="btn">Público</button>
                 </div>
 
-                <button class="btn btn-primary" onclick="event.preventDefault(); window.location.href='../../closet/closet.html';">Criar gaveta</button>
+                <button class="btn btn-primary" id="btnCriarGaveta">Criar gaveta</button>
                 <!-- colocar location para direcionar para o closet já com  -->
             </section>
         </section>

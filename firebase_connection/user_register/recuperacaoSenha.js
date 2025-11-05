@@ -1,5 +1,5 @@
 import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { auth } from '../../firebase_connection/firebaseConfig.js';
+import { auth } from '../firebaseConfig.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("formEmail");
