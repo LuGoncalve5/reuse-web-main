@@ -110,9 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             await update(usuarioRef, { enderecos: { enderecoPrincipal: enderecoId } });
 
-            // Finaliza cadastro
-            localStorage.removeItem('currentUserUID');
-            localStorage.removeItem('currentUserTipo');
+            // Confirmação e reset do formulário
+            form.reset();
             alert('Endereço salvo com sucesso! Você será redirecionado para o closet.');
             setTimeout(() => window.location.href = '../closet/closet.html', 1500);
 

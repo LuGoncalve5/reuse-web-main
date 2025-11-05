@@ -1,8 +1,9 @@
 // LOGIN USER - FIREBASE CONNECTION
 console.log("✅ login.js carregado com sucesso!");
 
-import { auth } from '../firebaseConfig.js';
+import { auth, database } from '../firebaseConfig.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"; 
+import { ref, get, child } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 // Seleciona o botão de login
 const loginEnviar = document.getElementById('loginEnviar');
@@ -20,9 +21,36 @@ loginEnviar.addEventListener('click', function(event) {
 
     // Chama a função de login do Firebase
     signInWithEmailAndPassword(auth, emailLogin, senhaLogin)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
             // O usuário foi autenticado com sucesso
             const user = userCredential.user;
+            const uid = user.uid;
+
+            const dbRef = ref(database);
+            let tipoUsuario = null;
+
+            try {
+                const pessoaFisica = await get(child(dbRef, `usuarios/pessoaFisica/${uid}`));
+                const instituicao = await get(child(dbRef, `usuarios/pessoaJuridica/instituicoes/${uid}`));
+                const brecho = await get(child(dbRef, `usuarios/pessoaJuridica/brechos/${uid}`));
+
+                if (pessoaFisica.exists()) tipoUsuario = 'pessoaFisica';
+                else if (instituicao.exists()) tipoUsuario = 'instituicao';
+                else if (brecho.exists()) tipoUsuario = 'brecho';
+            } catch (err) {
+                console.error('Erro ao buscar tipo de usuário:', err);
+            }
+
+            if (!tipoUsuario) {
+                alert('Erro interno: tipo de usuário não encontrado.');
+                return;
+            }
+
+            // 🔹 Salva os parâmetros no localStorage
+            localStorage.setItem('currentUserUID', uid);
+            localStorage.setItem('currentUserTipo', tipoUsuario);
+
+
             alert('Login realizado com sucesso! Bem-vindo(a) ao ReUse!');
             console.log('Usuário logado:', user.email);
             window.location.href = '../closet/closet.html'; 
