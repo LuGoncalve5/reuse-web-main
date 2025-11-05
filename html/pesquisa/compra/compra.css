@@ -1,0 +1,228 @@
+:root {
+    --verde: #5E7858;
+    --verde-escuro: #134313;
+    --branco: #FAFBF9;
+    --cinza: #ccc;
+    --card-bg: #ffffff;
+    --shadow: 0 3px 10px rgba(0,0,0,0.08);
+    --radius: 12px;
+}
+
+.content {
+    margin-left: 110px;
+    padding: 25px;
+    font-family: 'Lexend', sans-serif;
+    color: #222;
+    background: transparent;
+}
+
+.produto-detalhe {
+    max-width: 920px;
+    margin: auto;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.voltar {
+    color: var(--verde);
+    font-size: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vendedor-info {
+    display: flex;
+    align-items: center;      
+    gap: 6px;                
+    margin: 0;                
+    padding: 8px 0;           
+}
+
+.vendido-por {
+    font-size: 11px;
+    color: var(--verde-escuro);
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+.foto-vendedor {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.nome-vendedor {
+    font-size: 10px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1;
+    color: #1f2937;
+}
+
+/* estrlas de avaliação */
+.rating-stars {
+    display: flex;
+    color: gold;
+    font-size: 10px;
+    margin-top: 0;
+}
+
+.rating-stars i {
+    margin-right: 2px;
+}
+
+.card-produto {
+    background-color: #e8f1e3e8;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    margin-top: 12px;
+}
+
+.details {
+    font-size: 30px;
+    margin: 0 0 12px 0;
+    color: #134313;
+}
+
+.produto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.img-produto {
+    width: 50%;
+    max-width: 420px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    object-fit: cover;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.descricao-produto {
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+}
+
+.titulo {
+    font-size: 22px;
+    margin: 0 0 6px 0;
+    color: #000;
+}
+
+.preco {
+    font-size: 20px;
+    color: var(--verde);
+    font-weight: bold;
+    margin: 0;
+}
+
+.info {
+    font-size: 15px;
+    color: #333;
+    margin: 8px 0 0 0;
+}
+
+.produto-detalhe hr {
+    border: none;
+    height: 1px;
+    background: #5E7858;
+    margin: 16px 0;
+}
+
+.options {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.option {
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+}
+
+.option input[type="radio"] {
+    transform: scale(1.0);
+}
+
+.mais-opcoes {
+    margin-top: 30px;
+    color: #333;
+    font-size: 18px;
+}
+
+.outros-itens {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+
+.mini-item {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    flex: 0 0 auto;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+}
+
+.mini-item:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 920px) {
+    .content { margin-left: 20px; padding: 16px; }
+    .img-produto { width: 100%; max-width: 100%; }
+    .produto { gap: 12px; }
+    .card-produto { padding: 16px; }
+}
+
+@media (max-width: 520px) {
+    :root { --radius: 10px; }
+    .content { margin-left: 12px; padding: 12px; }
+    .produto-detalhe { padding: 14px; border-radius: 10px; }
+    .foto-vendedor { width: 36px; height: 36px; }
+    .details { font-size: 22px; }
+    .titulo { font-size: 18px; }
+    .preco { font-size: 18px; }
+    .outros-itens { gap: 12px; }
+    .mini-item { width: 84px; height: 84px; }
+}
+
+
+.option:focus-within {
+    outline: 3px solid rgba(43,138,239,0.12);
+    outline-offset: 2px;
+}
+
+.vendedor-info, .option { -webkit-tap-highlight-color: transparent; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
