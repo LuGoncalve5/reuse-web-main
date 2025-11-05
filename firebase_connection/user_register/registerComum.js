@@ -1,7 +1,7 @@
 // REGISTE COMUM USER - FIREBASE CONNECTION
 import { auth, database } from '../firebaseConfig.js';
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, set, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import { aplicarMascaras, validarCPF, validarTelefone, validarEmail, validarNomeCompleto, validarSenha, validarData, validarUsuarioUnico, validarNomeUsuario } from './validacoes.js';
 import { exibirErro, limparErro } from './uiHelpers.js';
 
@@ -18,6 +18,31 @@ function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento
         tipoUsuario: 'comum',
         dataCadastro: new Date().toISOString()
     });
+}
+
+// Função adicional: cria as duas gavetas padrão
+function criarGavetasPadrao(uid) {
+    const gavetasRef = ref(database, `usuarios/pessoaFisica/${uid}/gavetas`);
+
+    // cria as gavetas com IDs automáticos (mesmo que o resto do app)
+    const doacaoRef = push(gavetasRef);
+    const vendasRef = push(gavetasRef);
+
+    const dataCriacao = new Date().toISOString();
+
+    // salva ambas paralelamente
+    return Promise.all([
+        set(doacaoRef, {
+            nome: 'Doação',
+            quantidade: 0,
+            dataCriacao: dataCriacao
+        }),
+        set(vendasRef, {
+            nome: 'Vendas',
+            quantidade: 0,
+            dataCriacao: dataCriacao
+        })
+    ]);
 }
 
 // Inicialização (máscaras)
@@ -118,10 +143,12 @@ form.addEventListener('submit', async (e) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
         const user = userCredential.user;
+
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'pessoaFisica');
 
         await writeUserDataComum(user.uid, nome, email, telefone, nomeUsuario, cpf, nascimento);
+        await criarGavetasPadrao(user.uid);
 
         alert('Usuário criado com sucesso! Você será redirecionado para a próxima etapa do cadastro.');
         

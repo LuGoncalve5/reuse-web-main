@@ -1,0 +1,73 @@
+.section-title {
+    color: var(--verde-escuro);
+    font-weight: 600;
+    margin: 10px 0 25px 10px;
+}
+
+.instituicoes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 95%;
+}
+
+.inst-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--branco);
+    border-radius: 20px;
+    padding: 10px 20px;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inst-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.inst-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.inst-logo {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    border: 1px solid #e8e8e8;
+}
+
+.inst-info h3 {
+    font-size: 17px;
+    margin: 0;
+    color: var(--verde-escuro);
+}
+
+.inst-info p {
+    font-size: 14px;
+    color: #666;
+    margin: 3px 0 0;
+}
+
+.inst-btn {
+    background-color: var(--verde-transp);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 6px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.inst-btn:hover {
+    background-color: var(--branco);
+    color: var(--verde);
+    border: 1px solid var(--verde);
+}
