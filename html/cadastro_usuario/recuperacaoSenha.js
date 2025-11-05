@@ -1,72 +1,27 @@
-// recuperacaoSenha.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-    import { getAuth, fetchSignInMethodsForEmail, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { auth } from '../../firebase_connection/firebaseConfig.js';
 
-    // 🔹 Config Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyDfYcoijl5D_0EJk4pO1SjPFjeOnzzrsTM",
-        authDomain: "reuse-1512f.firebaseapp.com",
-        projectId: "reuse-1512f",
-        storageBucket: "reuse-1512f.firebasestorage.app",
-        messagingSenderId: "296992709188",
-        appId: "1:296992709188:web:d1135e3a8beee9ac1f7a11"
-    };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
+document.addEventListener("DOMContentLoaded", () => {
+	const form = document.getElementById("formEmail");
 
-    // 🔹 Helpers
-    function exibirErro(campoId, mensagem) {
-        const campo = document.getElementById(campoId);
-        const feedback = campo.parentElement.querySelector('.invalid-feedback');
-        campo.classList.add('is-invalid');
-        if (feedback) feedback.textContent = mensagem;
-    }
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault();
 
-    function limparErro(campoId) {
-        const campo = document.getElementById(campoId);
-        const feedback = campo.parentElement.querySelector('.invalid-feedback');
-        campo.classList.remove('is-invalid');
-        if (feedback) feedback.textContent = '';
-    }
+		const email = document.getElementById("email").value.trim();
+		console.log("Tentando enviar redefinição para:", email);
 
-    function exibirMensagem(msg, sucesso = true) {
-        const div = document.getElementById('mensagem');
-        div.textContent = msg;
-        div.style.color = sucesso ? 'green' : 'red';
-    }
+		if (!email) {
+			alert("Por favor, preencha o campo de e-mail!");
+			return;
+		}
 
-    
-fetchSignInMethodsForEmail(auth, "email@teste.com")
-    .then(console.log)
-    .catch(console.error);
-
-    // 🔹 Evento do formulário
-    const form = document.getElementById('formEmail');
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const email = document.getElementById('email').value.trim();
-        limparErro('email');
-        exibirMensagem('');
-
-        if (!email) {
-            exibirErro('email', 'Digite um e-mail.');
-            return;
-        }
-
-        try {
-            // 🔹 Verifica se o e-mail existe
-            const metodos = await fetchSignInMethodsForEmail(auth, email);
-            if (metodos.length === 0) {
-                exibirErro('email', 'E-mail não cadastrado.');
-                return;
-            }
-
-            // 🔹 Envia link de redefinição de senha
-            await sendPasswordResetEmail(auth, email);
-            exibirMensagem('✅ Link de redefinição enviado para seu e-mail!');
-        } catch (error) {
-            console.error(error);
-            exibirMensagem('⚠️ Erro ao enviar link de redefinição.', false);
-        }
-    });
+		try {
+			await sendPasswordResetEmail(auth, email);
+			alert("Link de redefinição enviado (se o e-mail estiver cadastrado). Verifique sua caixa de entrada ou spam!");
+			form.reset();
+		} catch (error) {
+			console.error("Erro ao enviar redefinição:", error.code, error.message);
+			alert("Erro ao enviar o e-mail de redefinição de senha. Verifique o e-mail e tente novamente.");
+		}
+	});
+});
