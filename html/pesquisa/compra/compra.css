@@ -35,10 +35,11 @@
     gap: 8px;
 }
 
-.vendedor-info {
+.top {
     display: flex;
-    align-items: center;      
-    gap: 6px;                
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;                
     margin: 0;                
     padding: 8px 0;           
 }
@@ -50,7 +51,7 @@
     white-space: nowrap;
 }
 
-.foto-vendedor {
+/*.foto-vendedor {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -67,7 +68,7 @@
     color: #1f2937;
 }
 
-/* estrlas de avaliação */
+}*/
 .rating-stars {
     display: flex;
     color: gold;
@@ -135,7 +136,7 @@
 .info {
     font-size: 15px;
     color: #333;
-    margin: 8px 0 0 0;
+    margin: 0;
 }
 
 .produto-detalhe hr {
@@ -172,13 +173,13 @@
 
 .mais-opcoes {
     margin-top: 30px;
-    color: #333;
+    color: #134313;
     font-size: 18px;
 }
 
 .outros-itens {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     margin-top: 10px;
     overflow-x: auto;
     padding-bottom: 6px;
@@ -186,10 +187,10 @@
 
 
 .mini-item {
-    width: 100px;
+    width: 160px;
     height: 100px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: transform 0.2s ease;
     flex: 0 0 auto;
