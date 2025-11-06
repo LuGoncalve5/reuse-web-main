@@ -2,60 +2,34 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Nome da gaveta</title> <!-- lembrar de atualizar isso daqui com o banco de dados -->
+    <title>Minha Gaveta</title>
     <link rel="stylesheet" href="gaveta.css">
     <link rel="stylesheet" href="../../../css/padrao.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script type="module" src="gaveta.js"></script>
 </head>
 <body>
-    
-    <!-- ===== SIDEBAR ===== 
-    <div class="sidebar">
-        <img class="logo" src="../../img/logoreuse.png">
-        <a href="../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
-        <a href="../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
-        <a href="../cadastro closet/cadastro roupa/cr_cpf.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
-        <a href="../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
-        <a href="../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
-    </div> -->
-
     <!-- ===== CONTEÚDO PRINCIPAL ===== -->
     <div class="content">
         <div class="topbar-container">
-            <div><h1>Nome da gaveta</h1></div>
+            <h1>Carregando gaveta...</h1>
         </div>
     </div>
-    
+
     <hr>
 
     <section>
-        <a onclick="history.back()" class="voltar"><i class="bi bi-arrow-left"></i></a>
-        <div class="card">
-            <div class="roupa" onclick="window.location.href='roupas/roupa.html'"> <!-- adicionar o location para o a página individual da roupa-->
-                <img src="../../../img/botarosa.webp" alt="bota rosa"/>
-            </div>
+        <a href="../../closet/closet.html" class="voltar"><i class="bi bi-arrow-left"></i></a>
 
-            <div class="roupa">
-                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
-            </div>
-
-            <div class="roupa">
-                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
-            </div>
-
-            <div class="roupa">
-                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
-            </div>
-
-            <div class="roupa">
-                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
-            </div>
-
-            <div class="roupa">
-                <img src="../../../img/imgtoproxo.jpg" alt="top roxo"/>
-            </div>
+        <!-- Container onde as peças serão carregadas dinamicamente -->
+        <div class="card" id="pecas-container">
+            <!-- Peças aparecerão aqui -->
         </div>
+
+        <!-- Botão de adicionar nova peça -->
+        <button id="btn-nova-peca" class="btn-add">
+            <i class="bi bi-plus-lg"></i> Nova Peça
+        </button>
     </section>
-</body>    
+</body>
 </html>

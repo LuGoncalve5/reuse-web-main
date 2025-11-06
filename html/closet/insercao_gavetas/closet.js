@@ -1,5 +1,5 @@
 // === closet.js ===
-import { database } from '../../firebase_connection/firebaseConfig.js';
+import { database } from '../../../firebase_connection/firebaseConfig.js';
 import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import { criarCardGaveta } from './cardGaveta.js';
 
