@@ -1,7 +1,6 @@
 // REGISTE GAVETA USUÁRIO - FIREBASE CONNECTION
 import { database } from '../../firebase_connection/firebaseConfig.js';
-import { ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { ref, push, set, update, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('formGaveta');
@@ -54,37 +53,45 @@ document.addEventListener('DOMContentLoaded', () => {
             await set(novaGavetaRef, {
                 nomeGaveta: nomeGaveta,
                 privado: isPrivado,
-                dataCriacao: new Date().toISOString()
+                dataCriacao: new Date().toISOString(),
+                donoUID: uid,
+                tipoUsuario: tipoUsuario
             });
 
             // Vincula gaveta ao usuário correto
-            let usuarioRef;
+            let usuarioPath = '';
             switch (tipoUsuario) {
                 case 'pessoaFisica':
-                    usuarioRef = ref(database, `usuarios/pessoaFisica/${uid}`);
+                    usuarioPath = `usuarios/pessoaFisica/${uid}`;
                     break;
                 case 'instituicao':
-                    usuarioRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
+                    usuarioPath = `usuarios/pessoaJuridica/instituicoes/${uid}`;
                     break;
                 case 'brecho':
-                    usuarioRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
+                    usuarioPath = `usuarios/pessoaJuridica/brechos/${uid}`;
                     break;
                 default:
                     alert('Tipo de usuário desconhecido.');
                     return;
             }
 
-            // Adiciona referência da gaveta ao usuário
-            await update(usuarioRef, { 
-                gavetas: { gavetaPrincipal: gavetaId }
-            });
+            const usuarioRef = ref(database, usuarioPath);
+            const snapshotUsuario = await get(usuarioRef);
+            const dadosUsuario = snapshotUsuario.exists() ? snapshotUsuario.val() : {};
 
+            // Atualiza apenas o campo de gavetas, sem apagar as antigas
+            const novasGavetas = dadosUsuario.gavetas || {};
+            novasGavetas[gavetaId] = true;
+
+            // Adiciona referência da gaveta ao usuário
+            await update(usuarioRef, { gavetas: novasGavetas });
             
             alert('Gaveta criada com sucesso!');
-            form.reset();
 
             // Redireciona, se desejar
-            setTimeout(() => window.location.href = '../../html/closet/closet', 1500);
+            setTimeout(() => {
+                window.location.href = `../../closet/gavetas/gaveta.html?id=${gavetaId}`;
+            }, 1000);
 
         } catch (err) {
             console.error('Erro ao criar gaveta:', err);
