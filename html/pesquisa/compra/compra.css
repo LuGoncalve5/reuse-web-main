@@ -8,6 +8,17 @@
   --radius: 12px;
 }
 
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh; /* ocupa toda a altura da tela */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
 .int-produto {
     background-color: #93a98e56;
     padding: 20px;
@@ -117,24 +128,23 @@
     box-shadow: 0 6px 12px rgba(0,0,0,0.03);
 }
 
-/*.outros-itens {
-    gap: 12px;
+.confirm {
+    display: block;
+    margin: 20px auto;
+    min-width: 240px;
+    width: 50%;
+    max-width: 320px;
+    padding: 10px 16px;
+    align-items: center;
+    border: none;
+    background-color: #5e785845;
+    border-radius: 25px;
+    font-weight: bold;
+    font-family: "Lexend", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
-
-.outros-itens .mini-item {
-    max-width: 200px;
-    height: 120px;
-    padding: 8px;
-    box-sizing: border-box;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,248,248,0.9));
-    border-radius: 8px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    font-size: 14px;
-    color: #111;
-}*/
 
 .outros-itens { 
     display: flex; 
@@ -182,10 +192,36 @@
     object-fit: cover;
 }
 
+.mo-container {
+    background-color: #f9faf9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    max-width: 1000px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mo-container h3.mais-opcoes {
+    color: var(--verde-escuro);
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.mo-conteiner hr {
+    border: none;
+    border-top: 1px solid rgba(19, 67, 19, 0.1);
+    margin: 16px 0;
+}
+
 @media (max-width: 920px) {
     .produto { gap: 10px; }
     .img-produto { width: 100%; max-width: 100%; }
     .outros-itens .mini-item, .outros-itens img.mini-item { min-width: 160px; height: 100px; }
+    .mo-container{ padding: 16px; max-width: 90%;}
+    .mo-container h3.mais-opcoes { font-size: 16px; }
 }
 
 @media (max-width: 520px) {
@@ -193,4 +229,6 @@
     .foto-vendedor { width: 36px; height: 36px; }
     .detalhes-produto { font-size: 14px; }
     .outros-itens .mini-item, .outros-itens img.mini-item { min-width: 120px; height: 84px; }
+    .mais-opcoes-container { padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 95%; }
+    .mais-opcoes-container h3.mais-opcoes { font-size: 15px; text-align: center; }
 }
