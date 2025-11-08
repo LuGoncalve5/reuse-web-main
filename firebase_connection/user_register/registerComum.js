@@ -1,7 +1,7 @@
 // REGISTE COMUM USER - FIREBASE CONNECTION
 import { auth, database } from '../firebaseConfig.js';
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { ref, set, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, set, push, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import { aplicarMascaras, validarCPF, validarTelefone, validarEmail, validarNomeCompleto, validarSenha, validarData, validarUsuarioUnico, validarNomeUsuario } from './validacoes.js';
 import { exibirErro, limparErro } from './uiHelpers.js';
 
@@ -21,30 +21,43 @@ function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento
 }
 
 // Função adicional: cria as duas gavetas padrão
-function criarGavetasPadrao(uid) {
-    const gavetasRef = ref(database, `usuarios/pessoaFisica/${uid}/gavetas`);
+async function criarGavetasPadrao(uid) {
+    const gavetasRef = ref(database, 'gavetas');
+    const dataCriacao = new Date().toISOString();
 
-    // cria as gavetas com IDs automáticos (mesmo que o resto do app)
+    // cria duas gavetas globais
     const doacaoRef = push(gavetasRef);
     const vendasRef = push(gavetasRef);
 
-    const dataCriacao = new Date().toISOString();
+    const doacaoId = doacaoRef.key;
+    const vendasId = vendasRef.key;
 
-    // salva ambas paralelamente
-    return Promise.all([
+    // salva as gavetas na tabela "gavetas"
+    await Promise.all([
         set(doacaoRef, {
             nome: 'Doação',
-            quantidade: 0,
-            dataCriacao: dataCriacao
+            privado: false,
+            dataCriacao,
+            dono: uid
         }),
         set(vendasRef, {
             nome: 'Vendas',
-            quantidade: 0,
-            dataCriacao: dataCriacao
+            privado: false,
+            dataCriacao,
+            dono: uid
         })
     ]);
-}
 
+    // referencia essas gavetas no perfil do usuário
+    const userGavetasRef = ref(database, `usuarios/pessoaFisica/${uid}/gavetas`);
+    await update(userGavetasRef, {
+        [doacaoId]: doacaoId,
+        [vendasId]: vendasId
+    });
+
+    console.log("✅ Gavetas padrão criadas e vinculadas ao usuário!");
+}
+    
 // Inicialização (máscaras)
 document.addEventListener('DOMContentLoaded', () => {
     aplicarMascaras();

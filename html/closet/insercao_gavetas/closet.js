@@ -52,31 +52,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        // Busca todas as gavetas do banco principal e filtra só as do usuário
-        const gavetasRef = ref(database, 'gavetas');
-        const snapshotGavetas = await get(gavetasRef);
+        // Busca apenas as gavetas listadas no nó do usuário
+        for (const gavetaId in gavetasUsuario) {
+            const gavetaRef = ref(database, `gavetas/${gavetaId}`);
+            const snapshotGaveta = await get(gavetaRef);
 
-        if (!snapshotGavetas.exists()) {
-            console.log("Nenhuma gaveta encontrada no banco de dados.");
-            if (spinner) spinner.remove();
-            return;
-        }
+            if (snapshotGaveta.exists()) {
+                const gaveta = snapshotGaveta.val();
+                const qtdPecas = gaveta.pecas ? Object.keys(gaveta.pecas).length : 0;
 
-        const todasGavetas = snapshotGavetas.val();
-
-        // Para cada gaveta do usuário, cria um card e insere no DOM
-        Object.entries(todasGavetas).forEach(([gavetaId, gaveta]) => {
-            if (gaveta.donoUID === uid) {
                 const card = criarCardGaveta(
-                    gavetaId, // agora passamos a key real da gaveta
+                    gavetaId,
                     gaveta.nomeGaveta,
-                    0,
-                    '../../img/banco de fotos/body.jpg'
+                    qtdPecas,
+                    '../../img/banco de fotos/body.jpg',
+                    uid,
+                    tipoUsuario
                 );
+
                 section.appendChild(card);
             }
-        });
-
+        }
 
     } catch (err) {
         console.error('❌ Erro ao carregar gavetas do closet:', err);
