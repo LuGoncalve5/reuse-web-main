@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const gavetaId = novaGavetaRef.key;
 
             await set(novaGavetaRef, {
-                nomeGaveta: nomeGaveta,
+                nome: nomeGaveta,
                 privado: isPrivado,
                 dataCriacao: new Date().toISOString(),
                 donoUID: uid,
-                tipoUsuario: tipoUsuario
+                pecas: {}
             });
 
             // Vincula gaveta ao usuário correto
