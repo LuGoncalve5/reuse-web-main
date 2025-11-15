@@ -1,0 +1,147 @@
+.section {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+    max-width: 850px;
+}
+
+/*.section h1 {
+    text-align: center;
+    color: #134313;
+    margin-bottom: 20px;
+}*/
+
+.profile-header-social {
+    display: flex;
+    align-items: flex-start; 
+    gap: 80px;
+    padding: 20px 0;
+    max-width: 800px; 
+    margin: 0 auto 10px; 
+    padding-left: 50px; 
+}
+
+.profile-info-column {
+    flex-grow: 1;
+    padding-top: 0px; /* Manter este aqui */
+}
+
+/* modificar estilo do nome de perfil e avaliação pra que fique mais discreto*/
+.username-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.username-social {
+    font-size: 17px;
+    color: #666;
+    margin: 8px 0;
+    /* Faz com que o nome de usuário e as estrelas fiquem na mesma linha */
+    display: flex; 
+    align-items: center;
+    gap: 15px; /* Espaço entre o nome e as estrelas */
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    font-size: 16px; /* Tamanho das estrelas */
+    color: gold; /* Cor amarela/dourada para as estrelas preenchidas */
+    margin-top: 0; 
+}
+
+.rating-stars i {
+    margin-right: 2px;
+}
+
+.full-name {
+    font-size: 26px;
+    color: #000;
+    font-weight: 400;
+    margin: 0;
+    
+}
+
+.location-section {
+    display: flex;
+    align-items: center;
+    margin: 5px 0 0 0; /* Espaço acima e abaixo da localização */
+    font-size: 16px;
+    color: #333;
+    justify-content: space-between;
+}
+
+.location-section i {
+    color: #5E7858;
+    margin-right: 5px;
+}
+
+.search-profile-btn {
+    /* Define a posição absoluta dentro da seção pai para flutuar o botão */
+    position: absolute;
+    top: 15px; /* Ajuste a distância do topo conforme necessário */
+    right: 30px; /* Distância da lateral */
+    z-index: 10;
+}
+
+/*botão de pesquisar*/
+.search-items-section {
+    /* Alinha com a largura máxima das abas para manter a centralização */
+    max-width: 300px; 
+    margin: 0 auto 30px; /* Centraliza e adiciona margem inferior */
+    padding: 0 10px; /* Evita que o input cole na lateral da tela */
+}
+
+.search-input-profile {
+    width: 100%;
+    /* Adiciona padding esquerdo para dar espaço ao ícone de lupa */
+    padding: 10px 15px 10px 40px; 
+    /* Adota o estilo de borda do campo de pesquisa padrão */
+    border: 1px solid #5e785e; 
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    background-color: transparent;
+    
+    /* Ícone de lupa injetado via CSS (SVG codificado) */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 16px;
+}
+
+.search-input-profile:focus {
+    border-color: #134313;
+    box-shadow: 0 0 5px rgba(94, 120, 88, 0.5);
+}
+
+.img-header{
+    width: 100%;
+    height: 250px;
+}
+
+.mais-info {
+    max-width: 850px;
+    margin-left: 100px;
+    padding: 20px;
+}
+
+.confirm {
+    display: block;
+    margin: 20px auto;
+    min-width: 240px;
+    width: 50%;
+    max-width: 320px;
+    padding: 10px 16px;
+    align-items: center;
+    border: none;
+    background-color: #5e785845;
+    border-radius: 25px;
+    font-weight: bold;
+    font-family: "Lexend", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
