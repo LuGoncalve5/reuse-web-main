@@ -37,7 +37,7 @@
     justify-content: space-between;
     background: var(--branco);
     border-radius: 20px;
-    padding: 10px 20px;
+    padding: 10px 30px;
     box-shadow: var(--shadow-md);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -74,12 +74,13 @@
     margin: 3px 0 0;
 }
 
+/* alterei o tamanho dos botões**/
 .inst-btn {
     background-color: var(--verde-transp);
     color: #fff;
     border: none;
     border-radius: var(--radius-full);
-    padding: 6px 15px;
+    padding: 6px 30px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;

@@ -12,7 +12,6 @@
 }*/
 
 .profile-header-social {
-    display: flex;
     align-items: flex-start; 
     gap: 80px;
     padding: 20px 0;
@@ -59,8 +58,7 @@
     font-size: 26px;
     color: #000;
     font-weight: 400;
-    margin: 0;
-    
+    margin: 0; 
 }
 
 .location-section {
@@ -118,14 +116,17 @@
 }
 
 .img-header{
-    width: 100%;
-    height: 250px;
+    width: 800px;
+    margin: 0 auto 20px;
+    padding-left: 40px;
 }
 
 .mais-info {
-    max-width: 850px;
-    margin-left: 100px;
-    padding: 20px;
+    align-items: flex-start;
+    margin: 0 auto 10px;
+    max-width: 800px;
+    padding: 20px 0;
+    padding-left: 50px;
 }
 
 .confirm {

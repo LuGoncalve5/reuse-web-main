@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer Doações</title>
+    <link rel="stylesheet" href="../../../css/padrao.css">
+    <link rel="stylesheet" href="c-doacao.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <!-- apenas para agrupar e organizar tudo dentro da página -->
+    <div class="content">
+        
+        <!-- div contendo a imagem e informações principais da instituição -->
+        <!-- estilizar direito esta porra -->
+        <div class="top">
+            <div class="names">
+                <h2>Projeto Em Nome Do Bem</h2>
+                <p>p.em.nome.do.bem</p>
+            </div>
+            <div class="informations" style="max-width: 900px;">
+                <img src="../../img/instituicoes/1.png" class="profile-photo">
+                <div style="display: flex; justify-content: space-between;">
+                    <p>cep</p>
+                    <p>cnpj</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="select-peças">
+            <a onclick="history.back()" class="voltar">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+
+            <!-- adicionar um onclick para a seleção deles por id para a próxima página
+            mudar estilização tambem para que fiquem com bordas de cores diferentes e um íconezito-->
+            <div class="product-grid">
+                <a href="#" class="product-card">
+                    <div class="product-image-container">
+                        <img src="../../img/roupas brecho/vestido2.jpg" loading="lazy">
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-container">
+                        <img src="../../img/roupas brecho/bolsa1.jpg" loading="lazy">
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-container">
+                        <img src="../../img/roupas brecho/vestido3.webp" loading="lazy">
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-container">
+                        <img src="../../img/roupas brecho/salto1.jpeg" loading="lazy">
+                    </div>
+                </a>
+
+                <a href="#" class="product-card">
+                    <div class="product-image-container">
+                        <img src="../../img/roupas brecho/saia1.jpg" loading="lazy">
+                    </div>
+                </a>
+            </div>
+
+            <hr>
+
+            <h2>Envio da doação</h2>
+            <div class="options" id="envOptions">
+                <label class="option"><input type="radio" name="env" value="apps"> Apps locais para envio</label>
+                <label class="option"><input type="radio" name="env" value="correios"> Correios</label>
+                <label class="option"><input type="radio" name="env" value="acom"> A combinar</label>
+            </div>
+
+            <hr>
+
+            <button class="confirm" onclick="window.location.href='c-doacao.html'">Continuar</button>
+        </section>
+    </div>
+</body>
