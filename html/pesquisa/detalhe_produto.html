@@ -80,10 +80,11 @@
         const iconeFavoritar = botaoFavoritar.querySelector('i');
 
          botaoFavoritar.addEventListener('click', () => {
-             // 1. Troca o estado do botão
+            
+            // Troca o estado do botão
              botaoFavoritar.classList.toggle('favoritado');
 
-             // 2. Troca o ícone de coração (vazio/cheio)
+             // Troca o ícone de coração (vazio/cheio)
             if (botaoFavoritar.classList.contains('favoritado')) {
                 iconeFavoritar.classList.remove('bi-heart');
                 iconeFavoritar.classList.add('bi-heart-fill');

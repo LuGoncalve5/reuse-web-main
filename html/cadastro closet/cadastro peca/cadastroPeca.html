@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="cadastroPeca.css">
 </head>
 <body>
+
+    <!-- SIDEBAR - ESTILO PADRÃO -->
     <div class="sidebar">
         <img class="logo" src="../../../img/logoreuse.png">
         <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
@@ -21,24 +23,32 @@
 
     <div class="content" id="form-container">
         <h1 class="page-title">Cadastrar peça</h1>
+
         <hr>
+
+        <a id="voltar" class="voltar">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+        <!-- PARTE QUE RECOLHE INFORMAÇÕES -->
         <section>
-            <a id="voltar" class="voltar"><i class="bi bi-arrow-left"></i></a>
-            
             <div class="form-container">
+                <label class="titulo">Imagem de capa</label>
                 <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                     <input type="file" id="fileInput" hidden>
                     <i class="bi bi-cloud-arrow-up"></i>
                     <p>Escolha um arquivo ou arraste e solte-o aqui</p>
                 </div>
 
+                <!-- FORMULÁRIO PROPRIAMENTE DITO  -->
                 <form id="formPeca" class="form">
-                    <label class="titulo">Título</label>
-                    <input type="text" id="titulo" placeholder="Adicione um título">
+                    <label class="titulo">Nome</label>
+                    <input type="text" id="titulo" placeholder="Adicione um nome para sua gaveta">
 
                     <label class="titulo">Descrição</label>
                     <textarea id="descricao" placeholder="Adicione uma descrição detalhada"></textarea>
 
+                    <!-- precisa de uma estilização e mudança no onclick -->
                     <label class="titulo">Categoria</label>
                     <div class="options categoria">
                         <button type="button" class="option selected">Blusa</button>
@@ -89,6 +99,7 @@
         </section>
     </div>
 
+    <!-- DIRECIONAMENTO PARAA IMPLEMENTAÇÃO COM BANCO DE DADOS -->
     <script type="module" src="cadastroPeca.js"></script>
 </body>
 </html>

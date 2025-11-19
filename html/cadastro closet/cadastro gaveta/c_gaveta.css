@@ -51,7 +51,6 @@ section {
     color: #5E7858;
     font-size: 16px;
     transition: background 0.3s;
-
 }
 
 .btn:hover{
@@ -64,7 +63,6 @@ section {
     background-color: #5E785889;
     color: #FAFBF9;
 }
-
 
 .btn-primary {
     display: block;

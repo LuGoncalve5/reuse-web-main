@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../../css/padrao.css">
 </head>
 <body>
+
+    <!-- SIDEBAR -->
     <div class="sidebar">
         <img class="logo" src="../../img/logoreuse.png" alt="Logotipo">
         <a href="../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
@@ -19,46 +21,47 @@
     </div>
 
     <div class="content">
-    <h1 class="page-title">Meu perfil</h1> <hr>
+        <h1 class="page-title">Meu perfil</h1> <hr>
 
-    <section>
-        <div class="profile-header-social">
-            <div class="profile-photo-column">
-                <div class="profile-circle large-circle profile-picture" id="profile-circle">
-                    <img id="profile-image" src="../../img/perfil_usuario.PNG" alt="Foto de perfil">
+        <section>
+            <!-- INFORMAÇÕES SOBRE O USUÁRIO -->
+            <div class="profile-header-social">
+                <div class="profile-photo-column">
+                    <div class="profile-circle large-circle profile-picture" id="profile-circle">
+                        <img id="profile-image" src="../../img/perfil_usuario.PNG" alt="Foto de perfil">
+                    </div>
+                    <button class="edit-profile-btn" onclick="window.location.href='../informacoes pessoais/cpf_perfil.html'">
+                        <i class="bi bi-pencil"></i>
+                        Editar informações
+                    </button>
                 </div>
-                <button class="edit-profile-btn" onclick="window.location.href='../informacoes pessoais/cpf_perfil.html'">
-                    <i class="bi bi-pencil"></i>
-                    Editar informações
-                </button>
-            </div>
 
-            <div class="profile-info-column">
-                <div class="username-section">
-                    <h2 class="username-social">
-                        luciana.d.g 
-                        <span class="rating-stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </span>
-                    </h2>
-                </div>
-                <p class="full-name">Luciana</p>
+                <div class="profile-info-column">
+                    <div class="username-section">
+                        <h2 class="username-social">
+                            luciana.d.g 
+                            <span class="rating-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+                        </h2>
+                    </div>
+                    <p class="full-name">Luciana</p>
 
-                <div class="stats-section">
-                    <div class="stat-item">
-                        <span class="stat-number">14</span>
-                        <span class="stat-label">peças</span>
+                    <div class="stats-section">
+                        <div class="stat-item">
+                            <span class="stat-number">14</span>
+                            <span class="stat-label">peças</span>
+                        </div>
+                    </div>
+                    <div class="location-section">
+                        <p><i class="bi bi-pin-map"></i> Vitória - ES</p>
                     </div>
                 </div>
-                <div class="location-section">
-                    <p><i class="bi bi-pin-map"></i> Vitória - ES</p>
-                </div>
             </div>
-        </div>
             <nav class="tabs">
                 <button onclick="window.location.href='mp_cpf_venda.html'">À venda</button>
                 <button onclick="window.location.href='mp_cpf_closet.html'">Closet</button>
