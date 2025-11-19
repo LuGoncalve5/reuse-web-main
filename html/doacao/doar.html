@@ -10,64 +10,58 @@
 </head>
 <body>
 
-    <!-- apenas para agrupar e organizar tudo dentro da página -->
-    <div class="content">
-        
-        <!-- div contendo a imagem e informações principais da instituição -->
-        <!-- estilizar direito esta porra -->
-        <div class="top">
+    <!-- div contendo a imagem e informações principais da instituição -->
+    <!-- a estilização disso PRECISA melhorar em nome de Jesus Cristo-->
+    <div class="top" >
+        <div class="header">
+            <img src="../../img/instituicoes/1.png" class="profile-photo"> <!-- preciso ajustar isso o mais rápido possível -->
             <div class="names">
                 <h2>Projeto Em Nome Do Bem</h2>
                 <p>p.em.nome.do.bem</p>
             </div>
-            <div class="informations" style="max-width: 900px;">
-                <img src="../../img/instituicoes/1.png" class="profile-photo">
-                <div style="display: flex; justify-content: space-between;">
-                    <p>cep</p>
-                    <p>cnpj</p>
-                </div>
-            </div>
         </div>
+        <div class="informations">
+            <p>cep</p>
+            <p>cnpj</p>
+        </div>
+    </div>
 
-        <section class="select-peças">
+    <div class="content">
+        <section class="select-pecas">
             <a onclick="history.back()" class="voltar">
                 <i class="bi bi-arrow-left"></i>
             </a>
 
-            <!-- adicionar um onclick para a seleção deles por id para a próxima página
+            <!-- adicionar um onclick para a seleção deles por id para a próxima página -> cada peça 
             mudar estilização tambem para que fiquem com bordas de cores diferentes e um íconezito-->
-            <div class="product-grid">
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/vestido2.jpg" loading="lazy">
-                    </div>
-                </a>
+                
+            <div class="product-grid"> <!-- estilizar o background-->
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/vestido2.jpg" loading="lazy">
+                </div>
 
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/bolsa1.jpg" loading="lazy">
-                    </div>
-                </a>
 
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/vestido3.webp" loading="lazy">
-                    </div>
-                </a>
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/bolsa1.jpg" loading="lazy">
+                </div>
 
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/salto1.jpeg" loading="lazy">
-                    </div>
-                </a>
 
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/saia1.jpg" loading="lazy">
-                    </div>
-                </a>
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/vestido3.webp" loading="lazy">
+                </div>
+
+
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/salto1.jpeg" loading="lazy">
+                </div>
+
+
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/saia1.jpg" loading="lazy">
+                </div>  
             </div>
 
+            <!-- adicionar descrição breve de cada opção-->
             <hr>
 
             <h2>Envio da doação</h2>
@@ -79,7 +73,8 @@
 
             <hr>
 
+            <!-- no c-doação, incluir a e modal -->
             <button class="confirm" onclick="window.location.href='c-doacao.html'">Continuar</button>
         </section>
-    </div>
+    </div>  
 </body>

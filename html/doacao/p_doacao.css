@@ -5,12 +5,6 @@
     max-width: 850px;
 }
 
-/*.section h1 {
-    text-align: center;
-    color: #134313;
-    margin-bottom: 20px;
-}*/
-
 .profile-header-social {
     align-items: flex-start; 
     gap: 80px;
