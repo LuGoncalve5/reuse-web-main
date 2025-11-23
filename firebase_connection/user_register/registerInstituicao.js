@@ -5,13 +5,12 @@ import { ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-dat
 import { aplicarMascaras, validarCNPJ, validarTelefone, validarEmail, validarNomeCompleto, validarSenha, validarUsuarioUnico, validarNomeUsuario } from './validacoes.js';
 import { exibirErro, limparErro } from './uiHelpers.js';
 
-function writeUserDataInstituicao(uid, nome, email, telefone, senha, usuario, cnpj) {
+function writeUserDataInstituicao(uid, nome, email, telefone, usuario, cnpj) {
     const userRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
     return set(userRef, {
         nomeFantasia: nome,
         email,
         telefone,
-        senha,
         nomeDeUsuario: usuario,
         cnpj,
         tipoPessoa: 'pessoaJuridica',

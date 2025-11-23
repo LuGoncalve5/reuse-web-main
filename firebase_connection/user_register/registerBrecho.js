@@ -6,13 +6,12 @@ import { aplicarMascaras, validarCNPJ, validarTelefone, validarEmail, validarNom
 import { exibirErro, limparErro } from './uiHelpers.js';
 
 
-function writeUserDataBrecho(uid, nome, email, telefone, senha, usuario, cnpj) {
+function writeUserDataBrecho(uid, nome, email, telefone, usuario, cnpj) {
     const userRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
     return set(userRef, {
         nomeFantasia: nome,
         email,
         telefone,
-        senha,
         nomeDeUsuario: usuario,
         cnpj,
         tipoPessoa: 'pessoaJuridica',
