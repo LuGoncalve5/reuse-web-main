@@ -61,13 +61,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const gaveta = snapshotGaveta.val();
                 const qtdPecas = gaveta.pecas ? Object.keys(gaveta.pecas).length : 0;
 
+                // Escolhe imagem com base no nome
+                let imagemPadrao = '../../img/banco de fotos/body.jpg';
+                let imagemGaveta = imagemPadrao;
+
+                if (gaveta.nome.toLowerCase() === 'doação' || gaveta.nome.toLowerCase() === 'doacao') {
+                    imagemGaveta = '../../img/doacaomao.png';
+                } 
+                else if (gaveta.nome.toLowerCase() === 'vendas') {
+                    imagemGaveta = '../../img/dinheiro.png';
+                }
+
                 const card = criarCardGaveta(
                     gavetaId,
-                    gaveta.nomeGaveta,
+                    gaveta.nome,
                     qtdPecas,
-                    '../../img/banco de fotos/body.jpg',
-                    uid,
-                    tipoUsuario
+                    imagemGaveta
                 );
 
                 section.appendChild(card);

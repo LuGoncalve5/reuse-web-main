@@ -92,12 +92,6 @@ form.addEventListener('submit', async (e) => {
     if (!cnpj) {exibirErro('cnpj', 'Informe o CNPJ.'); valido = false; }
     
     if (!valido) return;
-    
-    // Nome fantasia
-    if (!validarNomeCompleto(nomeCompleto)) { 
-    exibirErro('nome', 'Informe o nome completo da instituição (duas ou mais palavras).'); 
-        return; 
-    }
 
     // E-mail
     const emailValido = await validarEmail(email);
@@ -145,7 +139,7 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'instituicao');
 
-        await writeUserDataInstituicao(user.uid, nomeCompleto, email, telefone, senha, nomeUsuario, cnpj);
+        await writeUserDataInstituicao(user.uid, nomeCompleto, email, telefone, nomeUsuario, cnpj);
         await criarGavetasPadrao(user.uid);
 
         setTimeout(() => {

@@ -93,11 +93,6 @@ form.addEventListener('submit', async (e) => {
 
     if (!valido) return;
 
-    // Nome fantasia
-    if (!validarNomeCompleto(nomeCompleto)) { 
-    exibirErro('nome', 'Informe o nome completo do brechó (duas ou mais palavras).'); 
-        return; }
-
     // E-mail
     const emailValido = await validarEmail(email);
     if (!emailValido) { 
@@ -144,7 +139,7 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'brecho');
 
-        await writeUserDataBrecho(user.uid, nomeCompleto, email, telefone, senha, nomeUsuario, cnpj);
+        await writeUserDataBrecho(user.uid, nomeCompleto, email, telefone, nomeUsuario, cnpj);
         await criarGavetasPadrao(user.uid);
 
         setTimeout(() => {
