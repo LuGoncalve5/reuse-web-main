@@ -4,49 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Peça</title>
-    <link rel="stylesheet" href="../../css/padrao.css">
+    <link rel="stylesheet" href="../../../css/padrao.css">
     <link rel="stylesheet" href="peca.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-    <!-- <div class="sidebar">
-        <img class="logo" src="../../img/logoreuse.png">
-        <a href="../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
-        <a href="../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
-        <a href="../cadastro closet/cadastro roupa/cr_cpf.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
-        <a href="../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
-        <a href="../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
-    </div> -->
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <img class="logo" src="../../../img/logoreuse.png">
+        <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a> <!-- mudar para uma casinha -->
+        <a href="../../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
+        <a href="../../cadastro closet/cadastro peca/cadastroPeca.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
+        <a href="../../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
+        <a href="../../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
+    </div>
 
     <div class="content">
         <div class="piece-container">
-
-            <!-- Ícone de editar -->
-            <button class="btn btn-outline-secondary edit-button" onclick="window.location.href='editar-peca.html'" aria-label="Editar peça" title="Editar"></button>
+            <!-- Botão de edição -->
+            <button id="editarPecaBtn" class="edit-button">
                 <i class="bi bi-pencil-square" style="font-size:1.25rem;"></i>
             </button>
 
             <!-- Imagem principal -->
             <div class="piece-image">
-                <img src="/images/exemplo-peca.jpg" alt="Peça">
+                <img id="imagemPeca" src="/images/exemplo-peca.jpg" alt="Peça">
             </div>
 
-            <!-- Informações -->
+            <div style="display: flex; flex-direction: row; align-items: center; gap: 15px;">
+                <h2>Peça: </h2>
+                <h2 id="tituloPeca">Carregando...</h2>
+            </div>
+            
+            <p id="descricao"><strong></strong> <span id="descricaoPeca"></span></p>
+
+            <hr style="margin-top: 10px; margin-bottom: 10px;">
+
+            <!-- Info -->
             <div class="piece-info">
-                <h2>Saia Florida Laranja</h2>
-
-                <p class="descricao">
-                    Saia estilo boho com tecido leve, perfeita para clima quente e usada
-                    apenas para ensaios fotográficos. Cor vibrante e caimento fluido.
-                </p>
-
                 <div class="details">
-                    <p><strong>Categoria:</strong> Saia</p>
-                    <p><strong>Tamanho:</strong> M</p>
-                    <p><strong>Finalidade:</strong> Organizar</p>
+                    <p><strong>Categoria:</strong> <span id="categoriaPeca"></span></p>
+                    <p><strong>Tamanho:</strong> <span id="tamanhoPeca"></span></p>
+                    <p><strong>Finalidade:</strong> <span id="finalidadePeca"></span></p>
+                    <p><strong>Cor:</strong>
+                        <div id="corPecaList" class="color-list"></div>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+    <script type="module" src="peca.js"></script>
 </body>
 </html>

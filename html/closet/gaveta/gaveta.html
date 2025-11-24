@@ -9,27 +9,40 @@
     <script type="module" src="../insercao_pecas_gaveta/gaveta.js"></script>
 </head>
 <body>
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <img class="logo" src="../../../img/logoreuse.png">
+        <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a> <!-- mudar para uma casinha -->
+        <a href="../../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
+        <a href="../../cadastro closet/cadastro peca/cadastroPeca.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
+        <a href="../../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
+        <a href="../../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
+    </div>
+
     <!-- ===== CONTEÚDO PRINCIPAL ===== -->
     <div class="content">
         <div class="topbar-container">
-            <h1>Carregando gaveta...</h1>
+            <div style="display: flex; flex-direction: row; align-items: center; gap: 15px;">
+                <a href="../closet.html" style="text-decoration: none; color: inherit;"><h3>Meu closet</h3></a>
+                <h3>></h3>
+                <h1>Carregando gaveta...</h1>
+            </div>
         </div>
+
+        <hr>
+
+        <section>
+            <!-- Container onde as peças serão carregadas dinamicamente -->
+            <div class="card" id="pecas-container">
+                <!-- Peças aparecerão aqui -->
+            </div>
+
+            <!-- Botão de adicionar nova peça -->
+            <a href="../../cadastro closet/cadastro peca/cadastroPeca.html" id="btn-nova-peca" class="btn-add">
+                <i class="bi bi-plus-lg"></i> Nova Peça
+            </a>
+        </section>
     </div>
 
-    <hr>
-
-    <section>
-        <a href="../../closet/closet.html" class="voltar"><i class="bi bi-arrow-left"></i></a>
-
-        <!-- Container onde as peças serão carregadas dinamicamente -->
-        <div class="card" id="pecas-container">
-            <!-- Peças aparecerão aqui -->
-        </div>
-
-        <!-- Botão de adicionar nova peça -->
-        <a href="../../cadastro closet/cadastro peca/cadastroPeca.html" id="btn-nova-peca" class="btn-add">
-            <i class="bi bi-plus-lg"></i> Nova Peça
-        </a>
-    </section>
 </body>
 </html>

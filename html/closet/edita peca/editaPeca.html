@@ -1,25 +1,45 @@
-<!-- cadastroPeca.html -->
+<!-- editPeca.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de peça</title>
+    <title>Editar Peça</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="c_roupa.css">
+
     <link rel="stylesheet" href="../../../css/padrao.css">
-    <link rel="stylesheet" href="cadastroPeca.css">
+    <link rel="stylesheet" href="../../cadastro closet/cadastro peca/cadastroPeca.css">
+
+    <style>
+        /* Ícone de editar */
+        .edit-icon {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.6rem;
+            color: #134141;
+            cursor: pointer;
+        }
+
+        .card-produto {
+            position: relative;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- ===== SIDEBAR ===== -->
     <div class="sidebar">
         <img class="logo" src="../../../img/logoreuse.png">
-        <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
+        <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a> <!-- mudar para uma casinha -->
         <a href="../../pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
         <a href="../../cadastro closet/cadastro peca/cadastroPeca.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
         <a href="../../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
         <a href="../../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
     </div>
 
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
     <div class="content" id="form-container">
         <section class="int-produto">
 
@@ -29,13 +49,16 @@
 
             <div class="card-produto">
 
+                <!-- Ícone editar -->
+                <i class="bi bi-pencil-square edit-icon"></i>
+
                 <div class="top">
-                    <h1 style="color:#134141;">Cadastrar peça</h1>
+                    <h1 style="color:#134141;">Editar peça</h1>
                 </div>
 
                 <hr>
 
-                <!-- Upload -->
+                <!-- Upload da imagem -->
                 <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                     <input type="file" id="fileInput" hidden accept="image/*">
                     <img id="previewImg" style="display: none; max-height: 100%; border-radius: 10px;">
@@ -45,29 +68,28 @@
 
                 <hr>
 
-                <form id="formPeca" class="form">
+                <form id="formEditarPeca" class="form">
 
                     <label class="titulo">Título</label>
-                    <input type="text" id="titulo" placeholder="Adicione um título">
+                    <input type="text" id="titulo">
 
                     <label class="titulo">Descrição</label>
-                    <textarea id="descricao" placeholder="Adicione uma descrição detalhada"></textarea>
+                    <textarea id="descricao"></textarea>
 
                     <label class="titulo">Categoria</label>
-                    <div class="options bloco categoria">
-                        <button type="button" class="option-btn selected">Blusa</button>
+                    <div class="options bloco categoria" id="categoriaBox">
+                        <button type="button" class="option-btn">Blusa</button>
                         <button type="button" class="option-btn">Calça</button>
                         <button type="button" class="option-btn">Short</button>
                         <button type="button" class="option-btn">Saia</button>
                         <button type="button" class="option-btn">Sapato</button>
                         <button type="button" class="option-btn">Vestido</button>
                         <button type="button" class="option-btn">Acessório</button>
-                        <button type="button" class="option-btn">+</button>
                     </div>
 
                     <label class="titulo">Tamanho</label>
-                    <div class="options bloco tamanho">
-                        <button type="button" class="option-btn selected">PP</button>
+                    <div class="options bloco tamanho" id="tamanhoBox">
+                        <button type="button" class="option-btn">PP</button>
                         <button type="button" class="option-btn">P</button>
                         <button type="button" class="option-btn">M</button>
                         <button type="button" class="option-btn">G</button>
@@ -76,51 +98,49 @@
                     </div>
 
                     <label class="titulo">Finalidade</label>
-                    <div class="options bloco finalidade">
-                        <button type="button" class="option-btn selected" data-finalidade="organizar">Organizar</button>
+                    <div class="options bloco finalidade" id="finalidadeBox">
+                        <button type="button" class="option-btn" data-finalidade="organizar">Organizar</button>
                         <button type="button" class="option-btn" data-finalidade="doar">Doar</button>
                         <button type="button" class="option-btn" data-finalidade="vender">Vender</button>
                     </div>
 
                     <div id="valor-box" style="display:none;">
                         <label class="titulo">Valor</label>
-                        <input type="text" id="valor" placeholder="Digite o valor R$">
+                        <input type="text" id="valor">
                     </div>
 
                     <label class="titulo">Cores</label>
-                    <div class="colors">
-                        <div class="color selected" data-cor="white" style="background:rgb(255, 255, 255);"></div>
-                        <div class="color" data-cor="gray" style="background:rgb(97, 97, 97);"></div>
-                        <div class="color" data-cor="black" style="background:rgb(0, 0, 0);"></div>
-                        <div class="color" data-cor="brown" style="background:rgba(126, 61, 0, 0.993);"></div>
-                        <div class="color" data-cor="red" style="background:red;"></div>
-                        <div class="color" data-cor="orange" style="background:rgb(255, 129, 11);"></div>
-                        <div class="color" data-cor="yellow" style="background:rgb(255, 211, 14);"></div>
-                        <div class="color" data-cor="green" style="background:rgb(0, 99, 0);"></div>
-                        <div class="color" data-cor="blue" style="background:rgb(0, 82, 158);"></div>
-                        <div class="color" data-cor="purple" style="background:purple;"></div>
-                        <div class="color" data-cor="pink" style="background:rgb(255, 0, 157);"></div>
+                    <div class="colors" id="colorsBox">
+                        <div class="color" data-cor="white" style="background:#fff"></div>
+                        <div class="color" data-cor="gray" style="background:#616161"></div>
+                        <div class="color" data-cor="black" style="background:#000"></div>
+                        <div class="color" data-cor="brown" style="background:#7e3d00"></div>
+                        <div class="color" data-cor="red" style="background:red"></div>
+                        <div class="color" data-cor="orange" style="background:rgb(255, 129, 11)"></div>
+                        <div class="color" data-cor="yellow" style="background:rgb(255, 211, 14)"></div>
+                        <div class="color" data-cor="green" style="background:rgb(0, 99, 0)"></div>
+                        <div class="color" data-cor="blue" style="background:rgb(0, 82, 158)"></div>
+                        <div class="color" data-cor="purple" style="background:purple"></div>
+                        <div class="color" data-cor="pink" style="background:rgb(255, 0, 157)"></div>
                     </div>
 
-                    <!-- Selecionar gaveta -->
+                    <!-- Gaveta -->
                     <div id="gaveta-box">
                         <div class="gaveta-select" id="gavetaSelect">
                             <span id="gavetaSelecionada">Selecione uma gaveta</span>
                             <i class="bi bi-chevron-down"></i>
                         </div>
 
-                        <div class="gaveta-dropdown" id="gavetaDropdown" style="display:none;">
-                        </div>
+                        <div class="gaveta-dropdown" id="gavetaDropdown" style="display:none;"></div>
                     </div>
 
-                    <button type="submit" class="confirm">Salvar</button>
+                    <button type="submit" class="confirm" id="btnSalvarAlteracoes">Salvar alterações</button>
 
                 </form>
-
             </div>
         </section>
     </div>
 
-    <script type="module" src="../../../firebase_connection/peca_register/pecaRegister.js"></script>
+    <script type="module" src="editaPeca.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 section {
-    padding: 0 120px;
+    padding: 0 50px;
     gap: 20px;
     position: relative;
 }
@@ -7,7 +7,7 @@ section {
 .card {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    gap: 10px;
 }
 
 .roupa {
@@ -137,4 +137,8 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
+}
+
+h3{
+    font-weight: 450;
 }
