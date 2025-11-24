@@ -7,7 +7,7 @@ export function criarCardGaveta(gavetaId, nomeGaveta, qtdRoupas = 0, img = "../.
 
     // Define o comportamento de clique
     card.addEventListener('click', () => {
-        window.location.href = `gavetas/gaveta.html?id=${gavetaId}`;
+        window.location.href = `gaveta/gaveta.html?idGaveta=${gavetaId}`;
     });
 
     // Monta conteúdo interno

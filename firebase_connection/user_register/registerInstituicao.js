@@ -1,22 +1,57 @@
 // REGISTE INSTITUIÇÃO USER - FIREBASE CONNECTION
 import { auth, database } from '../firebaseConfig.js';
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { ref, set } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, set, push, update} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import { aplicarMascaras, validarCNPJ, validarTelefone, validarEmail, validarNomeCompleto, validarSenha, validarUsuarioUnico, validarNomeUsuario } from './validacoes.js';
 import { exibirErro, limparErro } from './uiHelpers.js';
 
 function writeUserDataInstituicao(uid, nome, email, telefone, usuario, cnpj) {
     const userRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
     return set(userRef, {
-        nomeFantasia: nome,
-        email,
-        telefone,
-        nomeDeUsuario: usuario,
         cnpj,
-        tipoPessoa: 'pessoaJuridica',
-        tipoUsuario: 'instituicao',
-        dataCadastro: new Date().toISOString()
+        dataCadastro: new Date().toISOString(),
+        email,
+        nomeCompleto: nome,
+        nomeDeUsuario: usuario,
+        telefone
     });
+}
+
+async function criarGavetasPadrao(uid) {
+    const gavetasRef = ref(database, 'gavetas');
+    const dataCriacao = new Date().toISOString();
+
+    // cria duas gavetas globais
+    const doacaoRef = push(gavetasRef);
+    const vendasRef = push(gavetasRef);
+
+    const doacaoId = doacaoRef.key;
+    const vendasId = vendasRef.key;
+
+    // salva as gavetas na tabela "gavetas"
+    await Promise.all([
+        set(doacaoRef, {
+            nome: 'Doação',
+            privado: false,
+            dataCriacao,
+            dono: uid
+        }),
+        set(vendasRef, {
+            nome: 'Vendas',
+            privado: false,
+            dataCriacao,
+            dono: uid
+        })
+    ]);
+
+    // referencia essas gavetas no perfil do usuário
+    const userGavetasRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}/gavetas`);
+    await update(userGavetasRef, {
+        [doacaoId]: true,
+        [vendasId]: true
+    });
+
+    console.log("✅ Gavetas padrão criadas e vinculadas ao usuário!");
 }
 
 // Inicialização (máscaras)
@@ -39,7 +74,7 @@ form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // valores e trims
-    const nomeFantasia = document.getElementById('nome').value.trim();
+    const nomeCompleto = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
     const telefone = document.getElementById('telefone').value.trim();
     const senha = document.getElementById('senha').value;
@@ -49,7 +84,7 @@ form.addEventListener('submit', async (e) => {
     let valido = true;
     
     // Campos obrigatórios
-    if (!nomeFantasia) {exibirErro('nome', 'Informe o nome fantasia do brechó.'); valido = false; }
+    if (!nomeCompleto) {exibirErro('nome', 'Informe o nome fantasia do brechó.'); valido = false; }
     if (!email) {exibirErro('email', 'Informe um e-mail.'); valido = false; }
     if (!telefone) {exibirErro('telefone', 'Informe um telefone.'); valido = false; }
     if (!senha) {exibirErro('senha', 'Informe uma senha.'); valido = false; }
@@ -57,12 +92,6 @@ form.addEventListener('submit', async (e) => {
     if (!cnpj) {exibirErro('cnpj', 'Informe o CNPJ.'); valido = false; }
     
     if (!valido) return;
-    
-    // Nome fantasia
-    if (!validarNomeCompleto(nomeFantasia)) { 
-    exibirErro('nome', 'Informe o nome completo da instituição (duas ou mais palavras).'); 
-        return; 
-    }
 
     // E-mail
     const emailValido = await validarEmail(email);
@@ -110,7 +139,8 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'instituicao');
 
-        await writeUserDataInstituicao(user.uid, nomeFantasia, email, telefone, senha, nomeUsuario, cnpj);
+        await writeUserDataInstituicao(user.uid, nomeCompleto, email, telefone, nomeUsuario, cnpj);
+        await criarGavetasPadrao(user.uid);
 
         setTimeout(() => {
             window.location.href = 'ci_endereco.html';

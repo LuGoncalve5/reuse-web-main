@@ -1,6 +1,7 @@
 // === GAVETA.JS ===
 import { database } from '../../../firebase_connection/firebaseConfig.js';
 import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { criarCardPeca } from '../../closet/insercao_pecas_gaveta/cardPeca.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 	console.log("gaveta.js carregado");
@@ -8,8 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// Recupera parâmetros da URL
 	const urlParams = new URLSearchParams(window.location.search);
 	const gavetaId = urlParams.get('idGaveta');
-	const usuarioId = urlParams.get('idUsuario');
-	const tipo = urlParams.get('tipo');
+	const usuarioId = localStorage.getItem('currentUserUID');
+	const tipo = localStorage.getItem('currentUserTipo');
 
 	if (!gavetaId || !usuarioId || !tipo) {
 		alert('Informações insuficientes. Voltando ao closet...');
@@ -32,32 +33,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 		console.log("Dados da gaveta:", dadosGaveta);
 
 		// Atualiza título
-		document.title = dadosGaveta.nomeGaveta || "Minha Gaveta";
-		document.querySelector('.topbar-container h1').textContent = dadosGaveta.nomeGaveta || "Minha Gaveta";
+		document.title = dadosGaveta.nome || "Minha Gaveta";
+		document.querySelector('.topbar-container h1').textContent = dadosGaveta.nome || "Minha Gaveta";
 
 		// Carrega peças
 		const container = document.getElementById('pecas-container');
 		container.innerHTML = ''; // limpa antes
 
-		if (dadosGaveta.listaPecas) {
-			for (const idPeca in dadosGaveta.listaPecas) {
+		if (dadosGaveta.pecas) {
+			for (const idPeca in dadosGaveta.pecas) {
 				const pecaRef = ref(database, `pecas/${idPeca}`);
 				const pecaSnap = await get(pecaRef);
 				if (pecaSnap.exists()) {
 					const peca = pecaSnap.val();
 
-					const div = document.createElement('div');
-					div.classList.add('roupa');
-					div.innerHTML = `
-						<img src="${peca.imagem || '../../../img/placeholder.png'}" alt="${peca.titulo || 'Peça'}" />
-					`;
+					const card = criarCardPeca(
+						idPeca,                     // ID
+						peca.titulo || "Sem título",
+						peca.valor || "0,00",
+						peca.finalidade || "venda",
+						peca.imagem || "../../../img/placeholder.png"
+					);
 
-					// redireciona pra página da peça individual
-					div.addEventListener('click', () => {
-						window.location.href = `roupas/roupa.html?idPeca=${peca.idPeca}&idUsuario=${usuarioId}&tipo=${tipo}`;
-					});
-
-					container.appendChild(div);
+					container.appendChild(card);
 				}
 			}
 		} else {

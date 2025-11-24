@@ -14,8 +14,6 @@ function writeUserDataComum(uid, nome, email, telefone, usuario, cpf, nascimento
         nomeDeUsuario: usuario,
         cpf,
         dataNascimento: nascimento,
-        tipoPessoa: 'pessoaFisica',
-        tipoUsuario: 'comum',
         dataCadastro: new Date().toISOString()
     });
 }
@@ -51,8 +49,8 @@ async function criarGavetasPadrao(uid) {
     // referencia essas gavetas no perfil do usuário
     const userGavetasRef = ref(database, `usuarios/pessoaFisica/${uid}/gavetas`);
     await update(userGavetasRef, {
-        [doacaoId]: doacaoId,
-        [vendasId]: vendasId
+        [doacaoId]: true,
+        [vendasId]: true
     });
 
     console.log("✅ Gavetas padrão criadas e vinculadas ao usuário!");

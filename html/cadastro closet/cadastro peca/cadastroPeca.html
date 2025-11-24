@@ -1,3 +1,4 @@
+<!-- cadastroPeca.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="cadastroPeca.css">
 </head>
 <body>
+    <!---
     <div class="sidebar">
         <img class="logo" src="../../../img/logoreuse.png">
         <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
@@ -17,22 +19,35 @@
         <a href="../../cadastro closet/cadastro peca/cadastroPeca.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
         <a href="../../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
         <a href="../../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
-    </div>
+    </div> -->
 
     <div class="content" id="form-container">
-        <h1 class="page-title">Cadastrar peça</h1>
-        <hr>
-        <section>
-            <a id="voltar" class="voltar"><i class="bi bi-arrow-left"></i></a>
-            
-            <div class="form-container">
-                <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-                    <input type="file" id="fileInput" hidden>
-                    <i class="bi bi-cloud-arrow-up"></i>
-                    <p>Escolha um arquivo ou arraste e solte-o aqui</p>
+        <section class="int-produto">
+
+            <a onclick="history.back()" class="voltar">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+
+            <div class="card-produto">
+
+                <div class="top">
+                    <h1 style="color:#134141;">Cadastrar peça</h1>
                 </div>
 
+                <hr>
+
+                <!-- Upload -->
+                <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                    <input type="file" id="fileInput" hidden accept="image/*">
+                    <img id="previewImg" style="display: none; max-height: 100%; border-radius: 10px;">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <p>Escolha um arquivo ou arraste e solte aqui</p>
+                </div>
+
+                <hr>
+
                 <form id="formPeca" class="form">
+
                     <label class="titulo">Título</label>
                     <input type="text" id="titulo" placeholder="Adicione um título">
 
@@ -40,55 +55,73 @@
                     <textarea id="descricao" placeholder="Adicione uma descrição detalhada"></textarea>
 
                     <label class="titulo">Categoria</label>
-                    <div class="options categoria">
-                        <button type="button" class="option selected">Blusa</button>
-                        <button type="button" class="option">Calça</button>
-                        <button type="button" class="option">Short</button>
-                        <button type="button" class="option">Saia</button>
-                        <button type="button" class="option">Sapato</button>
-                        <button type="button" class="option">Vestido</button>
-                        <button type="button" class="option">Acessório</button>
-                        <button type="button" class="option">+</button>
+                    <div class="options bloco categoria">
+                        <button type="button" class="option-btn selected">Blusa</button>
+                        <button type="button" class="option-btn">Calça</button>
+                        <button type="button" class="option-btn">Short</button>
+                        <button type="button" class="option-btn">Saia</button>
+                        <button type="button" class="option-btn">Sapato</button>
+                        <button type="button" class="option-btn">Vestido</button>
+                        <button type="button" class="option-btn">Acessório</button>
+                        <button type="button" class="option-btn">+</button>
                     </div>
 
                     <label class="titulo">Tamanho</label>
-                    <div class="options tamanho">
-                        <button type="button" class="option selected">PP</button>
-                        <button type="button" class="option">P</button>
-                        <button type="button" class="option">M</button>
-                        <button type="button" class="option">G</button>
-                        <button type="button" class="option">GG</button>
-                        <button type="button" class="option">XGG</button>
+                    <div class="options bloco tamanho">
+                        <button type="button" class="option-btn selected">PP</button>
+                        <button type="button" class="option-btn">P</button>
+                        <button type="button" class="option-btn">M</button>
+                        <button type="button" class="option-btn">G</button>
+                        <button type="button" class="option-btn">GG</button>
+                        <button type="button" class="option-btn">XGG</button>
                     </div>
 
-                    <div class="finalidade-box">
-                        <label class="titulo">Finalidade</label>
-                        <div class="options finalidade">
-                            <button type="button" class="option selected">Organizar</button>
-                            <button type="button" class="option">Doar</button>
-                            <button type="button" class="option">Vender</button>
-                        </div>
+                    <label class="titulo">Finalidade</label>
+                    <div class="options bloco finalidade">
+                        <button type="button" class="option-btn selected" data-finalidade="organizar">Organizar</button>
+                        <button type="button" class="option-btn" data-finalidade="doar">Doar</button>
+                        <button type="button" class="option-btn" data-finalidade="vender">Vender</button>
                     </div>
 
                     <div id="valor-box" style="display:none;">
                         <label class="titulo">Valor</label>
-                        <input type="text" id="valor" placeholder="Digite o valor R$" onkeyup="formatarMoeda(this)">
+                        <input type="text" id="valor" placeholder="Digite o valor R$">
                     </div>
 
                     <label class="titulo">Cores</label>
                     <div class="colors">
-                        <div class="color selected" style="background:black;"></div>
-                        <div class="color" style="background:red;"></div>
-                        <div class="color" style="background:blue;"></div>
-                        <div class="color" style="background:green;"></div>
+                        <div class="color selected" data-cor="white" style="background:rgb(255, 255, 255);"></div>
+                        <div class="color" data-cor="gray" style="background:rgb(97, 97, 97);"></div>
+                        <div class="color" data-cor="black" style="background:rgb(0, 0, 0);"></div>
+                        <div class="color" data-cor="brown" style="background:rgba(126, 61, 0, 0.993);"></div>
+                        <div class="color" data-cor="red" style="background:red;"></div>
+                        <div class="color" data-cor="orange" style="background:rgb(255, 129, 11);"></div>
+                        <div class="color" data-cor="yellow" style="background:rgb(255, 211, 14);"></div>
+                        <div class="color" data-cor="green" style="background:rgb(0, 99, 0);"></div>
+                        <div class="color" data-cor="blue" style="background:rgb(0, 82, 158);"></div>
+                        <div class="color" data-cor="purple" style="background:purple;"></div>
+                        <div class="color" data-cor="pink" style="background:rgb(255, 0, 157);"></div>
                     </div>
 
-                    <button type="submit" class="btn-proximo">Salvar</button>
+                    <!-- Selecionar gaveta -->
+                    <div id="gaveta-box">
+                        <div class="gaveta-select" id="gavetaSelect">
+                            <span id="gavetaSelecionada">Selecione uma gaveta</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+
+                        <div class="gaveta-dropdown" id="gavetaDropdown" style="display:none;">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="confirm">Salvar</button>
+
                 </form>
+
             </div>
         </section>
     </div>
 
-    <script type="module" src="cadastroPeca.js"></script>
+    <script type="module" src="../../../firebase_connection/peca_register/pecaRegister.js"></script>
 </body>
 </html>
