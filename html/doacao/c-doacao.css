@@ -17,13 +17,14 @@
     box-sizing: border-box;
     margin: none;
     padding: 20px;
+    width: 900px;
 }
 
 .select-pecas {
     background-color: #93a98e56;
     padding: 20px;
     border-radius: 8px;
-    max-width: 900px;
+    width: 900px;
 }
 
 .select-pecas hr { margin: 12px 0; }
@@ -149,4 +150,56 @@
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
+}
+
+/* MODAL */
+.modalDialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+    pointer-events: none;
+}
+
+.modalDialog:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modalDialog > div {
+    width: 380px;
+    margin: 12% auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    animation: pop 0.2s ease-out;
+}
+
+@keyframes pop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close {
+    position: absolute;
+    right: 14px;
+    top: 10px;
+
+    font-size: 18px;
+    text-decoration: none;
+
+    color: #444;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.close:hover {
+    color: var(--verde-escuro);
 }

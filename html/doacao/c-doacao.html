@@ -14,7 +14,7 @@
     <!-- a estilização disso PRECISA melhorar em nome de Jesus Cristo-->
     <div class="top" >
         <div class="header">
-            <img src="../../img/instituicoes/1.png" class="profile-photo">
+            <img src="../../img/instituicoes/1.png" class="profile-photo"> <!-- preciso ajustar isso o mais rápido possível -->
             <div class="names">
                 <h2>Projeto Em Nome Do Bem</h2>
                 <p>p.em.nome.do.bem</p>
@@ -33,40 +33,30 @@
                     <i class="bi bi-arrow-left"></i>
                 </a>
 
-                <h1 style="justify-content:center; color: #134141">Selecione as roupas para doação</h1>
+                <!-- seriaa bacanissímo a mudança, mas se não der ta mec -->
+                <h1 style="color: #134141; font-size:larger;">Confirme os dados da doação</h1>
             </div>
             
             <hr>
 
-            <!-- adicionar um onclick para a seleção deles por id para a próxima página -> cada peça 
-            mudar estilização tambem para que fiquem com bordas de cores diferentes e um íconezito-->
-                
+            <!-- adicionar um onclick para a seleção deles por id para a próxima página -> cada peça -->        
+            
+            <!-- o collum alterou o width da página -->
             <div class="product-grid">
-                <div class="product-image-container">
-                    <img src="../../img/roupas brecho/vestido2.jpg" loading="lazy">
-                </div>
-
-
                 <div class="product-image-container">
                     <img src="../../img/roupas brecho/bolsa1.jpg" loading="lazy">
                 </div>
 
-
                 <div class="product-image-container">
                     <img src="../../img/roupas brecho/vestido3.webp" loading="lazy">
                 </div>
-
-
-                <div class="product-image-container">
-                    <img src="../../img/roupas brecho/salto1.jpeg" loading="lazy">
-                </div>
-
 
                 <div class="product-image-container">
                     <img src="../../img/roupas brecho/saia1.jpg" loading="lazy">
                 </div>  
             </div>
 
+            <!-- adicionar descrição breve de cada opção-->
             <hr>
 
             <h2>Envio da doação</h2>
@@ -78,7 +68,35 @@
 
             <hr>
 
-            <button class="confirm" onclick="window.location.href='c-doacao.html'">Continuar</button>
+            <a href="#confirmarModal" class="confirm">Confirmar sua Doação</a>
         </section>
-    </div>  
+    </div>
+
+    <!-- ✅ Modal de confirmação -->
+    <div id="confirmarModal" class="modalDialog">
+        <div>
+            <a href="#close" title="Fechar" class="close">×</a>
+            <h2 style="color: var(--verde-escuro); text-align: center;">Doação confirmada!</h2>
+            <p style="text-align: center; margin: 12px 0; color: #333;">
+            Sua doação foi confirmada com sucesso.<br>
+            Em breve você receberá os detalhes por e-mail.
+            </p>
+            <div style="display: flex; justify-content: center; margin-top: 16px;">
+            <a href="javascript:void(0)"
+                onclick="fecharModal()"
+                style="background-color: var(--verde); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+                OK
+            </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fecharModal() {
+            window.location.hash = '#close';
+            setTimeout(() => {
+                window.location.href = '../../closet/closet.html'
+            }, 400);
+        }
+    </script> 
 </body>

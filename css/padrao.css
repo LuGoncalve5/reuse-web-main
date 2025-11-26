@@ -168,3 +168,18 @@ hr {
     margin-left: 7vw;
     padding: 2vh;
 }
+
+/* CONTEÚDOS ESPECÍFICOS */
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background .15s, transform .08s;
+}
+
+.voltar:hover {
+    background: rgba(19,67,19,0.06);
+    transform: translateY(-2px);
+}
