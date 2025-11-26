@@ -499,3 +499,13 @@ section {
 .user-rating .bi-star {
     color: rgba(255, 217, 0, 0.425); 
 }
+
+/* Esconde todas as páginas da SPA */
+.spa-page {
+    display: none;
+}
+
+/* Mostra somente a página ativa */
+.spa-page.active {
+    display: block;
+}
