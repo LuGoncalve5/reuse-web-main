@@ -1,14 +1,14 @@
 /* ===== GRID DE CARDS ===== */
 section {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-    max-width: 1600px;
+    grid-template-columns: repeat(auto-fill, minmax(12vw, 1fr));
+    gap: 3vh;
+    max-width: 80vw;
 }
 
 .card {
     background-color: var(--verde-transp);
-    border-radius: 20px;
+    border-radius: 2vh;
     overflow: hidden;
     box-shadow: var(--shadow-md);
     transition: transform 0.3s ease;
@@ -21,15 +21,15 @@ section {
 
 .card img {
     width: 100%;
-    height: 200px;
+    height: 20vh;
     object-fit: cover;
 }
 
 .card p {
     text-align: center;
     font-weight: bold;
-    font-size: 14px;
-    padding: 15px;
+    font-size: 0.7rem;
+    padding: 0.5rem;
     color: var(--branco);
 }
 
@@ -44,7 +44,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px; /* ocupa espaço sem quebrar layout */
+    height: 20vh; /* ocupa espaço sem quebrar layout */
     grid-column: 1 / -1; /* ocupa todas as colunas do grid */
 }
 
@@ -52,8 +52,8 @@ section {
     border: 6px solid #f3f3f3;
     border-top: 6px solid var(--verde-principal, #5E7858);
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 6vh;
+    height: 6vh;
     animation: spin 1s linear infinite;
 }
 

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		// Atualiza título
 		document.title = dadosGaveta.nome || "Minha Gaveta";
-		document.querySelector('.topbar-container h1').textContent = dadosGaveta.nome || "Minha Gaveta";
+		document.querySelector('.topbar-container h3').textContent = dadosGaveta.nome || "Minha Gaveta";
 
 		// Carrega peças
 		const container = document.getElementById('pecas-container');
