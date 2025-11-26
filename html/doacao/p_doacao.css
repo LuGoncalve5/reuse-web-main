@@ -1,3 +1,9 @@
+.img-header{
+    width: 800px;
+    margin: 0 auto 20px;
+    padding-left: 40px;
+}
+
 .section {
     flex: 1;
     padding: 20px;
@@ -16,10 +22,16 @@
 
 .profile-info-column {
     flex-grow: 1;
-    padding-top: 0px; /* Manter este aqui */
+    padding-top: 0px;
 }
 
-/* modificar estilo do nome de perfil e avaliação pra que fique mais discreto*/
+.full-name {
+    font-size: 26px;
+    color: #000;
+    font-weight: 400;
+    margin: 0; 
+}
+
 .username-section {
     display: flex;
     align-items: center;
@@ -48,13 +60,6 @@
     margin-right: 2px;
 }
 
-.full-name {
-    font-size: 26px;
-    color: #000;
-    font-weight: 400;
-    margin: 0; 
-}
-
 .location-section {
     display: flex;
     align-items: center;
@@ -69,50 +74,9 @@
     margin-right: 5px;
 }
 
-.search-profile-btn {
-    /* Define a posição absoluta dentro da seção pai para flutuar o botão */
-    position: absolute;
-    top: 15px; /* Ajuste a distância do topo conforme necessário */
-    right: 30px; /* Distância da lateral */
-    z-index: 10;
-}
-
-/*botão de pesquisar*/
-.search-items-section {
-    /* Alinha com a largura máxima das abas para manter a centralização */
-    max-width: 300px; 
-    margin: 0 auto 30px; /* Centraliza e adiciona margem inferior */
-    padding: 0 10px; /* Evita que o input cole na lateral da tela */
-}
-
-.search-input-profile {
-    width: 100%;
-    /* Adiciona padding esquerdo para dar espaço ao ícone de lupa */
-    padding: 10px 15px 10px 40px; 
-    /* Adota o estilo de borda do campo de pesquisa padrão */
-    border: 1px solid #5e785e; 
-    border-radius: 25px;
-    outline: none;
-    font-size: 16px;
-    transition: border-color 0.3s;
-    background-color: transparent;
-    
-    /* Ícone de lupa injetado via CSS (SVG codificado) */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: 15px center;
-    background-size: 16px;
-}
-
-.search-input-profile:focus {
-    border-color: #134313;
-    box-shadow: 0 0 5px rgba(94, 120, 88, 0.5);
-}
-
-.img-header{
-    width: 800px;
-    margin: 0 auto 20px;
-    padding-left: 40px;
+/* centralizar na página */
+hr { 
+    max-width: 900px;
 }
 
 .mais-info {
@@ -139,4 +103,8 @@
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
+}
+
+/* estilar o hover do botão */
+.confirm:hover {
 }

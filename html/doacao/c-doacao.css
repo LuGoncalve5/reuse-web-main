@@ -1,0 +1,155 @@
+:root{
+  --verde: #5E7858;
+  --verde-escuro: #134313;
+  --branco: #FAFBF9;
+  --cinza: #ccc;
+  --card-bg: #ffffff;
+  --shadow: 0 3px 14px rgba(0,0,0,0.08);
+  --radius: 12px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh; /* ocupa toda a altura da tela */
+    box-sizing: border-box;
+    margin: none;
+    padding: 20px;
+    width: 900px;
+}
+
+.select-pecas {
+    background-color: #93a98e56;
+    padding: 20px;
+    border-radius: 8px;
+    width: 900px;
+}
+
+.select-pecas hr { margin: 12px 0; }
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background .15s, transform .08s;
+}
+
+.voltar:hover {
+    background: rgba(19,67,19,0.06);
+    transform: translateY(-2px);
+}
+
+.header {
+    background-color: #5e785881;
+    display: flex;
+    padding: 10px 340px;
+    gap: 15px
+}
+
+/*preciso ajustar*/
+.names{
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
+
+.profile-photo {
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    z-index: 99999;
+    border-radius: 100%;
+}
+
+.informations {
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    padding: 0 360px;
+    color: #134313;
+    justify-content: space-between;
+
+}
+
+/* Grids e Cards (seleção de produtos da gaveta de doação) */
+.product-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.product-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.product-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.options {
+    display: block;
+    margin-top: 8px;
+}
+
+.options .option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: transform .9s;
+}
+
+.option input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    transform: none;
+    accent-color: var(--verde-escuro);
+    cursor: pointer;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.03);
+}
+
+.confirm {
+    display: flex;
+    margin: 20px auto;
+    min-width: 240px;
+    width: 50%;
+    max-width: 320px;
+    padding: 10px 16px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #5e785845;
+    border-radius: 25px;
+    font-weight: bold;
+    font-family: "Lexend", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* fazer um confirm:hover */

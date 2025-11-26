@@ -67,35 +67,6 @@
     color: #1f2937;
 }
 
-/*.options {
-    display: block;
-    margin-top: 8px;
-}
-
-.options .option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: transform .9s;
-}
-
-.option input[type="radio"] {
-    width: 16px;
-    height: 16px;
-    transform: none;
-    accent-color: var(--verde-escuro);
-    cursor: pointer;
-}
-
-.option:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.03);
-}*/
-
 .confirm {
     display: flex;
     margin: 20px auto;
@@ -115,86 +86,13 @@
     transition: background 0.3s;
 }
 
-/*.outros-itens {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-}
-
-.outros-itens::-webkit-scrollbar {
-    height: 8px;
-}
-
-.outros-itens::-webkit-scrollbar-track {
-    background-color: #5e785845;
-    border-radius: 8px;
-}
-
-.outros-itens::-webkit-scrollbar-thumb {
-    background-color: #134313;
-    border-radius: 25px;
-    transition: background 0.3s;
-}
-
-.outros-itens::-webkit-scrollbar-thumb:hover {
-    background-color: #0d1f0d;
-}
-
-.mini-item {
-    width: 160px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    flex: 0 0 auto;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.04);
-}
-
-.mini-item:hover {
-    transform: scale(1.03);
-}
-
-.mais-pecas {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
-.mo-container {
-    background-color: #f9faf9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    margin-top: 20px;
-    max-width: 1000px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.mo-container h3.mais-opcoes {
-    color: var(--verde-escuro);
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.mo-conteiner hr {
-    border: none;
-    border-top: 1px solid rgba(19, 67, 19, 0.1);
-    margin: 16px 0;
-}*/
-
 @media (max-width: 920px) { .produto { gap: 10px; } }
 
 @media (max-width: 520px) { .detalhes-produto { font-size: 14px; } }
 
-/* ✅ MODAL CORRIGIDO — FUNCIONANDO */
-
+/* MODAL */
 .modalDialog {
-    position: fixed;          /* ✅ faz aparecer */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;

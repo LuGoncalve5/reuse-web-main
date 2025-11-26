@@ -84,22 +84,6 @@
     gap: 12px;
 }
 
-/* reaproveitar isso daqui
-.product-card {
-    display: block; 
-    text-decoration: none;
-    background-color: #fff;
-    border-radius: var(--border-radius-card);
-    box-shadow: var(--sombra-card);
-    overflow: hidden; 
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
-}*/
-
 .product-image-container {
     width: 100%;
     padding-top: 100%;
@@ -147,3 +131,24 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.03);
 }
+
+.confirm {
+    display: flex;
+    margin: 20px auto;
+    min-width: 240px;
+    width: 50%;
+    max-width: 320px;
+    padding: 10px 16px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #5e785845;
+    border-radius: 25px;
+    font-weight: bold;
+    font-family: "Lexend", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* fazer um confirm:hover */

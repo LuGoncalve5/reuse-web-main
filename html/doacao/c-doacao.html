@@ -5,69 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fazer Doações</title>
     <link rel="stylesheet" href="../../../css/padrao.css">
-    <link rel="stylesheet" href="c-doacao.css">
+    <link rel="stylesheet" href="doar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
 
-    <!-- apenas para agrupar e organizar tudo dentro da página -->
-    <div class="content">
-        
-        <!-- div contendo a imagem e informações principais da instituição -->
-        <!-- estilizar direito esta porra -->
-        <div class="top">
+    <!-- div contendo a imagem e informações principais da instituição -->
+    <!-- a estilização disso PRECISA melhorar em nome de Jesus Cristo-->
+    <div class="top" >
+        <div class="header">
+            <img src="../../img/instituicoes/1.png" class="profile-photo"> <!-- preciso ajustar isso o mais rápido possível -->
             <div class="names">
                 <h2>Projeto Em Nome Do Bem</h2>
                 <p>p.em.nome.do.bem</p>
             </div>
-            <div class="informations" style="max-width: 900px;">
-                <img src="../../img/instituicoes/1.png" class="profile-photo">
-                <div style="display: flex; justify-content: space-between;">
-                    <p>cep</p>
-                    <p>cnpj</p>
-                </div>
-            </div>
         </div>
+        <div class="informations">
+            <p>CEP: 29046-540</p>
+            <p>CNPJ: 79.203.090/0001-78</p>
+        </div>
+    </div>
 
-        <section class="select-peças">
-            <a onclick="history.back()" class="voltar">
-                <i class="bi bi-arrow-left"></i>
-            </a>
+    <div class="content">
+        <section class="select-pecas">
+            <div style="display: flex;">
+                <a onclick="history.back()" class="voltar">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
 
-            <!-- adicionar um onclick para a seleção deles por id para a próxima página
-            mudar estilização tambem para que fiquem com bordas de cores diferentes e um íconezito-->
+                <!-- seriaa bacanissímo a mudança, mas se não der ta mec -->
+                <h1 style="color: #134141; font-size:larger;">Confirme os dados da doação</h1>
+            </div>
+            
+            <hr>
+
+            <!-- adicionar um onclick para a seleção deles por id para a próxima página -> cada peça -->        
+            
+            <!-- o collum alterou o width da página -->
             <div class="product-grid">
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/vestido2.jpg" loading="lazy">
-                    </div>
-                </a>
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/bolsa1.jpg" loading="lazy">
+                </div>
 
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/bolsa1.jpg" loading="lazy">
-                    </div>
-                </a>
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/vestido3.webp" loading="lazy">
+                </div>
 
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/vestido3.webp" loading="lazy">
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/salto1.jpeg" loading="lazy">
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/roupas brecho/saia1.jpg" loading="lazy">
-                    </div>
-                </a>
+                <div class="product-image-container">
+                    <img src="../../img/roupas brecho/saia1.jpg" loading="lazy">
+                </div>  
             </div>
 
+            <!-- adicionar descrição breve de cada opção-->
             <hr>
 
             <h2>Envio da doação</h2>
@@ -79,7 +68,8 @@
 
             <hr>
 
+            <!-- no c-doação, incluir a e modal -->
             <button class="confirm" onclick="window.location.href='c-doacao.html'">Continuar</button>
         </section>
-    </div>
+    </div>  
 </body>
