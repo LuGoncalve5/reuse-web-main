@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("fotoProduto").src =
         peca.fotoBase64 && peca.fotoBase64.startsWith("data:")
             ? peca.fotoBase64
-            : "../../../img/sem-imagem.png";
+            : peca.fotoBase64
+                ? `data:image/png;base64,${peca.fotoBase64}`
+                : "../../../img/sem-imagem.png";
 
     // Título
     document.getElementById("tituloProduto").textContent = peca.titulo || "Sem título";
@@ -88,8 +90,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Foto do perfil (base64)
     document.getElementById("fotoPerfilVendedor").src =
-        usuario.fotoBase64 && usuario.fotoBase64.startsWith("data:")
-            ? usuario.fotoBase64
+        usuario.fotoBase64
+            ? `data:image/png;base64,${usuario.fotoBase64}`
             : "../../../img/perfil_padrao.png";
 
     // Nome completo ou de usuário

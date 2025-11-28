@@ -49,13 +49,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             for (const idPeca in pecas) {
                 const peca = pecas[idPeca];
 
+                const fotoFinal =
+                    peca.fotoBase64
+                        ? `data:image/jpeg;base64,${peca.fotoBase64}`
+                        : "../../../img/placeholder.png";
+
                 const card = criarCardPeca(
                     idPeca,
                     peca.titulo || "Sem título",
                     peca.preco || "0,00",
                     peca.finalidade || "venda",
-                    peca.fotoBase64 || "../../../img/placeholder.png"
+                    fotoFinal
                 );
+
 
                 container.appendChild(card);
             }

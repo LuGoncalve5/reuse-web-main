@@ -137,9 +137,10 @@ section {
 /* GRID DE PRODUTOS (Layout) */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding-top: 20px;
+    justify-content: start; /* Faz os cards se alinharem à esquerda quando não ocupam toda a linha */
 }
 
 /* CARD INDIVIDUAL */

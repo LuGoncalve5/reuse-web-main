@@ -50,7 +50,9 @@ function renderUsuarios(lista) {
             id: user.id,
             nomeCompleto: user.nomeCompleto,
             nomeDeUsuario: user.nomeDeUsuario,
-            fotoBase64: user.fotoBase64
+            fotoDePerfil: user.fotoBase64 
+                ? `data:image/png;base64,${user.fotoBase64}`
+                : '../../../img/perfil_default.png'
         });
 
         containerUsuarios.appendChild(card);
@@ -71,7 +73,7 @@ async function carregarBrechos() {
             id,
             nomeCompleto: dados.nomeCompleto,
             nomeDeUsuario: dados.nomeDeUsuario,
-            fotoBase64: dados.fotoBase64
+            fotoDePerfil: dados.fotoBase64
         }));
     }
 
@@ -86,7 +88,9 @@ function renderBrechos(lista) {
             id: brecho.id,
             nomeCompleto: brecho.nomeCompleto,
             nomeDeUsuario: brecho.nomeDeUsuario,
-            fotoBase64: brecho.fotoBase64
+            fotoDePerfil: brecho.fotoBase64 
+                ? `data:image/png;base64,${brecho.fotoBase64}`
+                : '../../../img/perfil_default.png'
         });
 
         containerBrechos.appendChild(card);
@@ -98,18 +102,23 @@ function renderBrechos(lista) {
 // ============================
 async function carregarVendas() {
     containerVendas.innerHTML = "";
+    const uidLogado = localStorage.getItem('currentUserUID');
 
     if (cacheVendas.length === 0) {
         const snapshot = await get(ref(database, "pecas"));
         if (!snapshot.exists()) return;
 
-        cacheVendas = Object.entries(snapshot.val()).map(([id, dados]) => ({
-            id,
-            titulo: dados.titulo,
-            descricao: dados.descricao,
-            preco: dados.preco,
-            imagem: dados.fotoBase64 || '../../../img/placeholder.png'
-        }));
+        cacheVendas = Object.entries(snapshot.val())
+            .filter(([id, dados]) => dados.finalidade === "Vender" && dados.ownerUid !== uidLogado)
+            .map(([id, dados]) => ({
+                id,
+                titulo: dados.titulo,
+                descricao: dados.descricao,
+                preco: dados.preco,
+                imagem: dados.fotoBase64 
+                    ? `data:image/png;base64,${dados.fotoBase64}`
+                    : '../../../img/perfil_default.png'
+            }));
     }
 
     renderVendas(cacheVendas);
