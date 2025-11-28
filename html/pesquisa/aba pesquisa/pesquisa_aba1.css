@@ -296,7 +296,7 @@ section {
 /*  GRID DE PRODUTOS E CLOSET */
 
 /* Estilos de GRID Comuns */
-.product-grid, .closet-grid {
+.closet-grid {
     max-width: var(--max-width-perfil);
     margin: 0 auto;
     padding: 0 20px; 

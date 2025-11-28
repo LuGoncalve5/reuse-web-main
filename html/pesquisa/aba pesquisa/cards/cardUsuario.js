@@ -1,6 +1,6 @@
 // cards/cardUsuario.js
 
-export function criarCardUsuario({ id, nomeDeUsuario, arroba, fotoDePerfil }) {
+export function criarCardUsuario({ id, nomeCompleto, nomeDeUsuario, fotoDePerfil }) {
     const card = document.createElement("div");
     card.classList.add("user-card");
 
@@ -9,11 +9,11 @@ export function criarCardUsuario({ id, nomeDeUsuario, arroba, fotoDePerfil }) {
             <img 
                 src="${fotoDePerfil || '../../../img/perfil_default.png'}"
                 class="user-photo"
-                alt="Foto de ${nomeDeUsuario}"
+                alt="Foto de ${nomeCompleto}"
             >
             <div>
-                <h3>${nomeDeUsuario}</h3>
-                <p>@${arroba}</p>
+                <h3>${nomeCompleto}</h3>
+                <p>@${nomeDeUsuario}</p>
             </div>
         </div>
 
@@ -27,7 +27,7 @@ export function criarCardUsuario({ id, nomeDeUsuario, arroba, fotoDePerfil }) {
     `;
 
     card.addEventListener("click", () => {
-        window.location.href = `perfil.html?id=${id}`;
+        window.location.href = `../aba usuario/pesquisa_perfil.html?id=${id}`;
     });
 
     return card;

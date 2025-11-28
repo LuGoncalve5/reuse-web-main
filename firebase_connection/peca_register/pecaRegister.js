@@ -24,8 +24,11 @@ fileInput.addEventListener("change", () => {
 
     const reader = new FileReader();
     reader.onload = () => {
-        imagemBase64 = reader.result;
-        previewImg.src = imagemBase64;
+        const base64Completo = reader.result;
+        imagemBase64 = base64Completo.split(",")[1]; // remove prefixo
+        
+        // preview precisa do prefixo
+        previewImg.src = base64Completo;
         previewImg.style.display = "block";
         uploadBox.querySelector("i").style.display = "none";
         uploadBox.querySelector("p").style.display = "none";

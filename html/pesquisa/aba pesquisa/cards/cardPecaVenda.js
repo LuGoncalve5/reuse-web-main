@@ -1,6 +1,6 @@
 // cards/cardPecaVenda.js
 
-export function criarCardPecaVenda({ id, imagem, valor, titulo, descricao }) {
+export function criarCardPecaVenda({ id, imagem, preco, titulo, descricao }) {
     const card = document.createElement("a");
     card.classList.add("product-card");
     card.href = `../aba produto/produto.html?idPeca=${id}`;
@@ -17,7 +17,7 @@ export function criarCardPecaVenda({ id, imagem, valor, titulo, descricao }) {
         </div>
 
         <div class="product-details">
-            <p class="product-price">R$ ${Number(valor).toFixed(2)}</p>
+            <p class="product-price">R$ ${preco}</p>
             <h4 class="product-title">${titulo}</h4>
             <p class="product-description-snippet">${descricao}</p>
         </div>

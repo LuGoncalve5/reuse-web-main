@@ -1,6 +1,6 @@
 // peca.js
 import { database } from "../../../firebase_connection/firebaseConfig.js";
-import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, get, remove } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -39,10 +39,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (precoSpan) precoSpan.parentElement.style.display = "none";
     }
 
-    // Imagem
     if (peca.fotoBase64) {
-        document.getElementById("imagemPeca").src = peca.fotoBase64;
-    }
+        document.getElementById("imagemPeca").src = `data:image/jpeg;base64,${peca.fotoBase64}`;
+    } else {
+        document.getElementById("imagemPeca").src = "../../../img/sem-imagem.png";  // placeholder
+    }    
 
     /* ============================================================
         CORES (múltiplas)
