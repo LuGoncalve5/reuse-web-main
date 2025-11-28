@@ -1,172 +1,119 @@
-// cadastroPeca.js
+// pecaRegister.js 
 import { database } from '../firebaseConfig.js';
-import { ref, set, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, set, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
-// Pegando infos do usuário que tá logado (que foram salvas no localStorage)
+// elementos DOM
+const fileInput = document.getElementById("fileInput");
+const previewImg = document.getElementById("previewImg");
+const uploadBox = document.querySelector(".upload-box");
+const dropdown = document.getElementById("gavetaDropdown");
+const gavetaSelecionadaSpan = document.getElementById("gavetaSelecionada");
+const gavetaSelect = document.getElementById("gavetaSelect");
+
+// usuário logado
 const uid = localStorage.getItem('currentUserUID');
-const tipoUsuario = localStorage.getItem('currentUserTipo'); 
 let gavetaId = null;
 let imagemBase64 = null;
 
-// Função pra montar o caminho correto das gavetas dependendo do tipo de usuário
-function getCaminhoGavetasUsuario() {
-
-    // Se for pessoa física, caminho é esse
-    if (tipoUsuario === "pessoaFisica") {
-        return `usuarios/pessoaFisica/${uid}/gavetas`;
-    }
-
-    // Se for instituição
-    if (tipoUsuario === "instituicao") {
-        return `usuarios/pessoaJuridica/instituicoes/${uid}/gavetas`;
-    }
-
-    // Se for brechó
-    if (tipoUsuario === "brecho") {
-        return `usuarios/pessoaJuridica/brechos/${uid}/gavetas`;
-    }
-
-    // Se cair aqui, deu ruim
-    console.error("Tipo de usuário inválido:", tipoUsuario);
-    return null;
-}
-
-/* ============================================================
-   PREVIEW DA IMAGEM
-   (mostra a imagem que o usuário selecionou)
-============================================================ */
+// ============================================================
+// PREVIEW DA IMAGEM
+// ============================================================
 fileInput.addEventListener("change", () => {
     const file = fileInput.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
-        imagemBase64 = reader.result; // <-- AQUI SALVAMOS O BASE64
+        imagemBase64 = reader.result;
         previewImg.src = imagemBase64;
         previewImg.style.display = "block";
         uploadBox.querySelector("i").style.display = "none";
         uploadBox.querySelector("p").style.display = "none";
     };
-
     reader.readAsDataURL(file);
 });
 
-/* ============================================================
-   SELEÇÃO (categoria, tamanho, finalidade)
-============================================================ */
-
-// Função pra deixar os botões de seleção funcionando corretamente
+// ============================================================
+// BOTÕES DE SELEÇÃO
+// ============================================================
 function setupOptions(selector) {
     const group = document.querySelectorAll(selector + " .option-btn");
     
-    group.forEach(btn => btn.addEventListener('click', () => {
-        // remove selecionado dos outros
-        group.forEach(b => b.classList.remove('selected'));
-        // adiciona no clicado
-        btn.classList.add('selected');
+    group.forEach(btn =>
+        btn.addEventListener('click', async () => {
+            group.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
 
-        // se for seleção da finalidade (doar/vender), mostra/esconde o valor
-        if(selector === '.finalidade') {
-            const finalidadeEscolhida = btn.textContent.trim(); 
-            const valorInput = document.getElementById('valor');
-            const valorBox = document.getElementById('valor-box');
+            if (selector === '.finalidade') {
+                const finalidadeEscolhida = btn.textContent.trim();
+                const precoInput = document.getElementById('preco');
+                const precoBox = document.getElementById('preco-box');
 
-            if (finalidadeEscolhida === 'Vender') {
-                valorBox.style.display = 'block'; // mostra campo de preço
-                valorInput.required = true;
-            } else {
-                valorBox.style.display = 'none'; // esconde preço
-                valorInput.required = false;
-                valorInput.value = ''; // limpa valor
+                precoBox.style.display = finalidadeEscolhida === 'Vender' ? 'block' : 'none';
+                precoInput.required = finalidadeEscolhida === 'Vender';
+                if (finalidadeEscolhida !== 'Vender') precoInput.value = "";
+
+                // Atualiza gaveta automaticamente conforme a finalidade
+                await aplicarRegraFinalidadeGaveta(finalidadeEscolhida);
             }
-        }
-    }));
+        })
+    );
 }
 
-// Função pra formatar o valor em formato de moeda (xx,xx)
-function formatarMoeda(input) {
-    let valor = input.value.replace(/\D/g, ''); // tira tudo que não for número
-
-    if (valor.length === 0) {
-        input.value = "";
-        return;
+// ============================================================
+// BLOQUEIO/DESBLOQUEIO DO DROPDOWN
+// ============================================================
+function bloquearDropdown(bloquear) {
+    if (bloquear) {
+        gavetaSelect.style.opacity = "0.5";
+        gavetaSelect.style.pointerEvents = "none";
+        dropdown.style.display = "none";
+    } else {
+        gavetaSelect.style.opacity = "1";
+        gavetaSelect.style.pointerEvents = "auto";
     }
-
-    // transforma último dígito em centavos
-    valor = (parseFloat(valor) / 100).toFixed(2) + '';
-    valor = valor.replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    input.value = valor;
 }
 
-const valorInput = document.getElementById("valor");
-valorInput.addEventListener("input", () => {
-    formatarMoeda(valorInput);
-});
-
-// Ativa os grupos de seleção
-setupOptions('.categoria');
-setupOptions('.tamanho');
-setupOptions('.finalidade');
-
-// Seleção das cores (só deixa 1 selecionada)
-document.querySelectorAll('.color').forEach(c => {
-    c.addEventListener('click', () => {
-        document.querySelectorAll('.color').forEach(col => col.classList.remove('selected'));
-        c.classList.add('selected');
+function renderizarGavetaSelecionada() {
+    document.querySelectorAll(".gaveta-item").forEach(i => {
+        i.classList.remove("selected-gaveta");
+        if (i.textContent === gavetaSelecionadaSpan.textContent) {
+            i.classList.add("selected-gaveta");
+        }
     });
-});
+}
 
-/* ============================================================
-   CARREGAR GAVETAS
-   (lista todas as gavetas do usuário)
-============================================================ */
-const dropdown = document.getElementById("gavetaDropdown");
-const gavetaSelect = document.getElementById("gavetaSelect");
-const gavetaSelecionadaSpan = document.getElementById("gavetaSelecionada");
-
+// ============================================================
+// CARREGAR GAVETAS DO USUÁRIO
+// ============================================================
 async function carregarGavetas() {
-
     dropdown.innerHTML = "<p>Carregando...</p>";
 
-    const caminho = getCaminhoGavetasUsuario();
-    if (!caminho) return; // se não tiver caminho, já era
-
     try {
-        // pega as gavetas do usuário
-        const snapGavetasUsuario = await get(ref(database, caminho));
+        const q = query(ref(database, "gavetas"), orderByChild("ownerUid"), equalTo(uid));
+        const snap = await get(q);
 
-        if (!snapGavetasUsuario.exists()) {
+        if (!snap.exists()) {
             dropdown.innerHTML = "<p>Você não possui gavetas.</p>";
             return;
         }
 
         dropdown.innerHTML = "";
-        const idsGavetas = Object.keys(snapGavetasUsuario.val());
+        const dados = snap.val();
 
-        for (const id of idsGavetas) {
+        Object.entries(dados).forEach(([id, gaveta]) => {
+            const item = document.createElement("div");
+            item.classList.add("gaveta-item");
+            item.textContent = gaveta.nome;
 
-            // busca os dados da gaveta pelo ID
-            const gavetaSnap = await get(ref(database, `gavetas/${id}`));
+            item.addEventListener("click", () => {
+                gavetaId = id;
+                gavetaSelecionadaSpan.textContent = gaveta.nome;
+                dropdown.style.display = "none";
+            });
 
-            if (gavetaSnap.exists()) {
-
-                const dado = gavetaSnap.val();
-
-                const item = document.createElement("div");
-                item.classList.add("gaveta-item");
-                item.textContent = dado.nome;
-
-                // quando o usuário clicar na gaveta
-                item.addEventListener("click", () => {
-                    gavetaId = id; // salva ID
-                    gavetaSelecionadaSpan.textContent = dado.nome; // mostra o nome no campo
-                    dropdown.style.display = "none"; // fecha lista
-                });
-
-                dropdown.appendChild(item);
-            }
-        }
-
+            dropdown.appendChild(item);
+        });
     } catch (err) {
         console.error("Erro ao buscar gavetas:", err);
         dropdown.innerHTML = "<p>Erro ao carregar.</p>";
@@ -175,64 +122,169 @@ async function carregarGavetas() {
 
 carregarGavetas();
 
-// abre/fecha o dropdown de gavetas
+// toggle dropdown
 gavetaSelect.addEventListener("click", () => {
     dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
 });
 
-/* ============================================================
-   SUBMIT DA PEÇA
-   (envia os dados pro Firebase)
-============================================================ */
-const form = document.getElementById('formPeca');
+// ============================================================
+// CORES MÚLTIPLAS (até 3)
+// ============================================================
+const colorButtons = [...document.querySelectorAll(".colors .color")];
+let selectedColors = [];
+const maxCores = 3;
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // cancela envio padrão
+function renderizarCoresSelecionadas() {
+    colorButtons.forEach(btn => {
+        btn.classList.toggle("selected", selectedColors.includes(btn.dataset.cor));
+    });
+}
 
-    if (!gavetaId) {
-        alert("Selecione uma gaveta!");
-        return;
+colorButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const cor = btn.dataset.cor;
+
+        if (selectedColors.includes(cor)) {
+            // Remove se já estiver selecionada
+            selectedColors = selectedColors.filter(c => c !== cor);
+        } else {
+            if (selectedColors.length >= maxCores) {
+                // Remove a primeira selecionada se já tiver 3
+                selectedColors.shift();
+            }
+            selectedColors.push(cor);
+        }
+
+        renderizarCoresSelecionadas();
+    });
+});
+
+// ============================================================
+// ASSOCIAR FINALIDADE À GAVETA
+// ============================================================
+async function aplicarRegraFinalidadeGaveta(finalidade) {
+    const q = query(ref(database, "gavetas"), orderByChild("ownerUid"), equalTo(uid));
+    const snap = await get(q);
+    if (!snap.exists()) return;
+
+    let idVendas = null;
+    let idDoacao = null;
+    const gavetasNormais = []; // só gavetas que podem aparecer no dropdown
+
+    snap.forEach(s => {
+        const g = s.val();
+        const nome = g.nome.toLowerCase();
+
+        if (nome === "vendas") idVendas = s.key;
+        else if (nome === "doação" || nome === "doacao") idDoacao = s.key;
+        else gavetasNormais.push({ id: s.key, nome: g.nome });
+    });
+
+    // Limpa dropdown
+    dropdown.innerHTML = "";
+
+    if (finalidade === "Vender" && idVendas) {
+        gavetaId = idVendas;
+        gavetaSelecionadaSpan.textContent = "Vendas";
+        bloquearDropdown(true);
+    } else if (finalidade === "Doar" && idDoacao) {
+        gavetaId = idDoacao;
+        gavetaSelecionadaSpan.textContent = "Doação";
+        bloquearDropdown(true);
+    } else if (finalidade === "Organizar") {
+        gavetaId = null;
+        gavetaSelecionadaSpan.textContent = "Selecione uma gaveta.";
+        bloquearDropdown(false);
+
+        // Adiciona apenas as gavetas normais no dropdown
+        gavetasNormais.forEach(g => {
+            const item = document.createElement("div");
+            item.classList.add("gaveta-item");
+            item.textContent = g.nome;
+
+            item.addEventListener("click", () => {
+                gavetaId = g.id;
+                gavetaSelecionadaSpan.textContent = g.nome;
+                dropdown.style.display = "none";
+                renderizarGavetaSelecionada();
+            });
+
+            dropdown.appendChild(item);
+        });
+
+        // Caso não haja gavetas normais
+        if (gavetasNormais.length === 0) {
+            dropdown.innerHTML = "<p>Não há gavetas disponíveis para organizar.</p>";
+        }
     }
 
-    // pega todos os dados que o usuário colocou
+    renderizarGavetaSelecionada();
+}
+
+// ============================================================
+// MOEDA
+// ============================================================
+function formatarMoeda(input) {
+    let preco = input.value.replace(/\D/g, '');
+    if (preco.length === 0) return input.value = "";
+    preco = (parseFloat(preco) / 100).toFixed(2) + '';
+    preco = preco.replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    input.value = preco;
+}
+
+document.getElementById("preco").addEventListener("input", e => formatarMoeda(e.target));
+
+// ============================================================
+// SETUP DOS BOTÕES
+// ============================================================
+setupOptions('.categoria');
+setupOptions('.tamanho');
+setupOptions('.finalidade');
+
+// ============================================================
+// SUBMIT DA PEÇA
+// ============================================================
+document.getElementById('formPeca').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const finalidade = document.querySelector('.finalidade .selected').textContent;
+
+    // Checagem específica para Organizar
+    if (finalidade === "Organizar" && !gavetaId) {
+        return alert("Você precisa selecionar uma gaveta para organizar!");
+    }
+
+    if (!gavetaId) return alert("Selecione uma gaveta!");
+
     const titulo = document.getElementById('titulo').value.trim();
     const descricao = document.getElementById('descricao').value.trim();
     const categoria = document.querySelector('.categoria .selected').textContent;
     const tamanho = document.querySelector('.tamanho .selected').textContent;
-    const finalidade = document.querySelector('.finalidade .selected').textContent;
-    const cor = document.querySelector('.colors .selected').dataset.cor;
-    const valor = document.getElementById('valor').value;
+    const preco = document.getElementById('preco').value;
 
-    // validações simples
-    if(!titulo) { alert('Digite um título'); return; }
-    if(!descricao) { alert('Digite uma descrição'); return; }
-    if(!categoria) { alert('Selecione uma categoria'); return; }
-    if(!tamanho) { alert('Selecione um tamanho'); return; }
-    if(!finalidade) { alert('Selecione uma finalidade'); return; }
-    if(finalidade === 'Vender' && (!valor || valor.trim() === "")) { alert('Digite um valor'); return; }
+    const cores = Array.from(document.querySelectorAll('.colors .selected'))
+        .map(el => el.dataset.cor)
+        .join(", ");
 
-    // cria ID único pra peça
-    const newPecaId = `${uid}_${Date.now()}`;
+    if (!titulo || !descricao) return alert("Preencha todos os campos.");
+    if (finalidade === "Vender" && preco.trim() === "") return alert("Digite um preço.");
 
-    // salva a peça no banco
-    await set(ref(database, `pecas/${newPecaId}`), {
-        id: newPecaId,
-        idUsuario: uid,
-        idGaveta: gavetaId,
+    const idPeca = `${uid}_${Date.now()}`;
+
+    await set(ref(database, `pecas/${idPeca}`), {
+        ownerUid: uid,
+        gavetaUid: gavetaId,
         titulo,
         descricao,
         categoria,
         tamanho,
         finalidade,
-        cor,
-        valor,
-        imagem: imagemBase64 || null,
+        cores,
+        preco,
+        fotoBase64: imagemBase64 || null,
         dataCadastro: Date.now()
     });
 
-    // adiciona peça dentro da gaveta
-    await set(ref(database, `gavetas/${gavetaId}/pecas/${newPecaId}`), true);
-
-    // manda pro perfil da peça
-    window.location.href = `../../closet/peca/peca.html?id=${newPecaId}`;
+    window.location.href = `../../closet/peca/peca.html?idPeca=${idPeca}`;
 });
+

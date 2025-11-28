@@ -180,7 +180,7 @@ export async function buscarEnderecoPorCEP(cep) {
         const res = await fetch(`https://viacep.com.br/ws/${limpo}/json/`);
         const data = await res.json();
         if (data.erro) return null;
-        return { rua: data.logradouro, bairro: data.bairro, cidade: data.localidade, estado: data.uf };
+        return { rua: data.logradouro, bairro: data.bairro, cidade: data.localidade, estado: data.uf, pais: 'Brasil' };
     } catch (e) {
         console.warn('⚠️ Erro ao buscar endereço por CEP:', e);
         return null;
@@ -194,4 +194,5 @@ export function preencherCamposEndereco(dados) {
     if (document.getElementById('bairro')) document.getElementById('bairro').value = dados.bairro || '';
     if (document.getElementById('cidade')) document.getElementById('cidade').value = dados.cidade || '';
     if (document.getElementById('estado')) document.getElementById('estado').value = dados.estado || '';
+    if (document.getElementById('pais')) document.getElementById('pais').value = dados.pais || 'Brasil';
 }

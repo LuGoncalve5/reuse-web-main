@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const bairro = document.getElementById('bairro').value.trim();
         const cidade = document.getElementById('cidade').value.trim();
         const estado = document.getElementById('estado').value.trim();
+        const pais = document.getElementById('pais').value.trim();
         const complemento = document.getElementById('complemento').value.trim();
 
-        const campos = ['cep', 'rua', 'numero', 'bairro', 'cidade', 'estado'];
+        const campos = ['cep', 'rua', 'numero', 'bairro', 'cidade', 'estado', 'pais'];
         let valido = true;
 
         // Limpar erros antigos
@@ -87,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 bairro,
                 cidade,
                 estado,
+                pais,
                 complemento
             });
 
@@ -108,12 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
             }
 
-            await update(usuarioRef, { enderecos: { enderecoPrincipal: enderecoId } });
+            await update(usuarioRef, { endereco: enderecoId });
 
             // Confirmação e reset do formulário
             form.reset();
-            alert('Endereço salvo com sucesso! Você será redirecionado para o closet.');
-            setTimeout(() => window.location.href = '../closet/closet.html', 1500);
+            alert('Endereço salvo com sucesso! Você está quase lá.');
+            setTimeout(() => window.location.href = 'ci_fotoperfil.html', 1500);
 
         } catch (err) {
             console.error(err);

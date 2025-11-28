@@ -4,7 +4,7 @@ import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-dat
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // ====== PEGAR ID DA URL ======
+    // ID da peça
     const params = new URLSearchParams(window.location.search);
     const idPeca = params.get("idPeca");
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // ====== BUSCAR PEÇA NO BANCO ======
+    // Buscar peça
     const pecaRef = ref(database, `pecas/${idPeca}`);
     const snapshot = await get(pecaRef);
 
@@ -24,30 +24,51 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const peca = snapshot.val();
 
-    // ====== PREENCHER TELA ======
+    // Preencher textos
     document.getElementById("tituloPeca").textContent = peca.titulo;
     document.getElementById("descricaoPeca").textContent = peca.descricao;
     document.getElementById("categoriaPeca").textContent = peca.categoria;
     document.getElementById("finalidadePeca").textContent = peca.finalidade;
     document.getElementById("tamanhoPeca").textContent = peca.tamanho;
 
+    // Preço (somente se for venda)
+    const precoSpan = document.getElementById("precoPeca");
+    if (peca.finalidade === "Vender") {
+        if (precoSpan) precoSpan.textContent = "R$ " + (peca.preco || peca.valor || "0,00");
+    } else {
+        if (precoSpan) precoSpan.parentElement.style.display = "none";
+    }
+
     // Imagem
-    if (peca.imagem) {
-        document.getElementById("imagemPeca").src = peca.imagem;
+    if (peca.fotoBase64) {
+        document.getElementById("imagemPeca").src = peca.fotoBase64;
     }
 
-    // ====== COR (gera bolinha) ======
+    /* ============================================================
+        CORES (múltiplas)
+        peca.cores = "white, red, blue"
+    ============================================================ */
     const corDiv = document.getElementById("corPecaList");
-    corDiv.innerHTML = ""; // limpa antes
+    corDiv.innerHTML = "";  // limpar antes
 
-    if (peca.cor) {
-        const cor = document.createElement("div");
-        cor.classList.add("color");
-        cor.style.background = peca.cor;  
-        corDiv.appendChild(cor);
+    if (peca.cores) {
+        const listaCores = peca.cores
+            .split(",")
+            .map(c => c.trim())
+            .filter(c => c !== "");
+
+        listaCores.forEach(cor => {
+            const circle = document.createElement("div");
+            circle.classList.add("color");
+            circle.style.background = cor;
+            circle.setAttribute("data-cor", cor);
+            corDiv.appendChild(circle);
+        });
     }
 
-    // ====== BOTÃO EDITAR ======
+    /* ============================================================
+        BOTÃO EDITAR
+    ============================================================ */
     document.getElementById("editarPecaBtn").addEventListener("click", () => {
         window.location.href = `../edita peca/editaPeca.html?idPeca=${idPeca}`;
     });

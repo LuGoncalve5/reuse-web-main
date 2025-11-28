@@ -5,7 +5,7 @@ import { ref, set, push, update} from "https://www.gstatic.com/firebasejs/12.3.0
 import { aplicarMascaras, validarCNPJ, validarTelefone, validarEmail, validarNomeCompleto, validarSenha, validarUsuarioUnico, validarNomeUsuario } from './validacoes.js';
 import { exibirErro, limparErro } from './uiHelpers.js';
 
-function writeUserDataInstituicao(uid, nome, email, telefone, usuario, cnpj) {
+function writeUserDataInstituicao(uid, nome, email, telefone, usuario, cnpj, tipoPessoa, tipoUsuario) {
     const userRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
     return set(userRef, {
         cnpj,
@@ -13,10 +13,13 @@ function writeUserDataInstituicao(uid, nome, email, telefone, usuario, cnpj) {
         email,
         nomeCompleto: nome,
         nomeDeUsuario: usuario,
-        telefone
+        telefone,
+        tipoPessoa,
+        tipoUsuario
     });
 }
 
+// Função adicional: cria as duas gavetas padrão
 async function criarGavetasPadrao(uid) {
     const gavetasRef = ref(database, 'gavetas');
     const dataCriacao = new Date().toISOString();
@@ -24,32 +27,41 @@ async function criarGavetasPadrao(uid) {
     // cria duas gavetas globais
     const doacaoRef = push(gavetasRef);
     const vendasRef = push(gavetasRef);
+    const carrinhoRef = push(gavetasRef);
+    const recebidosRef = push(gavetasRef);
 
-    const doacaoId = doacaoRef.key;
-    const vendasId = vendasRef.key;
 
     // salva as gavetas na tabela "gavetas"
     await Promise.all([
         set(doacaoRef, {
+            fotoBase64: '',
             nome: 'Doação',
-            privado: false,
+            privado: true,
             dataCriacao,
-            dono: uid
+            ownerUid: uid
         }),
         set(vendasRef, {
+            fotoBase64: '',
             nome: 'Vendas',
-            privado: false,
+            privado: true,
             dataCriacao,
-            dono: uid
-        })
+            ownerUid: uid
+        }),
+        set(carrinhoRef, {
+            fotoBase64: '',
+            nome: 'Carrinho',
+            privado: true,
+            dataCriacao,
+            ownerUid: uid
+        }),
+        set(recebidosRef, {
+            fotoBase64: '',
+            nome: 'Recebidos',
+            privado: true,
+            dataCriacao,
+            ownerUid: uid
+        }),
     ]);
-
-    // referencia essas gavetas no perfil do usuário
-    const userGavetasRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}/gavetas`);
-    await update(userGavetasRef, {
-        [doacaoId]: true,
-        [vendasId]: true
-    });
 
     console.log("✅ Gavetas padrão criadas e vinculadas ao usuário!");
 }
@@ -80,6 +92,8 @@ form.addEventListener('submit', async (e) => {
     const senha = document.getElementById('senha').value;
     const nomeUsuario = document.getElementById('usuario').value.trim();
     const cnpj = document.getElementById('cnpj').value.trim();
+    const tipoPessoa = 'pessoaJuridica';
+    const tipoUsuario = 'instituicao';
 
     let valido = true;
     
@@ -139,7 +153,7 @@ form.addEventListener('submit', async (e) => {
         localStorage.setItem('currentUserUID', user.uid);
         localStorage.setItem('currentUserTipo', 'instituicao');
 
-        await writeUserDataInstituicao(user.uid, nomeCompleto, email, telefone, nomeUsuario, cnpj);
+        await writeUserDataInstituicao(user.uid, nomeCompleto, email, telefone, nomeUsuario, cnpj, tipoPessoa, tipoUsuario);
         await criarGavetasPadrao(user.uid);
 
         setTimeout(() => {
