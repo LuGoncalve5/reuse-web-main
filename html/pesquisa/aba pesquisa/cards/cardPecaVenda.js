@@ -3,7 +3,7 @@
 export function criarCardPecaVenda({ id, imagem, valor, titulo, descricao }) {
     const card = document.createElement("a");
     card.classList.add("product-card");
-    card.href = `../aba produto/detalhe_produto.html?id=${id}`;
+    card.href = `../aba produto/produto.html?idPeca=${id}`;
 
     card.innerHTML = `
         <div class="product-image-container">
