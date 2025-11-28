@@ -1,6 +1,6 @@
 // === closet.js ===
 import { database } from '../../../firebase_connection/firebaseConfig.js';
-import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 import { criarCardGaveta } from './cardGaveta.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -8,88 +8,60 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const section = document.querySelector('section');
     const spinner = document.getElementById('spinner');
-    const searchInput = document.getElementById('searchGaveta'); // campo de pesquisa
+    const searchInput = document.getElementById('searchGaveta');
 
-    let listaGavetasCarregadas = [];  // armazenar gavetas já carregadas
-
+    let listaGavetasCarregadas = [];
     const uid = localStorage.getItem('currentUserUID');
-    const tipoUsuario = localStorage.getItem('currentUserTipo');
 
-    if (!uid || !tipoUsuario) {
+    if (!uid) {
         alert('Erro interno: usuário não identificado.');
         return;
     }
 
     try {
-        // --- Seleciona o caminho correto do usuário ---
-        let usuarioRef;
-        switch (tipoUsuario) {
-            case 'pessoaFisica':
-                usuarioRef = ref(database, `usuarios/pessoaFisica/${uid}`);
-                break;
-            case 'instituicao':
-                usuarioRef = ref(database, `usuarios/pessoaJuridica/instituicoes/${uid}`);
-                break;
-            case 'brecho':
-                usuarioRef = ref(database, `usuarios/pessoaJuridica/brechos/${uid}`);
-                break;
-            default:
-                throw new Error('Tipo de usuário desconhecido.');
-        }
+        // Busca todas as gavetas do usuário
+        const gavetasRef = query(ref(database, 'gavetas'), orderByChild('ownerUid'), equalTo(uid));
+        const snapshotGavetas = await get(gavetasRef);
 
-        // --- Busca nó do usuário ---
-        const snapshotUsuario = await get(usuarioRef);
-        if (!snapshotUsuario.exists()) {
-            console.log("Usuário não encontrado no banco.");
+        if (!snapshotGavetas.exists()) {
+            console.log("Usuário não possui gavetas.");
             if (spinner) spinner.remove();
             return;
         }
 
-        const dadosUsuario = snapshotUsuario.val();
-        const gavetasUsuario = dadosUsuario.gavetas || {};
+        const gavetas = snapshotGavetas.val();
 
-        if (Object.keys(gavetasUsuario).length === 0) {
-            console.log("Usuário sem gavetas.");
-            if (spinner) spinner.remove();
-            return;
-        }
+        for (const gavetaId in gavetas) {
+            const gaveta = gavetas[gavetaId];
 
-        // --- Carrega gavetas do Firebase ---
-        for (const gavetaId in gavetasUsuario) {
-            const gavetaRef = ref(database, `gavetas/${gavetaId}`);
-            const snapshotGaveta = await get(gavetaRef);
+            // --- Contar peças da gaveta ---
+            const pecasRef = query(ref(database, 'pecas'), orderByChild('gavetaUid'), equalTo(gavetaId));
+            const snapshotPecas = await get(pecasRef);
+            const qtdPecas = snapshotPecas.exists() ? Object.keys(snapshotPecas.val()).length : 0;
 
-            if (snapshotGaveta.exists()) {
-                const gaveta = snapshotGaveta.val();
-                const qtdPecas = gaveta.pecas ? Object.keys(gaveta.pecas).length : 0;
-
-                // --- Define imagem conforme o nome ---
-                let imagemGaveta = '../../img/banco de fotos/body.jpg';
-
-                if (gaveta.nome.toLowerCase() === 'doação' || gaveta.nome.toLowerCase() === 'doacao') {
-                    imagemGaveta = '../../img/doacaomao.png';
-                }
-                else if (gaveta.nome.toLowerCase() === 'vendas') {
-                    imagemGaveta = '../../img/dinheiro.png';
-                }
-
-                // --- Criar card e adicionar no DOM ---
-                const card = criarCardGaveta(gavetaId, gaveta.nome, qtdPecas, imagemGaveta);
-                section.appendChild(card);
-
-                // --- Armazenar gaveta carregada ---
-                listaGavetasCarregadas.push({
-                    id: gavetaId,
-                    nome: gaveta.nome.toLowerCase(), // facilita pesquisa
-                    elemento: card
-                });
+            // --- Define imagem conforme o nome ---
+            let imagemGaveta = '../../img/banco de fotos/body.jpg';
+            if (gaveta.nome.toLowerCase() === 'doação' || gaveta.nome.toLowerCase() === 'doacao') {
+                imagemGaveta = '../../img/doacaomao.png';
+            } else if (gaveta.nome.toLowerCase() === 'vendas') {
+                imagemGaveta = '../../img/dinheiro.png';
             }
+
+            // --- Criar card e adicionar no DOM ---
+            const card = criarCardGaveta(gavetaId, gaveta.nome, qtdPecas, imagemGaveta);
+            section.appendChild(card);
+
+            // --- Armazenar gaveta carregada para pesquisa ---
+            listaGavetasCarregadas.push({
+                id: gavetaId,
+                nome: gaveta.nome.toLowerCase(),
+                elemento: card
+            });
         }
 
     } catch (err) {
         console.error('❌ Erro ao carregar gavetas:', err);
     } finally {
-        // --- Remove spinner suavemente ---
         if (spinner) {
             spinner.style.opacity = '0';
             spinner.style.transition = 'opacity 0.5s';
@@ -97,32 +69,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // ======================================================================
-    // 🔎 FUNÇÃO DE PESQUISA
-    // ======================================================================
-
+    // Função de pesquisa
     function filtrarGavetas(texto) {
         const busca = texto.toLowerCase();
-
         listaGavetasCarregadas.forEach(gaveta => {
-            // mostra somente gavetas que contenham o texto digitado
-            if (gaveta.nome.includes(busca)) {
-                gaveta.elemento.style.display = '';
-            } else {
-                gaveta.elemento.style.display = 'none';
-            }
+            gaveta.elemento.style.display = gaveta.nome.includes(busca) ? '' : 'none';
         });
     }
 
-    // --- evento ao digitar (opcional: pesquisa dinâmica) ---
-    searchInput.addEventListener('input', () => {
-        filtrarGavetas(searchInput.value);
-    });
-
-    // --- evento ao apertar Enter ---
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            filtrarGavetas(searchInput.value);
-        }
-    });
+    searchInput.addEventListener('input', () => filtrarGavetas(searchInput.value));
+    searchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') filtrarGavetas(searchInput.value); });
 });

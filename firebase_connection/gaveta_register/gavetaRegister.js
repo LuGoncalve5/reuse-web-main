@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!uid || !tipoUsuario) {
             alert('Erro interno: usuário não encontrado. Tente abrir novamente.');
+            window.location.href = '../../login.html';
             return;
         }
 
@@ -54,43 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 nome: nomeGaveta,
                 privado: isPrivado,
                 dataCriacao: new Date().toISOString(),
-                donoUID: uid,
-                pecas: {}
+                ownerUid: uid
             });
-
-            // Vincula gaveta ao usuário correto
-            let usuarioPath = '';
-            switch (tipoUsuario) {
-                case 'pessoaFisica':
-                    usuarioPath = `usuarios/pessoaFisica/${uid}`;
-                    break;
-                case 'instituicao':
-                    usuarioPath = `usuarios/pessoaJuridica/instituicoes/${uid}`;
-                    break;
-                case 'brecho':
-                    usuarioPath = `usuarios/pessoaJuridica/brechos/${uid}`;
-                    break;
-                default:
-                    alert('Tipo de usuário desconhecido.');
-                    return;
-            }
-
-            const usuarioRef = ref(database, usuarioPath);
-            const snapshotUsuario = await get(usuarioRef);
-            const dadosUsuario = snapshotUsuario.exists() ? snapshotUsuario.val() : {};
-
-            // Atualiza apenas o campo de gavetas, sem apagar as antigas
-            const novasGavetas = dadosUsuario.gavetas || {};
-            novasGavetas[gavetaId] = true;
-
-            // Adiciona referência da gaveta ao usuário
-            await update(usuarioRef, { gavetas: novasGavetas });
             
             alert('Gaveta criada com sucesso!');
 
             // Redireciona, se desejar
             setTimeout(() => {
-                window.location.href = `../../closet/gavetas/gaveta.html?id=${gavetaId}`;
+                window.location.href = `../../closet/gaveta/gaveta.html?id=${gavetaId}`;
             }, 1000);
 
         } catch (err) {
