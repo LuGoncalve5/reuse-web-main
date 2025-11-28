@@ -5,27 +5,52 @@ import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-dat
 import { criarCardUsuario } from './cards/cardUsuario.js';
 import { criarCardPecaVenda } from './cards/cardPecaVenda.js';
 
-// containers
+// ============================
+// ELEMENTOS
+// ============================
 const containerUsuarios = document.querySelector("#page-usuarios .user-list");
 const containerBrechos  = document.querySelector("#page-brechos .user-list");
 const containerVendas   = document.querySelector("#page-vendas .product-grid");
+const inputBusca        = document.querySelector("#input-busca");
 
 // ============================
-// BUSCA USUÁRIOS PF
+// CACHE (evita buscar no Firebase toda hora)
+// ============================
+let cacheUsuarios = [];
+let cacheBrechos  = [];
+let cacheVendas   = [];
+let abaAtual      = "usuarios";
+
+// ============================
+// USUÁRIOS PF
 // ============================
 async function carregarUsuarios() {
     containerUsuarios.innerHTML = "";
 
-    const snapshot = await get(ref(database, "usuarios/pessoaFisica"));
+    if (cacheUsuarios.length === 0) {
+        const snapshot = await get(ref(database, "usuarios/pessoaFisica"));
+        if (!snapshot.exists()) return;
 
-    if (!snapshot.exists()) return;
-
-    Object.entries(snapshot.val()).forEach(([id, dados]) => {
-        const card = criarCardUsuario({
+        cacheUsuarios = Object.entries(snapshot.val()).map(([id, dados]) => ({
             id,
+            nomeCompleto: dados.nomeCompleto,
             nomeDeUsuario: dados.nomeDeUsuario,
-            arroba: dados.arroba,
-            fotoDePerfil: dados.fotoDePerfil
+            fotoBase64: dados.fotoBase64
+        }));
+    }
+
+    renderUsuarios(cacheUsuarios);
+}
+
+function renderUsuarios(lista) {
+    containerUsuarios.innerHTML = "";
+
+    lista.forEach(user => {
+        const card = criarCardUsuario({
+            id: user.id,
+            nomeCompleto: user.nomeCompleto,
+            nomeDeUsuario: user.nomeDeUsuario,
+            fotoBase64: user.fotoBase64
         });
 
         containerUsuarios.appendChild(card);
@@ -33,21 +58,35 @@ async function carregarUsuarios() {
 }
 
 // ============================
-// BUSCA BRECHÓS
+// BRECHÓS
 // ============================
 async function carregarBrechos() {
     containerBrechos.innerHTML = "";
 
-    const snapshot = await get(ref(database, "usuarios/pessoaJuridica/brechos"));
+    if (cacheBrechos.length === 0) {
+        const snapshot = await get(ref(database, "usuarios/pessoaJuridica/brechos"));
+        if (!snapshot.exists()) return;
 
-    if (!snapshot.exists()) return;
-
-    Object.entries(snapshot.val()).forEach(([id, dados]) => {
-        const card = criarCardUsuario({
+        cacheBrechos = Object.entries(snapshot.val()).map(([id, dados]) => ({
             id,
+            nomeCompleto: dados.nomeCompleto,
             nomeDeUsuario: dados.nomeDeUsuario,
-            arroba: dados.arroba,
-            fotoDePerfil: dados.fotoDePerfil
+            fotoBase64: dados.fotoBase64
+        }));
+    }
+
+    renderBrechos(cacheBrechos);
+}
+
+function renderBrechos(lista) {
+    containerBrechos.innerHTML = "";
+
+    lista.forEach(brecho => {
+        const card = criarCardUsuario({
+            id: brecho.id,
+            nomeCompleto: brecho.nomeCompleto,
+            nomeDeUsuario: brecho.nomeDeUsuario,
+            fotoBase64: brecho.fotoBase64
         });
 
         containerBrechos.appendChild(card);
@@ -55,34 +94,83 @@ async function carregarBrechos() {
 }
 
 // ============================
-// BUSCA VENDAS
+// VENDAS
 // ============================
 async function carregarVendas() {
     containerVendas.innerHTML = "";
 
-    const snapshot = await get(ref(database, "pecas"));
+    if (cacheVendas.length === 0) {
+        const snapshot = await get(ref(database, "pecas"));
+        if (!snapshot.exists()) return;
 
-    if (!snapshot.exists()) return;
-
-    Object.entries(snapshot.val()).forEach(([id, dados]) => {
-        const card = criarCardPecaVenda({
+        cacheVendas = Object.entries(snapshot.val()).map(([id, dados]) => ({
             id,
-            imagem: dados.imagem,
-            valor: dados.valor,
             titulo: dados.titulo,
-            descricao: dados.descricao
-        });
+            descricao: dados.descricao,
+            preco: dados.preco,
+            imagem: dados.fotoBase64 || '../../../img/placeholder.png'
+        }));
+    }
 
+    renderVendas(cacheVendas);
+}
+
+function renderVendas(lista) {
+    containerVendas.innerHTML = "";
+
+    lista.forEach(produto => {
+        const card = criarCardPecaVenda(produto);
         containerVendas.appendChild(card);
     });
 }
 
 // ============================
-// CONTROLE DE ABAS
+// BUSCA DINÂMICA (DEPENDE DA ABA)
+// ============================
+function aplicarBusca(valor) {
+    const termo = valor.toLowerCase();
+
+    if (abaAtual === "usuarios") {
+        renderUsuarios(
+            cacheUsuarios.filter(u =>
+                u.nomeCompleto.toLowerCase().includes(termo) ||
+                u.nomeDeUsuario.toLowerCase().includes(termo)
+            )
+        );
+    }
+
+    if (abaAtual === "brechos") {
+        renderBrechos(
+            cacheBrechos.filter(b =>
+                b.nomeCompleto.toLowerCase().includes(termo) ||
+                b.nomeDeUsuario.toLowerCase().includes(termo)
+            )
+        );
+    }
+
+    if (abaAtual === "vendas") {
+        renderVendas(
+            cacheVendas.filter(v =>
+                v.titulo.toLowerCase().includes(termo)
+            )
+        );
+    }
+}
+
+// ============================
+// CONTROLE DE ABAS (SPA)
 // ============================
 function abrirAba(tab) {
-    document.querySelectorAll(".spa-page").forEach(sec => sec.classList.remove("active"));
-    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    abaAtual = tab;
+    inputBusca.value = "";
+
+    document.querySelectorAll(".spa-page").forEach(sec =>
+        sec.classList.remove("active")
+    );
+
+    document.querySelectorAll(".tab-btn").forEach(btn =>
+        btn.classList.remove("active")
+    );
 
     document.getElementById(`page-${tab}`).classList.add("active");
     document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add("active");
@@ -95,10 +183,14 @@ function abrirAba(tab) {
 }
 
 // ============================
-// INIT
+// EVENTOS
 // ============================
 document.querySelectorAll(".tab-btn").forEach(btn => {
     btn.addEventListener("click", () => abrirAba(btn.dataset.tab));
+});
+
+inputBusca.addEventListener("input", e => {
+    aplicarBusca(e.target.value);
 });
 
 window.addEventListener("load", () => {

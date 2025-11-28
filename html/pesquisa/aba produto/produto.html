@@ -1,3 +1,4 @@
+<!-- produto.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Peça</title>
     <link rel="stylesheet" href="../../../css/padrao.css">
-    <link rel="stylesheet" href="detalhe_produto.css">
+    <link rel="stylesheet" href="produto.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
@@ -23,10 +24,10 @@
             <a onclick="history.back()" class="voltar"><i class="bi bi-arrow-left"></i></a>
 
             <div class="vendedor-info">
-                <img src="../../../img/perfil_usuario.PNG" alt="foto do vendedor" class="foto-vendedor">
+                <img id="fotoPerfilVendedor" class="foto-vendedor">
                 <div>
-                    <h2 class="nome-vendedor">
-                        Luciana 
+                    <h2 id="nomeVendedor" class="nome-vendedor">
+                        Carregando...
                         <span class="rating-stars">
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
@@ -35,7 +36,7 @@
                             <i class="bi bi-star-fill"></i>
                         </span>
                         </h2>
-                    <p class="user">@luciana.d.g</p>
+                    <p id="userVendedor" class="user">@carregando...</p>
                     <p class="post-date"><i class="bi bi-calendar3"></i> 23 de outubro de 2025</p>
                 </div>
             </div>
@@ -44,33 +45,13 @@
                 <div class="favoritar-btn">
                     <i class="bi bi-heart"></i>
                 </div>
-                <img src="../../img/meu perfil/blusa.PNG" alt="Camiseta Fluminense" class="img-produto">
+                <img id="fotoProduto" class="img-produto">
                 <div class="descricao-produto">
-                    <h1 class="titulo">Blusa branca Farm</h1>
-                    <p class="preco">R$ 65,00</p>
-                    <p class="info">Blusa Farm branca de algodão. Seminova, em ótimo estado, sem manchas nem rasgos.</p>
+                    <h1 id="tituloProduto" class="titulo">Carregando...</h1>
+                    <p id="precoProduto" class="preco">R$ 00,00</p>
+                    <p id="descricaoProduto" class="info">Carregando...</p>
                     <button class="btn-comprar" onclick="window.location.href='compra/compra.html'">Comprar</button>
                 </div>
-            </div>
-
-            <h3 class="mais-opcoes">Mais opções de Luciana...</h3>
-            <div class="outros-itens">
-                <img src="../../img/meu perfil/jaqueta.jpg" alt="Jaqueta" class="mini-item">
-                <img src="../../img/meu perfil/calcajeans1.jpg" alt="Calça jeans" class="mini-item">
-                <img src="../../img/meu perfil/bolsa.PNG" class="mini-item">
-                <img src="../../img/meu perfil/cinto.PNG" class="mini-item">
-                <img src="../../img/meu perfil/colar.jpg" class="mini-item">
-                <img src="../../img/meu perfil/blusaonca.PNG" class="mini-item">
-            </div>
-
-            <h3 class="mais-opcoes">Baseado no seu gosto...</h3>
-            <div class="outros-itens">
-                <img src="../../img/banco de fotos/salto.jpg" class="mini-item">
-                <img src="../../img/banco de fotos/body.jpg"class="mini-item">
-                <img src="../../img/banco de fotos/bolsa.webp" class="mini-item">
-                <img src="../../img/banco de fotos/tenis.jpg" class="mini-item">
-                <img src="../../img/banco de fotos/conjunto.jpg" class="mini-item">
-                <img src="../../img/banco de fotos/bolsa2.jpg" class="mini-item">
             </div>
         </section>
     </div>
@@ -95,6 +76,8 @@
             }
         });
     </script>
+
+    <script type="module" src="produto.js"></script>
 
 </body>
 </html>

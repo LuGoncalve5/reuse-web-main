@@ -73,4 +73,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = `../edita peca/editaPeca.html?idPeca=${idPeca}`;
     });
 
+    /* ============================================================
+        BOTÃO DELETAR PEÇA
+    ============================================================ */
+    document.getElementById("deletarPecaBtn").addEventListener("click", async () => {
+
+        const confirmacao = confirm("Você tem certeza que deseja apagar esta peça?");
+
+        if (!confirmacao) return;
+
+        try {
+            await remove(ref(database, `pecas/${idPeca}`));
+            alert("Peça apagada com sucesso!");
+            window.location.href = "../../closet/closet.html";
+        } catch (error) {
+            console.error("Erro ao deletar peça:", error);
+            alert("Erro ao apagar a peça.");
+        }
+    });
+
 });
