@@ -117,7 +117,8 @@ async function carregarVendas() {
                 preco: dados.preco,
                 imagem: dados.fotoBase64 
                     ? `data:image/png;base64,${dados.fotoBase64}`
-                    : '../../../img/perfil_default.png'
+                    : '../../../img/perfil_default.png',
+                ownerUid: dados.ownerUid
             }));
     }
 

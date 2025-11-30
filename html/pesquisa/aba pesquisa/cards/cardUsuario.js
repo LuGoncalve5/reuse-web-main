@@ -27,7 +27,7 @@ export function criarCardUsuario({ id, nomeCompleto, nomeDeUsuario, fotoDePerfil
     `;
 
     card.addEventListener("click", () => {
-        window.location.href = `../aba usuario/pesquisa_perfil.html?id=${id}`;
+        window.location.href = `../aba usuario/pesquisa_perfil.html?idUsuario=${id}`;
     });
 
     return card;

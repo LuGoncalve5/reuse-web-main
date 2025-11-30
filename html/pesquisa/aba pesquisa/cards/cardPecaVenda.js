@@ -1,9 +1,9 @@
 // cards/cardPecaVenda.js
 
-export function criarCardPecaVenda({ id, imagem, preco, titulo, descricao }) {
+export function criarCardPecaVenda({ id, imagem, preco, titulo, descricao, ownerUid }) {
     const card = document.createElement("a");
     card.classList.add("product-card");
-    card.href = `../aba produto/produto.html?idPeca=${id}`;
+    card.href = `../aba produto/produto.html?idPeca=${id}&idUsuario=${ownerUid}`;
 
     card.innerHTML = `
         <div class="product-image-container">
