@@ -23,8 +23,26 @@
         <section class="produto-detalhe">
             <a onclick="history.back()" class="voltar"><i class="bi bi-arrow-left"></i></a>
 
-            <div class="vendedor-info">
+            <div class="vendedor-info" role="link" tabindex="0" style="cursor:pointer;"
+                 onclick="redirectToOwner()"
+                 onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); redirectToOwner(); }">
                 <img id="fotoPerfilVendedor" class="foto-vendedor">
+                <script>
+                    function getOwnerUidFromUrl() {
+                        try {
+                            const params = new URLSearchParams(window.location.search);
+                            return params.get('idUsuario') || '';
+                        } catch (e) {
+                            return '';
+                        }
+                    }
+                    function redirectToOwner() {
+                        const idUsuario = getOwnerUidFromUrl();
+                        const base = '../aba usuario/pesquisa_perfil.html';
+                        const url = idUsuario ? `${base}?idUsuario=${encodeURIComponent(idUsuario)}` : base;
+                        location.href = url;
+                    }
+                </script>
                 <div>
                     <h2 id="nomeVendedor" class="nome-vendedor">
                         Carregando...
@@ -35,7 +53,7 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                         </span>
-                        </h2>
+                    </h2>
                     <p id="userVendedor" class="user">@carregando...</p>
                     <p class="post-date"><i class="bi bi-calendar3"></i> 23 de outubro de 2025</p>
                 </div>

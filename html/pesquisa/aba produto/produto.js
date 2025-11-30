@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Preço
     const precoFormatado = peca.preco
-        ? `R$ ${Number(peca.preco).toFixed(2).replace(".", ",")}`
+        ? `R$ ${peca.preco}`
         : "—";
     document.getElementById("precoProduto").textContent = precoFormatado;
 
