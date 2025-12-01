@@ -104,3 +104,26 @@ section.gavetas {
 .card-menu.active .menu-options {
     display: block;
 }
+
+.link-rastrear{
+    display: inline-flex; /* Permite que o ícone e o texto fiquem na mesma linha */
+    align-items: center;
+    gap: 8px; /* Espaço entre o ícone e o texto */
+    padding: 8px 12px;
+    margin-bottom: 15px; /* Adiciona um pequeno espaço abaixo do link */
+    font-size: 13px;
+    
+    /* Cor de fundo verde claro */
+    background-color: #ffffff; 
+    
+    color: #4c5048; /* Cor do texto */
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.link-rastrear:hover{
+    background-color: rgba(158, 190, 158, 0.107); 
+    box-shadow: 0 4px 8px rgba(19, 44, 7, 0.15);
+}
