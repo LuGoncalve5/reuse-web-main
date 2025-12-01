@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>ReUse</title>
     <link rel="stylesheet" href="rastreamento.css">
-    <link rel="stylesheet" href="../../css/padrao.css">
+    <link rel="stylesheet" href="../../../css/padrao.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
@@ -22,49 +22,76 @@
     <!-- ===== CONTEÚDO PRINCIPAL ===== -->
     <div class="content">
         <div class="topbar-container">
-            <div><h3>Meu Closet</h3></div>
-            <div class="botoes">
-                <input id="searchGaveta" class="form-control" type="search" placeholder="Pesquisar por gaveta" aria-label="Pesquisar" style="padding-left: 32px; border-radius: 20px; border: 3px solid #5E7858; height: 36px; background: #fff url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/search.svg') 8px center no-repeat; box-shadow: 0 2px 8px #5e785820;">
-                <!-- Botão de adicionar nova gaveta -->
-                <a href="../../html/cadastro closet/cadastro gaveta/criar_gaveta.html" class="btn-add">
-                    <i class="bi bi-plus-lg"></i> Nova Gaveta
-                </a>
-            </div>
-
-            <!-- Checkbox escondido -->
-            <input type="checkbox" id="togglePesquisa" hidden>
-
-            <!-- Aba de pesquisa -->
-            <div class="aba-pesquisa">
-                <input type="text" placeholder="Digite sua pesquisa..."> <!-- se não houver ação, esconder essa div -->
-                <button>Buscar</button>
-            </div>
+            <div><h3>Minhas compras e Rastreamento</h3></div>
+            <input type="search" placeholder="Buscar por peça ou código de rastreio..." class="search-rastreio">
+            
         </div>
-
         <hr>
 
-        <a href="rastreamento/rastreamento.html" class="link-rastrear"><i class="bi bi-truck"></i> Rastrear minhas compras</a>
+        <div class="rastreamento-opcoes">
+            <div class="filtros-status">
+                <button class="btn-filtro ativo">Em Andamento (3)</button>
+                <button class="btn-filtro">Entregues (5)</button>
+                <button class="btn-filtro">Cancelados (1)</button>
+            </div>
+            
+        </div>
+        
+        <div class="tabela-container">
+            <table class="tabela-pedidos">
+                <thead>
+                    <tr>
+                        <th>Peça</th>
+                        <th>Vendedor</th>
+                        <th>Cód. Rastreio</th>
+                        <th>Status Atual</th>
+                        <th>Previsão</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="status-em-transito">
+                        <td data-label="Peça">Vestido Floral</td>
+                        <td data-label="Vendedor">Ana C.</td>
+                        <td data-label="Cód. Rastreio">BR1098765432BR</td>
+                        <td data-label="Status Atual">
+                            <span class="status-badge"><i class="bi bi-truck"></i> Em Trânsito</span>
+                        </td>
+                        <td data-label="Previsão">22/Dez</td>
+                        <td data-label="Detalhes">
+                            <button class="btn-detalhes"><i class="bi bi-arrow-right-circle"></i></button>
+                        </td>
+                    </tr>
 
-        <section class="gavetas" id="gavetasSection">
-            <div id="spinner" class="spinner-container">
-                <div class="spinner"></div>
-            </div>    
-        </section>
+                    <tr class="status-separacao">
+                        <td data-label="Peça">Tênis Casual Branco</td>
+                        <td data-label="Vendedor">Boutique LV</td>
+                        <td data-label="Cód. Rastreio">-</td>
+                        <td data-label="Status Atual">
+                            <span class="status-badge"><i class="bi bi-box2-fill"></i> Em Separação</span>
+                        </td>
+                        <td data-label="Previsão">30/Dez</td>
+                        <td data-label="Detalhes">
+                            <button class="btn-detalhes"><i class="bi bi-arrow-right-circle"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr class="status-entrega">
+                        <td data-label="Peça">Bata Rosa</td>
+                        <td data-label="Vendedor">Carlos M.</td>
+                        <td data-label="Cód. Rastreio">BR1122334455BR</td>
+                        <td data-label="Status Atual">
+                            <span class="status-badge"><i class="bi bi-box-seam"></i> Saiu para Entrega!</span>
+                        </td>
+                        <td data-label="Previsão">Hoje!</td>
+                        <td data-label="Detalhes">
+                            <button class="btn-detalhes"><i class="bi bi-arrow-right-circle"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <script>
-        // Mostra o spinner enquanto carrega, e exibe o grid depois
-        document.addEventListener('DOMContentLoaded', () => {
-            const section = document.getElementById('gavetasSection');
-            const spinner = document.getElementById('spinner');
-
-            // Mostra seção em grid, mas spinner visível até os dados chegarem
-            section.style.display = 'grid';
-
-            // Simulação do tempo de carregamento do Firebase
-            setTimeout(() => {
-                spinner.remove(); // remove o spinner do DOM
-            }, 1500);
-        });
-    </script>
+    
 </body>
 </html>

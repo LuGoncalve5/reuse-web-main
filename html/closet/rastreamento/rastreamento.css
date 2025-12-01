@@ -1,0 +1,171 @@
+.rastreamento-opcoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px; /* Mais espaço */
+    gap: 20px;
+}
+
+.filtros-status {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-filtro {
+    padding: 8px 18px;
+    border: 2px solid var(--verde-claro, #a8d6a8);
+    background-color: transparent;
+    color: var(--cinza-texto, #444);
+    border-radius: 25px; /* Mais arredondado */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.btn-filtro:hover {
+    background-color: var(--verde-claro, #c9e1c9);
+    color: white;
+}
+
+.btn-filtro.ativo {
+    background-color: var(--verde-principal, #5E7858);
+    color: white;
+    border-color: var(--verde-principal, #5E7858);
+    font-weight: 600;
+}
+
+.search-rastreio {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Menos arredondado para o campo de busca */
+    width: 300px;
+    transition: border-color 0.3s;
+}
+
+.search-rastreio:focus {
+    border-color: var(--verde-principal, #5E7858);
+    box-shadow: 0 0 0 2px rgba(94, 120, 88, 0.2); /* Sombra suave ao focar */
+}
+
+/* 2. Tabela de Pedidos (Mais profissional) */
+
+.tabela-container {
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 12px; /* Cantos mais suaves */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05); /* Sombra mais sutil e profunda */
+}
+
+.tabela-pedidos {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-pedidos th {
+    background-color: var(--verde-fundo, #c9e0c9); /* Fundo muito claro */
+    color: var(--cinza-texto, #444);
+    text-align: left;
+    padding: 15px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--verde-claro, #8d9f8d);
+}
+
+.tabela-pedidos td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    color: var(--cinza-texto, #444);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.tabela-pedidos tbody tr:hover {
+    background-color: var(--verde-fundo, #f9fff9);
+}
+
+/* Estilização dos Badges de Status (Mais profissional) */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    gap: 6px;
+}
+
+.status-entrega .status-badge {
+    background-color: #e6ffe6; /* Verde claro */
+    color: #388e3c; /* Verde escuro */
+}
+.status-em-transito .status-badge {
+    background-color: #fffbe6; /* Amarelo claro */
+    color: #ffa000; /* Amarelo escuro */
+}
+.status-separacao .status-badge {
+    background-color: #e6f7ff; /* Azul claro */
+    color: #1565c0; /* Azul escuro */
+}
+
+/* Botão de Detalhes (Ícone em destaque) */
+.btn-detalhes {
+    background: none;
+    border: none;
+    color: var(--verde-principal, #5E7858);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-detalhes:hover {
+    color: #4a6345;
+    transform: translateX(2px); /* Efeito sutil de deslizar para a direita */
+}
+
+@media screen and (max-width: 768px) {
+    .rastreamento-opcoes {
+        flex-direction: column;
+        align-items: stretch; /* Estica os elementos */
+    }
+
+    .filtros-status {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .btn-filtro {
+        flex-grow: 1; /* Faz com que os botões de filtro ocupem o espaço igualmente */
+        text-align: center;
+    }
+
+    .search-rastreio {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Regras de mobile para a tabela permanecem, mas com o novo estilo */
+    .tabela-pedidos thead {
+        display: none;
+    }
+
+    .tabela-pedidos tr {
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .tabela-pedidos td {
+        padding: 10px 20px;
+        border-bottom: none; /* Remove bordas internas para um visual mais limpo */
+        text-align: right;
+    }
+    
+    .tabela-pedidos td::before {
+        left: 20px; /* Alinha o label com o padding */
+        font-weight: 600;
+    }
+}
