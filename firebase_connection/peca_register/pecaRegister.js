@@ -102,21 +102,35 @@ async function carregarGavetas() {
         }
 
         dropdown.innerHTML = "";
-        const dados = snap.val();
+        let adicionadas = 0;
 
-        Object.entries(dados).forEach(([id, gaveta]) => {
+        snap.forEach(s => {
+            const gaveta = s.val();
+            const nomeLower = (gaveta.nome || "").toLowerCase();
+
+            // Ignora as gavetas padrão "vendas" e "doação"/"doacao"
+            if (nomeLower === "vendas" || nomeLower === "doação" || nomeLower === "doacao") {
+                return;
+            }
+
             const item = document.createElement("div");
             item.classList.add("gaveta-item");
             item.textContent = gaveta.nome;
 
             item.addEventListener("click", () => {
-                gavetaId = id;
+                gavetaId = s.key;
                 gavetaSelecionadaSpan.textContent = gaveta.nome;
                 dropdown.style.display = "none";
+                renderizarGavetaSelecionada();
             });
 
             dropdown.appendChild(item);
+            adicionadas++;
         });
+
+        if (adicionadas === 0) {
+            dropdown.innerHTML = "<p>Não há gavetas disponíveis para organizar.</p>";
+        }
     } catch (err) {
         console.error("Erro ao buscar gavetas:", err);
         dropdown.innerHTML = "<p>Erro ao carregar.</p>";

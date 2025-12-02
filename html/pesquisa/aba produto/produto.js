@@ -105,4 +105,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     console.log("PEÇA:", peca);
     console.log("USUÁRIO:", usuario);
+
+    // redirecionar para página de compra de peça
+    document.getElementById("btn-comprar").addEventListener("click", () => {
+        window.location.href = `../compra/compra.html?idPeca=${idPeca}`;
+    });
 });

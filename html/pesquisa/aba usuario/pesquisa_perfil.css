@@ -228,10 +228,13 @@ section {
 /* Grids e Cards (Produto - À Venda) */
 .product-grid {
     max-width: var(--max-width-perfil);
-    margin: 0 auto;
-    padding: 0 20px; 
+    margin: 0 auto 40px;
+    padding: 0 20px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, 200px);
+    justify-content: center;
+
     gap: 20px;
 }
 
@@ -290,9 +293,13 @@ section {
 .closet-grid {
     max-width: var(--max-width-perfil);
     margin: 0 auto 40px;
-    padding: 0 20px; 
+    padding: 0 20px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    grid-template-columns: repeat(auto-fit, 200px);
+    justify-content: center;
+
     gap: 20px;
 }
 

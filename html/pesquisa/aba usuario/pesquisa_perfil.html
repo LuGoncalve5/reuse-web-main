@@ -79,7 +79,6 @@
         <nav class="tabs">
             <button class="tab-btn active" data-target="venda">À venda</button>
             <button class="tab-btn" data-target="closet">Closet</button>
-            <button class="tab-btn" data-target="gavetas">Gavetas</button>
         </nav>
 
         <!-- ====================================================== -->
@@ -89,76 +88,12 @@
         <section id="venda" class="section-page section-active">
 
             <div class="search-items-section">
-                <input type="text" class="search-input-profile" placeholder="Buscar peças à venda...">
+                <input type="text" class="search-input-profile" id="buscaPecaVenda" placeholder="Buscar peças à venda...">
             </div>
 
             <div class="product-grid">
-
-                <a href="detalhe_produto.html" class="product-card">
-                    <div class="product-image-container">
-                        <img src="../../img/meu perfil/blusa.PNG" alt="Blusa branca Farm">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-price">R$ 65,00</p>
-                        <h4 class="product-title">Blusa branca Farm</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/calcajeans1.jpg" alt="Calça Jeans">
-                    <div class="product-details">
-                        <p class="product-price">R$ 120,00</p>
-                        <h4 class="product-title">Calça Jeans M</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/jaqueta.jpg" alt="Jaqueta Ferrari">
-                    <div class="product-details">
-                        <p class="product-price">R$ 280,00</p>
-                        <h4 class="product-title">Jaqueta Ferrari</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/bolsa.PNG" alt="Bolsa Branca">
-                    <div class="product-details">
-                        <p class="product-price">R$ 70,00</p>
-                        <h4 class="product-title">Bolsa Branca</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/cinto.PNG" alt="Cinto boho">
-                    <div class="product-details">
-                        <p class="product-price">R$ 15,00</p>
-                        <h4 class="product-title">Cinto boho</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/blusaonca.PNG" alt="Blusa onça">
-                    <div class="product-details">
-                        <p class="product-price">R$ 35,00</p>
-                        <h4 class="product-title">Blusa onça</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/colar.jpg" alt="Colar">
-                    <div class="product-details">
-                        <p class="product-price">R$ 20,00</p>
-                        <h4 class="product-title">Colar</h4>
-                    </div>
-                </a>
-
-                <a href="#" class="product-card">
-                    <img src="../../img/meu perfil/salto.jpg" alt="Salto Arezzo">
-                    <div class="product-details">
-                        <p class="product-price">R$ 95,00</p>
-                        <h4 class="product-title">Salto dourado Arezzo</h4>
-                    </div>
-                </a>
+                
+                <!-- Produtos à venda serão inseridos aqui dinamicamente -->
 
             </div>
 
@@ -173,27 +108,13 @@
         <section id="closet" class="section-page">
 
             <div class="search-items-section">
-                <input type="text" class="search-input-profile" placeholder="Buscar peça...">
+                <input type="text" class="search-input-profile" id="buscaPeca" placeholder="Buscar peça...">
             </div>
 
             <div class="closet-grid" id="closetGrid">
-                
+
                 <!-- Peças do closet serão inseridas aqui dinamicamente -->
 
-            </div>
-
-            <p class="end-message">Você chegou ao fim!</p>
-
-        </section>
-
-        <!-- ====================================================== -->
-        <!-- =====================  GAVETAS  ======================= -->
-        <!-- ====================================================== -->
-
-        <section id="gavetas" class="section-page">
-
-            <div class="search-items-section">
-                <input type="text" class="search-input-profile" placeholder="Buscar gaveta...">
             </div>
 
             <p class="end-message">Você chegou ao fim!</p>

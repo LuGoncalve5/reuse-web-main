@@ -1,4 +1,6 @@
+// ============================
 // pesquisa.js
+// ============================
 import { database } from '../../../firebase_connection/firebaseConfig.js';
 import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
@@ -12,9 +14,14 @@ const containerUsuarios = document.querySelector("#page-usuarios .user-list");
 const containerBrechos  = document.querySelector("#page-brechos .user-list");
 const containerVendas   = document.querySelector("#page-vendas .product-grid");
 const inputBusca        = document.querySelector("#input-busca");
+const usuarioLogadoUID  = localStorage.getItem('currentUserUID');
+
+const spinnerUsuarios = document.querySelector(".spinner-container-usuarios");
+const spinnerBrechos  = document.querySelector(".spinner-container-brechos");
+const spinnerVendas   = document.querySelector(".spinner-container-vendas");
 
 // ============================
-// CACHE (evita buscar no Firebase toda hora)
+// CACHE
 // ============================
 let cacheUsuarios = [];
 let cacheBrechos  = [];
@@ -22,29 +29,47 @@ let cacheVendas   = [];
 let abaAtual      = "usuarios";
 
 // ============================
-// USUÁRIOS PF
+// SPINNER
+// ============================
+function mostrarSpinner(spinner) {
+    spinner.classList.remove('hidden');
+}
+
+function esconderSpinner(spinner) {
+    spinner.classList.add('hidden');
+}
+
+// ============================
+// USUÁRIOS
 // ============================
 async function carregarUsuarios() {
     containerUsuarios.innerHTML = "";
+    mostrarSpinner(spinnerUsuarios);
 
     if (cacheUsuarios.length === 0) {
-        const snapshot = await get(ref(database, "usuarios/pessoaFisica"));
-        if (!snapshot.exists()) return;
-
-        cacheUsuarios = Object.entries(snapshot.val()).map(([id, dados]) => ({
-            id,
-            nomeCompleto: dados.nomeCompleto,
-            nomeDeUsuario: dados.nomeDeUsuario,
-            fotoBase64: dados.fotoBase64
-        }));
+        try {
+            const snapshot = await get(ref(database, "usuarios/pessoaFisica"));
+            if (snapshot.exists()) {
+                cacheUsuarios = Object.entries(snapshot.val())
+                    .filter(([id]) => id !== usuarioLogadoUID)
+                    .map(([id, dados]) => ({
+                        id,
+                        nomeCompleto: dados.nomeCompleto,
+                        nomeDeUsuario: dados.nomeDeUsuario,
+                        fotoBase64: dados.fotoBase64
+                    }));
+            }
+        } catch (err) {
+            console.error("Erro ao carregar usuários:", err);
+        }
     }
 
     renderUsuarios(cacheUsuarios);
+    esconderSpinner(spinnerUsuarios);
 }
 
 function renderUsuarios(lista) {
     containerUsuarios.innerHTML = "";
-
     lista.forEach(user => {
         const card = criarCardUsuario({
             id: user.id,
@@ -54,45 +79,50 @@ function renderUsuarios(lista) {
                 ? `data:image/png;base64,${user.fotoBase64}`
                 : '../../../img/perfil_default.png'
         });
-
         containerUsuarios.appendChild(card);
     });
 }
 
 // ============================
-// BRECHÓS
+// BRECHOS
 // ============================
 async function carregarBrechos() {
     containerBrechos.innerHTML = "";
+    mostrarSpinner(spinnerBrechos);
 
     if (cacheBrechos.length === 0) {
-        const snapshot = await get(ref(database, "usuarios/pessoaJuridica/brechos"));
-        if (!snapshot.exists()) return;
-
-        cacheBrechos = Object.entries(snapshot.val()).map(([id, dados]) => ({
-            id,
-            nomeCompleto: dados.nomeCompleto,
-            nomeDeUsuario: dados.nomeDeUsuario,
-            fotoDePerfil: dados.fotoBase64
-        }));
+        try {
+            const snapshot = await get(ref(database, "usuarios/pessoaJuridica/brechos"));
+            if (snapshot.exists()) {
+                cacheBrechos = Object.entries(snapshot.val())
+                    .filter(([id]) => id !== usuarioLogadoUID)
+                    .map(([id, dados]) => ({
+                        id,
+                        nomeCompleto: dados.nomeCompleto,
+                        nomeDeUsuario: dados.nomeDeUsuario,
+                        fotoDePerfil: dados.fotoBase64
+                    }));
+            }
+        } catch (err) {
+            console.error("Erro ao carregar brechós:", err);
+        }
     }
 
     renderBrechos(cacheBrechos);
+    esconderSpinner(spinnerBrechos);
 }
 
 function renderBrechos(lista) {
     containerBrechos.innerHTML = "";
-
     lista.forEach(brecho => {
         const card = criarCardUsuario({
             id: brecho.id,
             nomeCompleto: brecho.nomeCompleto,
             nomeDeUsuario: brecho.nomeDeUsuario,
-            fotoDePerfil: brecho.fotoBase64 
-                ? `data:image/png;base64,${brecho.fotoBase64}`
+            fotoDePerfil: brecho.fotoDePerfil 
+                ? `data:image/png;base64,${brecho.fotoDePerfil}`
                 : '../../../img/perfil_default.png'
         });
-
         containerBrechos.appendChild(card);
     });
 }
@@ -102,32 +132,36 @@ function renderBrechos(lista) {
 // ============================
 async function carregarVendas() {
     containerVendas.innerHTML = "";
-    const uidLogado = localStorage.getItem('currentUserUID');
+    mostrarSpinner(spinnerVendas);
 
     if (cacheVendas.length === 0) {
-        const snapshot = await get(ref(database, "pecas"));
-        if (!snapshot.exists()) return;
-
-        cacheVendas = Object.entries(snapshot.val())
-            .filter(([id, dados]) => dados.finalidade === "Vender" && dados.ownerUid !== uidLogado)
-            .map(([id, dados]) => ({
-                id,
-                titulo: dados.titulo,
-                descricao: dados.descricao,
-                preco: dados.preco,
-                imagem: dados.fotoBase64 
-                    ? `data:image/png;base64,${dados.fotoBase64}`
-                    : '../../../img/perfil_default.png',
-                ownerUid: dados.ownerUid
-            }));
+        try {
+            const snapshot = await get(ref(database, "pecas"));
+            if (snapshot.exists()) {
+                cacheVendas = Object.entries(snapshot.val())
+                    .filter(([id, dados]) => dados.finalidade === "Vender" && dados.ownerUid !== usuarioLogadoUID)
+                    .map(([id, dados]) => ({
+                        id,
+                        titulo: dados.titulo,
+                        descricao: dados.descricao,
+                        preco: dados.preco,
+                        imagem: dados.fotoBase64 
+                            ? `data:image/png;base64,${dados.fotoBase64}`
+                            : '../../../img/perfil_default.png',
+                        ownerUid: dados.ownerUid
+                    }));
+            }
+        } catch (err) {
+            console.error("Erro ao carregar vendas:", err);
+        }
     }
 
     renderVendas(cacheVendas);
+    esconderSpinner(spinnerVendas);
 }
 
 function renderVendas(lista) {
     containerVendas.innerHTML = "";
-
     lista.forEach(produto => {
         const card = criarCardPecaVenda(produto);
         containerVendas.appendChild(card);
@@ -135,7 +169,7 @@ function renderVendas(lista) {
 }
 
 // ============================
-// BUSCA DINÂMICA (DEPENDE DA ABA)
+// BUSCA DINÂMICA
 // ============================
 function aplicarBusca(valor) {
     const termo = valor.toLowerCase();

@@ -49,13 +49,11 @@ async function carregarPerfil() {
     // Campos básicos
     const nomeDeUsuario = userData.nomeDeUsuario || userData.login || "indefinido";
     const nomeCompleto = userData.nomeCompleto || userData.nome || "Nome não informado";
-    const numeroDePecas = userData.numeroDePecas || 0;
     const fotoBase64 = userData.fotoBase64 || null;
 
     // INSERE OS DADOS
     document.getElementById("nomeDeUsuario").childNodes[0].textContent = `@${nomeDeUsuario} `;
     document.getElementById("nomeCompleto").textContent = nomeCompleto;
-    document.getElementById("numeroDePecas").textContent = numeroDePecas;
 
     if (fotoBase64) {
         document.getElementById("fotoDePerfil").src =
@@ -98,16 +96,20 @@ async function carregarCloset() {
 
     Object.entries(pecas).forEach(([pecaId, peca]) => {
 
-        // ✅ NOVO FILTRO CORRETO
         if (peca.ownerUid !== usuarioId) return;
 
         encontrouAlguma = true;
 
-        const isVenda = peca.status === "venda";
-        const isDoacao = peca.status === "doacao";
+        const finalidade = peca.finalidade;
+        const isVenda = finalidade === "Vender";
+        const isDoacao = finalidade === "Doar";
+
+        // ✅ URL DO CARD
+        const urlProduto =
+            `../aba produto/produto.html?idPeca=${pecaId}&idUsuario=${usuarioId}`;
 
         const card = document.createElement("a");
-        card.href = "#";
+        card.href = urlProduto;
         card.classList.add("closet-card");
 
         if (isVenda) card.classList.add("status-venda");
@@ -119,23 +121,33 @@ async function carregarCloset() {
                     peca.fotoBase64
                         ? `data:image/jpeg;base64,${peca.fotoBase64}`
                         : "../../../img/sem-foto.png"
-                }">
+                }" alt="${peca.titulo}">
 
-                ${isVenda ? `
-                    <div class="status-badge">
-                        <i class="bi bi-tag"></i> Venda
-                    </div>` : ""}
+                ${
+                    isVenda
+                        ? `<div class="status-badge">
+                               <i class="bi bi-tag"></i> Venda
+                           </div>`
+                        : ""
+                }
 
-                ${isDoacao ? `
-                    <div class="status-badge">
-                        <i class="bi bi-gift-fill"></i> Doação
-                    </div>` : ""}
+                ${
+                    isDoacao
+                        ? `<div class="status-badge">
+                               <i class="bi bi-gift-fill"></i> Doação
+                           </div>`
+                        : ""
+                }
             </div>
 
             <div class="closet-details">
-                ${isVenda
-                    ? `<p class="closet-price">R$ ${peca.preco}</p>`
-                    : `<p class="closet-price status-text">Para Doação</p>`}
+                ${
+                    isVenda
+                        ? `<p class="closet-price">R$ ${peca.preco}</p>`
+                        : isDoacao
+                            ? `<p class="closet-price status-text">Para Doação</p>`
+                            : ""
+                }
                 <h4 class="closet-title">${peca.titulo}</h4>
             </div>
         `;
@@ -143,11 +155,12 @@ async function carregarCloset() {
         closetGrid.appendChild(card);
     });
 
-    // ✅ Feedback visual se não houver peças
     if (!encontrouAlguma) {
-        closetGrid.innerHTML = "<p>Este usuário ainda não possui peças cadastradas.</p>";
+        closetGrid.innerHTML =
+            "<p>Este usuário ainda não possui peças no closet.</p>";
     }
 }
+
 
 // -----------------------------
 // 6. CONTROLE DAS ABAS (SPA)
@@ -169,7 +182,127 @@ btns.forEach(btn => {
         if (btn.dataset.target === "closet") {
             await carregarCloset();
         }
+
+        if (btn.dataset.target === "venda") {
+            await carregarPecasVenda();
+        }
+
     });
 });
 
-carregarPerfil();
+// -----------------------------
+// 7. CONTAR PEÇAS DO USUÁRIO
+// -----------------------------
+async function contarPecasDoUsuario() {
+
+    const pecasSnap = await get(ref(database, "pecas"));
+
+    if (!pecasSnap.exists()) {
+        document.getElementById("numeroDePecas").textContent = 0;
+        return;
+    }
+
+    const pecas = pecasSnap.val();
+    let contador = 0;
+
+    Object.values(pecas).forEach(peca => {
+        if (peca.ownerUid === usuarioId) {
+            contador++;
+        }
+    });
+
+    document.getElementById("numeroDePecas").textContent = contador;
+}
+
+// -----------------------------
+// 8. CARREGAR PEÇAS À VENDA
+// -----------------------------
+async function carregarPecasVenda() {
+
+    const gridVenda = document.querySelector(".product-grid");
+    gridVenda.innerHTML = ""; // Limpa tudo antes de carregar
+
+    const pecasSnap = await get(ref(database, "pecas"));
+
+    if (!pecasSnap.exists()) {
+        gridVenda.innerHTML = "<p>Nenhuma peça à venda encontrada.</p>";
+        return;
+    }
+
+    const pecas = pecasSnap.val();
+    let encontrou = false;
+
+    Object.entries(pecas).forEach(([pecaId, peca]) => {
+
+        // ❗ Apenas peças desse usuário
+        if (peca.ownerUid !== usuarioId) return;
+
+        // ❗ Apenas peças com finalidade = Vender
+        if (peca.finalidade !== "Vender") return;
+
+        encontrou = true;
+
+        const urlProduto =
+            `../aba produto/produto.html?idPeca=${pecaId}&idUsuario=${usuarioId}`;
+
+        const card = document.createElement("a");
+        card.href = urlProduto;
+        card.classList.add("product-card");
+
+        card.innerHTML = `
+            <div class="product-image-container">
+                <img src="${
+                    peca.fotoBase64
+                        ? `data:image/jpeg;base64,${peca.fotoBase64}`
+                        : "../../../img/sem-foto.png"
+                }" alt="${peca.titulo}">
+            </div>
+
+            <div class="product-details">
+                <p class="product-price">R$ ${peca.preco}</p>
+                <h4 class="product-title">${peca.titulo}</h4>
+            </div>
+        `;
+
+        gridVenda.appendChild(card);
+    });
+
+    if (!encontrou) {
+        gridVenda.innerHTML =
+            "<p>Este usuário não possui peças à venda.</p>";
+    }
+}
+
+// -----------------------------
+// 9. BUSCA NAS PEÇAS À VENDA
+// -----------------------------
+function buscarPecasVenda() {
+    const termo = document
+        .getElementById("buscaPecaVenda")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards = document.querySelectorAll(".product-card");
+
+    cards.forEach(card => {
+        const titulo = card.querySelector(".product-title").textContent.toLowerCase();
+
+        if (titulo.includes(termo)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+// -----------------------------
+// 10. EVENTO DA BUSCA
+// -----------------------------
+document.getElementById("buscaPecaVenda").addEventListener("input", buscarPecasVenda);
+
+
+await carregarPerfil();
+await contarPecasDoUsuario();
+await carregarPecasVenda();
+

@@ -1,0 +1,408 @@
+/* pesquisa.css */
+:root {
+    /* Variáveis base */
+    --verde: #5E7858;
+    --verde-escuro: #134313;
+    --cinza: #ddd;
+    --radius-full: 25px;
+
+    /* Variáveis adicionais */
+    --max-width-perfil: 900px;
+    --cor-texto-claro: #666;
+    --cor-texto-escuro: #333;
+    --border-radius-card: 10px;
+    --sombra-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== BARRA DE PESQUISA ===== */
+.search-section {
+    margin-bottom: 30px;
+    width: 95%;
+}
+
+.search-input,
+.search-input-profile {
+    width: 100%;
+    padding: 10px 15px 10px 45px;
+    border: 2px solid var(--verde);
+    border-radius: var(--radius-full);
+    outline: none;
+    font-size: 16px;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%235E7858" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.114l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.114-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>');
+}
+
+.search-input-profile {
+    padding-left: 40px;
+    border: 1px solid #5e785e;
+    border-radius: 25px;
+    background-color: transparent;
+}
+
+.search-input-profile:focus {
+    border-color: var(--verde-escuro);
+    box-shadow: 0 0 5px rgba(94, 120, 88, 0.5);
+}
+
+/* CONTEÚDO PRINCIPAL */
+section,
+.section {
+    padding: 20px;
+    flex: 1;
+    position: relative;
+}
+
+.section h1 {
+    text-align: center;
+    color: var(--verde-escuro);
+    margin-bottom: 20px;
+}
+
+/* ===== TABS E FILTROS ===== */
+.tabs-and-filter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 95%;
+    margin-bottom: 5px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--cinza);
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.tabs button {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 0 20px 8px 20px;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--cor-texto-claro);
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    transition: color 0.2s, border-bottom 0.2s, transform 0.2s ease;
+}
+
+.tabs button:not(.active):hover {
+    color: var(--verde-escuro);
+    transform: translateY(-2px);
+}
+
+.tabs button.active {
+    color: var(--verde);
+    border-bottom: 2px solid var(--verde);
+    font-weight: bold;
+}
+
+.tabs-vendas {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    border-bottom: 1px solid var(--cinza);
+}
+
+.tabs-vendas button {
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--verde);
+    padding: 8px 0;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.tabs-vendas button:not(.active):hover {
+    color: var(--verde-escuro);
+    transform: translateY(-2px);
+}
+
+.tabs-vendas button.active {
+    border-color: var(--verde);
+    font-weight: bold;
+}
+
+.tabs-separator {
+    margin: 5px 0 20px 0;
+    border: none;
+    border-top: 1px solid var(--verde);
+    opacity: 0.6;
+    width: 95%;
+}
+
+/* Botão filtrar */
+.filter-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--branco, #fff);
+    border: 1px solid var(--cinza);
+    color: var(--verde);
+    padding: 8px 15px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* ===== GRID DE PRODUTOS / CARDS ===== */
+
+/* GRID DE PRODUTOS (Tela Vendas) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding-top: 20px;      /* Mantido do original */
+    justify-content: center;  /* Mantido do original */
+}
+
+/* GRID DE CLOSET (Perfil) */
+.closet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: var(--max-width-perfil);
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+
+.product-card,
+.closet-card {
+    display: block;
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: var(--border-radius-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.product-card:hover,
+.closet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-image-container,
+.closet-image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image,
+.closet-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.product-details,
+.closet-details {
+    padding: 10px;
+    text-align: left;
+}
+
+.product-title,
+.closet-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cor-texto-escuro);
+    margin: 0 0 5px 0;
+}
+
+.closet-title {
+    margin: 5px 0 0 0;
+}
+
+.product-price,
+.closet-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--verde);
+    margin: 0;
+}
+
+.closet-price.status-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #b87800d1;
+}
+
+/* BADGE DE STATUS */
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.status-venda .status-badge {
+    background-color: var(--verde);
+}
+
+.status-doacao .status-badge {
+    background-color: #f7a300;
+}
+
+/* Botão ver mais */
+.load-more-btn {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    margin: 40px auto;
+    border: 1px solid var(--verde);
+    border-radius: 50px;
+    background: #fff;
+    color: var(--verde);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.load-more-btn:hover {
+    background: var(--verde);
+    color: #fff;
+}
+
+/* Mensagem de fim */
+.end-message {
+    text-align: center;
+    font-size: 16px;
+    color: #666666c8;
+    margin: 40px auto;
+    font-style: italic;
+    padding-bottom: 20px;
+}
+
+/* ===== LISTA DE PERFIS ===== */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 0.5px solid #e6eae6;
+}
+
+.user-info h3 {
+    margin: 0;
+    font-size: 17px;
+    color: #000;
+    font-weight: 600;
+}
+
+.user-info p {
+    margin: 0;
+    color: #888;
+    font-size: 13px;
+}
+
+.user-rating {
+    font-size: 16px;
+    color: gold;
+}
+
+.user-rating .bi-star {
+    color: rgba(255, 217, 0, 0.425);
+}
+
+/* SPA Pages */
+.spa-page {
+    display: none;
+}
+
+.spa-page.active {
+    display: block;
+}
+
+/* SPINNERS */
+.spinner-container-usuarios,
+.spinner-container-brechos,
+.spinner-container-vendas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.spinner-usuarios,
+.spinner-brechos,
+.spinner-vendas {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid var(--verde);
+    border-radius: 50%;
+    width: 6vh;
+    height: 6vh;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}

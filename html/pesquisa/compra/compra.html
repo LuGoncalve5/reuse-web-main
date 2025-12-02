@@ -1,3 +1,4 @@
+<!-- compra.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,6 +12,14 @@
 <body>
     <!-- container principal -->
     <div class="content">
+        <div class="sidebar">
+            <img class="logo" src="../../../img/logoreuse.png">
+            <a href="../../closet/closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a> 
+            <a href="../../pesquisa/aba pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
+            <a href="../../cadastro closet/cadastro peca/cadastroPeca.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
+            <a href="../../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
+            <a href="../../meu perfil/mp_cpf_venda.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
+        </div>
 
         <!-- parte colorida e "interativa" da página -->
         <section class="int-produto">
@@ -25,7 +34,7 @@
 
                     <div class="vendedor-texto">
                         <p class="vendido-por">Vendido por:</p>
-                        <p class="nome-vendedor"> Luciana
+                        <p class="nome-vendedor"> Carregando usuário...
                             <span class="rating-stars">
                                 <i class="bi bi-star-fill"></i>
                                 <i class="bi bi-star-fill"></i>
@@ -43,11 +52,11 @@
                     <img src="../../../img/meu perfil/blusa.PNG" alt="blusa farm" class="img-produto">
 
                     <div class="descricao-produto">
-                        <h2 class="nome-peça">Blusa branca Farm</h2>
-                        <h3 class="preco">R$ 65,00</h3>
+                        <h2 class="nome-peça">Carregando produto...</h2>
+                        <h3 class="preco">R$ 00,00</h3>
 
-                        <h4 class="detalhes-produto">Detalhes do produto</h4>
-                        <p class="info">Blusa Farm branca de algodão. Seminova, em ótimo estado, sem manchas ou rasgos.</p>
+                        <h4 class="detalhes-produto">Detalhes do produto:</h4>
+                        <p class="info">Carregando descrição...</p>
 
                     </div>
                 </div>
@@ -69,6 +78,38 @@
                     <label class="option"><input type="radio" name="env" value="apps"> Apps locais para envio</label>
                     <label class="option"><input type="radio" name="env" value="correios"> Correios</label>
                     <label class="option"><input type="radio" name="env" value="acom"> A combinar</label>
+                </div>
+
+                <hr>
+
+                <h2>Endereço de envio</h2>
+                <div class="endereco-container">
+
+                    <div class="campo">
+                        <label>Rua:</label>
+                        <input type="text" name="rua" placeholder="Digite o nome da rua">
+                    </div>
+
+                    <div class="campo">
+                        <label>Número:</label>
+                        <input type="text" name="numero" placeholder="Ex: 123">
+                    </div>
+
+                    <div class="campo">
+                        <label>Cidade:</label>
+                        <input type="text" name="cidade" placeholder="Digite a cidade">
+                    </div>
+
+                    <div class="campo">
+                        <label>Estado:</label>
+                        <input type="text" name="estado" placeholder="Ex: SP, RJ...">
+                    </div>
+
+                    <div class="campo campo-full">
+                        <label>Complemento:</label>
+                        <input type="text" name="complemento" placeholder="Apartamento, bloco, ponto de referência…">
+                    </div>
+
                 </div>
 
             </div>
@@ -119,5 +160,7 @@
 
         </div>
     </div>
+
+    <script type="module" src="compra.js"></script>
 </body>
 </html>

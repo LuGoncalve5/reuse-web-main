@@ -92,3 +92,30 @@
     color: var(--verde);
     border: 1px solid var(--verde);
 }
+
+/* ===== SPINNER DE CARREGAMENTO ===== */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* ocupa espaço sem quebrar layout */
+    grid-column: 1 / -1; /* ocupa todas as colunas do grid */
+}
+
+.spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid var(--verde-principal, #5E7858);
+    border-radius: 50%;
+    width: 6vh;
+    height: 6vh;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-container.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
