@@ -1,165 +1,313 @@
 import { database } from "../../firebase_connection/firebaseConfig.js";
 import {
-    ref,
-    get,
-    update
+	ref,
+	get,
+	update,
+	remove,
+	push
 } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 /* ===============================
-   ELEMENTOS DO FORM
+   ELEMENTOS
 ================================ */
-const form = document.querySelector(".perfil-form");
-const campos = {
-    nomeCompleto: form.querySelector('input[name="nomeCompleto"]'),
-    nomeUsuario: form.querySelector('input[name="nomeUsuario"]'),
-    email: form.querySelector('input[name="email"]'),
-    senha: form.querySelector('input[name="senha"]'),
-    cpf: form.querySelector('input[name="cpf"]'),
-    cnpj: form.querySelector('input[name="cnpj"]'),
-    telefone: form.querySelector('input[name="telefone"]'),
-    cep: form.querySelector('input[name="cep"]'),
-    estado: form.querySelector('input[name="estado"]'),
-    cidade: form.querySelector('input[name="cidade"]'),
-    bairro: form.querySelector('input[name="bairro"]'),
-    complemento: form.querySelector('input[name="complemento"]')
+const formPerfil = document.querySelector("#form-perfil");
+const formEndereco = document.querySelector("#form-endereco");
+const formAnuncio = document.querySelector("#form-anuncio");
+
+const btnCriarAnuncio = document.querySelector("#btn-criar-anuncio");
+const btnExcluirConta = document.querySelector("#btn-excluir-conta");
+
+const inputFoto = document.querySelector("#fotoPerfil");
+const previewFoto = document.querySelector("#previewFoto");
+
+const camposUsuario = {
+	nomeCompleto: document.querySelector('[name="nomeCompleto"]'),
+	nomeDeUsuario: document.querySelector('[name="nomeDeUsuario"]'),
+	email: document.querySelector('[name="email"]'),
+	cpf: document.querySelector('[name="cpf"]'),
+	cnpj: document.querySelector('[name="cnpj"]'),
+	telefone: document.querySelector('[name="telefone"]')
 };
 
-let dadosOriginais = {};
-let caminhoUsuario = "";
+const camposEndereco = {
+	cep: document.querySelector('[name="cep"]'),
+	estado: document.querySelector('[name="estado"]'),
+	cidade: document.querySelector('[name="cidade"]'),
+	bairro: document.querySelector('[name="bairro"]'),
+	complemento: document.querySelector('[name="complemento"]')
+};
+
+const camposAnuncio = {
+	breveDescricao: document.querySelector('[name="breveDescricao"]'),
+	detalhes: document.querySelector('[name="detalhes"]')
+};
 
 /* ===============================
-   UID DO USUÁRIO
+   VARIÁVEIS
 ================================ */
-const uid = localStorage.getItem("userId");
+const uid = localStorage.getItem("currentUserUID");
 
+let tipoUsuario = "";
+let caminhoUsuario = "";
+let dadosUsuario = {};
+let dadosEndereco = {};
+let enderecoId = "";
+
+let anuncioId = null;
+
+/* ===============================
+   SEGURANÇA
+================================ */
 if (!uid) {
-    alert("Usuário não autenticado");
-    location.href = "/login.html";
+	alert("Usuário não autenticado");
+	location.href = "../login.html";
 }
 
 /* ===============================
-   DETECTAR TIPO DE USUÁRIO
+   DETECTAR USUÁRIO
 ================================ */
 async function detectarUsuario() {
-    const baseRef = ref(database, "usuarios");
+	const possibilidades = [
+		{ tipo: "pessoaFisica", path: `usuarios/pessoaFisica/${uid}` },
+		{ tipo: "brecho", path: `usuarios/pessoaJuridica/brechos/${uid}` },
+		{ tipo: "instituicao", path: `usuarios/pessoaJuridica/instituicoes/${uid}` }
+	];
 
-    const caminhos = [
-        `pessoaFisica/${uid}`,
-        `pessoaJuridica/brechos/${uid}`,
-        `pessoaJuridica/instituicoes/${uid}`
-    ];
+	for (const item of possibilidades) {
+		const snap = await get(ref(database, item.path));
+		if (snap.exists()) {
+			tipoUsuario = item.tipo;
+			caminhoUsuario = item.path;
+			dadosUsuario = snap.val();
+			enderecoId = dadosUsuario.endereco || "";
 
-    for (const caminho of caminhos) {
-        const snapshot = await get(ref(database, `usuarios/${caminho}`));
-        if (snapshot.exists()) {
-            caminhoUsuario = `usuarios/${caminho}`;
-            dadosOriginais = snapshot.val();
-            configurarFormulario(caminho);
-            preencherCampos(dadosOriginais);
-            return;
-        }
-    }
+			configurarFormulario();
+			preencherUsuario();
+			carregarEndereco();
+			configurarFoto();
+			configurarCriarAnuncio();
 
-    alert("Usuário não encontrado");
+			if (tipoUsuario === "instituicao") {
+				carregarAnuncio();
+			}
+
+			return;
+		}
+	}
+
+	alert("Usuário não encontrado");
 }
 
 /* ===============================
-   CONFIGURAR FORMULÁRIO
+   FORM DINÂMICO
 ================================ */
-function configurarFormulario(caminho) {
-    // Esconde tudo primeiro
-    Object.values(campos).forEach(campo => campo?.parentElement?.style.setProperty("display", "none"));
+function configurarFormulario() {
+	document.querySelector("#campo-cpf").style.display = "none";
+	document.querySelector("#campo-cnpj").style.display = "none";
+	formAnuncio.style.display = "none";
 
-    if (caminho.startsWith("pessoaFisica")) {
-        exibir([
-            "nomeCompleto",
-            "nomeUsuario",
-            "email",
-            "cpf",
-            "telefone",
-            "cep",
-            "estado",
-            "cidade",
-            "bairro",
-            "complemento"
-        ]);
-    } else {
-        // brechos e instituicoes (iguais)
-        exibir([
-            "nomeCompleto",
-            "nomeUsuario",
-            "email",
-            "cnpj",
-            "telefone",
-            "cep",
-            "estado",
-            "cidade",
-            "bairro",
-            "complemento"
-        ]);
-    }
-}
+	if (tipoUsuario === "pessoaFisica") {
+		document.querySelector("#campo-cpf").style.display = "flex";
+	}
 
-function exibir(lista) {
-    lista.forEach(campo => {
-        if (campos[campo]) {
-            campos[campo].parentElement.style.display = "flex";
-        }
-    });
+	if (tipoUsuario === "instituicao" || tipoUsuario === "brecho") {
+		document.querySelector("#campo-cnpj").style.display = "flex";
+	}
+
+	if (tipoUsuario === "instituicao") {
+		formAnuncio.style.display = "flex";
+	}
 }
 
 /* ===============================
-   PREENCHER CAMPOS
+   USUÁRIO
 ================================ */
-function preencherCampos(dados) {
-    if (campos.nomeCompleto) campos.nomeCompleto.value = dados.nomeCompleto || dados.nome || "";
-    if (campos.nomeUsuario) campos.nomeUsuario.value = dados.nomeDeUsuario || "";
-    if (campos.email) campos.email.value = dados.email || "";
-    if (campos.cpf) campos.cpf.value = dados.cpf || "";
-    if (campos.cnpj) campos.cnpj.value = dados.cnpj || "";
-    if (campos.telefone) campos.telefone.value = dados.telefone || "";
-    if (campos.cep) campos.cep.value = dados.cep || "";
-    if (campos.estado) campos.estado.value = dados.estado || "";
-    if (campos.cidade) campos.cidade.value = dados.cidade || "";
-    if (campos.bairro) campos.bairro.value = dados.bairro || "";
-    if (campos.complemento) campos.complemento.value = dados.complemento || "";
+function preencherUsuario() {
+	Object.keys(camposUsuario).forEach(chave => {
+		camposUsuario[chave].value = dadosUsuario[chave] || "";
+	});
+
+	if (dadosUsuario.fotoBase64) {
+		previewFoto.src = `data:image/jpeg;base64,${dadosUsuario.fotoBase64}`;
+	}
 }
 
 /* ===============================
-   SALVAR APENAS ALTERADOS
+   ENDEREÇO
 ================================ */
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+async function carregarEndereco() {
+	if (!enderecoId) return;
 
-    const atualizados = {};
+	const snap = await get(ref(database, `enderecos/${enderecoId}`));
+	if (!snap.exists()) return;
 
-    Object.entries(campos).forEach(([chave, campo]) => {
-        if (!campo || campo.parentElement.style.display === "none") return;
+	dadosEndereco = snap.val();
 
-        const valorAtual = campo.value || "";
-        const valorOriginal = dadosOriginais[chave] || "";
+	Object.keys(camposEndereco).forEach(chave => {
+		camposEndereco[chave].value = dadosEndereco[chave] || "";
+	});
+}
 
-        if (valorAtual !== valorOriginal) {
-            atualizados[chave] = valorAtual;
-        }
-    });
+/* ===============================
+   FOTO PERFIL
+================================ */
+function configurarFoto() {
+	inputFoto.addEventListener("change", () => {
+		const file = inputFoto.files[0];
+		if (!file) return;
 
-    if (Object.keys(atualizados).length === 0) {
-        alert("Nenhuma alteração feita.");
-        return;
-    }
+		const reader = new FileReader();
+		reader.onload = () => {
+			previewFoto.src = reader.result;
+			dadosUsuario.fotoBase64 = reader.result.split(",")[1];
+		};
+		reader.readAsDataURL(file);
+	});
+}
 
-    try {
-        await update(ref(database, caminhoUsuario), atualizados);
-        alert("Dados atualizados com sucesso!");
-        dadosOriginais = { ...dadosOriginais, ...atualizados };
-    } catch (error) {
-        console.error(error);
-        alert("Erro ao salvar alterações");
-    }
+/* ===============================
+   SALVAR PERFIL
+================================ */
+formPerfil.addEventListener("submit", async (e) => {
+	e.preventDefault();
+
+	const atualizados = {};
+
+	Object.keys(camposUsuario).forEach(chave => {
+		const valor = camposUsuario[chave].value || "";
+		if (valor !== (dadosUsuario[chave] || "")) {
+			atualizados[chave] = valor;
+		}
+	});
+
+	if (dadosUsuario.fotoBase64) {
+		atualizados.fotoBase64 = dadosUsuario.fotoBase64;
+	}
+
+	if (!Object.keys(atualizados).length) {
+		alert("Nenhuma alteração no perfil");
+		return;
+	}
+
+	await update(ref(database, caminhoUsuario), atualizados);
+	alert("Perfil atualizado!");
 });
 
 /* ===============================
-   INICIALIZAÇÃO
+   SALVAR ENDEREÇO
+================================ */
+formEndereco.addEventListener("submit", async (e) => {
+	e.preventDefault();
+
+	const atualizados = {};
+
+	Object.keys(camposEndereco).forEach(chave => {
+		const valor = camposEndereco[chave].value || "";
+		if (valor !== (dadosEndereco[chave] || "")) {
+			atualizados[chave] = valor;
+		}
+	});
+
+	if (!Object.keys(atualizados).length) {
+		alert("Nenhuma alteração no endereço");
+		return;
+	}
+
+	await update(ref(database, `enderecos/${enderecoId}`), atualizados);
+	alert("Endereço atualizado!");
+});
+
+/* ===============================
+   ANÚNCIO
+================================ */
+async function carregarAnuncio() {
+	const snap = await get(ref(database, "anuncios"));
+	if (!snap.exists()) return;
+
+	snap.forEach(child => {
+		const anuncio = child.val();
+		if (anuncio.idInstituicao === uid) {
+			anuncioId = child.key;
+			camposAnuncio.breveDescricao.value = anuncio.breveDescricao;
+			camposAnuncio.detalhes.value = anuncio.detalhes;
+		}
+	});
+}
+
+formAnuncio.addEventListener("submit", async (e) => {
+	e.preventDefault();
+
+	const breveDescricao = camposAnuncio.breveDescricao.value.trim();
+	const detalhes = camposAnuncio.detalhes.value.trim();
+
+	if (!breveDescricao || !detalhes) {
+		alert("Preencha os campos do anúncio");
+		return;
+	}
+
+	const enderecoFormatado =
+		`CEP: ${dadosEndereco.cep} Rua ${dadosEndereco.rua || ""} n° ${dadosEndereco.numero || ""}, ` +
+		`${dadosEndereco.cidade} - ${dadosEndereco.estado}`;
+
+	if (anuncioId) {
+		await update(ref(database, `anuncios/${anuncioId}`), {
+			breveDescricao,
+			detalhes
+		});
+		alert("Anúncio atualizado!");
+	} else {
+		await push(ref(database, "anuncios"), {
+			breveDescricao,
+			detalhes,
+			endereco: enderecoFormatado,
+			idInstituicao: uid
+		});
+		alert("Anúncio criado!");
+	}
+});
+
+/* ===============================
+   EXCLUIR CONTA
+================================ */
+btnExcluirConta.addEventListener("click", async () => {
+	const confirmar = confirm("Tem certeza que deseja excluir sua conta? Essa ação é irreversível.");
+
+	if (!confirmar) return;
+
+	await remove(ref(database, caminhoUsuario));
+
+	if (enderecoId) {
+		await remove(ref(database, `enderecos/${enderecoId}`));
+	}
+
+	if (tipoUsuario === "instituicao") {
+		const anunciosSnap = await get(ref(database, "anuncios"));
+		if (anunciosSnap.exists()) {
+			anunciosSnap.forEach(child => {
+				if (child.val().idInstituicao === uid) {
+					remove(ref(database, `anuncios/${child.key}`));
+				}
+			});
+		}
+	}
+
+	localStorage.clear();
+	alert("Conta excluída com sucesso.");
+	location.href = "../cadastro_usuario/index.html";
+});
+
+/* ===============================
+   CRIAR ANÚNCIO (ATALHO)
+================================ */
+function configurarCriarAnuncio() {
+	if (tipoUsuario === "instituicao") {
+		btnCriarAnuncio.style.display = "flex";
+	} else {
+		btnCriarAnuncio.style.display = "none";
+	}
+}
+
+/* ===============================
+   INIT
 ================================ */
 detectarUsuario();
