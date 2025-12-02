@@ -1,0 +1,104 @@
+/* ===============================
+   CONTAINER
+================================ */
+.content {
+	margin-left: 220px;
+	padding: 40px;
+	display: flex;
+	justify-content: center;
+}
+
+.perfil-card {
+	background: #ffffff;
+	width: 100%;
+	max-width: 900px;
+	border-radius: 20px;
+	padding: 30px 40px 40px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   HEADER
+================================ */
+.perfil-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 35px;
+}
+
+.perfil-info h1 {
+	font-size: 26px;
+	color: var(--verde-escuro);
+}
+
+.username {
+	margin-top: 4px;
+	font-size: 14px;
+	color: #6b6b6b;
+}
+
+/* ===============================
+   FORM
+================================ */
+.perfil-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/* ---------- Campos ---------- */
+.campo {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.campo label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #444;
+}
+
+.campo input,
+.campo textarea {
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	font-size: 14px;
+	padding: 14px;
+	transition: 0.2s;
+}
+
+.campo input {
+	height: 44px;
+}
+
+.campo textarea {
+	min-height: 140px;
+	resize: vertical;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+	border-color: var(--verde);
+	outline: none;
+}
+
+/* ===============================
+   BOTÃO
+================================ */
+.btn-salvar {
+	padding: 12px 28px;
+	border-radius: 25px;
+	border: none;
+	background: var(--verde);
+	color: white;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.25s;
+}
+
+.btn-salvar:hover {
+	background: var(--verde-escuro);
+}
