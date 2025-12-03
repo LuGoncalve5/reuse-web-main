@@ -39,8 +39,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const snapshotPecas = await get(pecasRef);
             const qtdPecas = snapshotPecas.exists() ? Object.keys(snapshotPecas.val()).length : 0;
 
-            // --- Define imagem conforme o nome ---
+            // --- Escolher imagem: prioridade para Base64 ---
             let imagemGaveta = '../../img/banco de fotos/body.jpg';
+
+            // Se tiver foto no banco, aplicar com prefixo data URI
+            if (gaveta.fotoBase64 && gaveta.fotoBase64.trim() !== "") {
+                imagemGaveta = `data:image/jpeg;base64,${gaveta.fotoBase64}`;
+            }
+
+            // Regras especiais continuam valendo
             if (gaveta.nome.toLowerCase() === 'doação' || gaveta.nome.toLowerCase() === 'doacao') {
                 imagemGaveta = '../../img/doacaomao.png';
             } else if (gaveta.nome.toLowerCase() === 'vendas') {
