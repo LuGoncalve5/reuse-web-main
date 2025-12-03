@@ -20,7 +20,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 350;
+    text-decoration: none;
 }
 
 .btn-filtro:hover {
@@ -32,7 +33,7 @@
     background-color: var(--verde-principal, #5E7858);
     color: white;
     border-color: var(--verde-principal, #5E7858);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .search-rastreio {
