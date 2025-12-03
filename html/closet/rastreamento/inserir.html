@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ReUse - Inserir</title>
+    <link rel="stylesheet" href="../../../css/padrao.css">
+    <link rel="stylesheet" href="inserir.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <img class="logo" src="../../../img/logoreuse.png">
+
+        <a href="../closet.html"><i class="bi bi-house-door"></i><span>Meu Closet</span></a>
+        <a href="../../pesquisa/aba pesquisa/pesquisa.html"><i class="bi bi-search"></i><span>Pesquisa</span></a>
+        <a href="../../cadastro closet/cadastro peca/cadastroPeca.html"><i class="bi bi-plus-square"></i><span>Novo cadastro</span></a>
+        <a href="../../doacao/doacoes.html"><i class="bi bi-gift"></i><span>Doações</span></a>
+        <a href="../../informacoes pessoais/perfil.html"><i class="bi bi-person"></i><span>Meu Perfil</span></a>
+    </div>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="content">
+        <section class="int-doacao">
+            <a onclick="history.back()" class="voltar">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+
+            <h1>Organizar peça</h1>
+            <hr>
+
+            <div class="form-group">
+                <label for="selectGaveta">Selecionar Gaveta:</label>
+                <select id="selectGaveta">
+                    <option value="">Carregando...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="selectFinalidade">Finalidade:</label>
+                <select id="selectFinalidade">
+                    <option value="">Selecione</option>
+                    <option value="Doar">Doar</option>
+                    <option value="Vender">Vender</option>
+                    <option value="Organizar">Organizar</option>
+                </select>
+            </div>
+
+            <button class="confirm" id="btnConfirmar">Confirmar</button>
+        </section>
+    </div>
+
+    <!-- ==== JAVASCRIPT ==== -->
+    <script type="module">
+        import { database } from '../../../firebase_connection/firebaseConfig.js';
+        import { ref, get, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+        const currentUserUID = localStorage.getItem('currentUserUID');
+        console.log('currentUserUID:', currentUserUID);
+
+        const selectGaveta = document.getElementById('selectGaveta');
+        const selectFinalidade = document.getElementById('selectFinalidade');
+        const btnConfirmar = document.getElementById('btnConfirmar');
+
+        // ID da peça da URL
+        const params = new URLSearchParams(window.location.search);
+        const idPeca = params.get('idPeca');
+
+        // Carregar gavetas
+        async function carregarGavetas() {
+            const gavetasRef = ref(database, 'gavetas/');
+            try {
+                const snapshot = await get(gavetasRef);
+
+                if (!snapshot.exists()) {
+                    console.log('Nenhuma gaveta cadastrada.');
+                    selectGaveta.innerHTML = '<option value="">Nenhuma gaveta cadastrada</option>';
+                    return;
+                }
+
+                const gavetas = snapshot.val();
+                selectGaveta.innerHTML = '<option value="">Selecione uma gaveta</option>';
+                let encontrou = false;
+
+                for (let key in gavetas) {
+                    const gaveta = gavetas[key];
+                    if (gaveta.ownerUid === currentUserUID) {
+                        const option = document.createElement('option');
+                        option.value = key;
+                        option.textContent = gaveta.nome; // ou titulo, conforme seu Firebase
+                        selectGaveta.appendChild(option);
+                        encontrou = true;
+                    }
+                }
+
+                if (!encontrou) {
+                    selectGaveta.innerHTML = '<option value="">Nenhuma gaveta do usuário</option>';
+                }
+
+            } catch (error) {
+                console.error('Erro ao carregar gavetas:', error);
+                selectGaveta.innerHTML = '<option value="">Erro ao carregar</option>';
+            }
+        }
+
+        carregarGavetas();
+
+        // Botão Confirmar
+        btnConfirmar.addEventListener('click', async () => {
+            const gavetaId = selectGaveta.value;
+            const finalidade = selectFinalidade.value;
+
+            if (!gavetaId || !finalidade) {
+                alert('Selecione uma gaveta e uma finalidade!');
+                return;
+            }
+
+            try {
+                const pecaRef = ref(database, 'pecas/' + idPeca);
+
+                await update(pecaRef, {
+                    gavetaUid: gavetaId,
+                    finalidade: finalidade
+                });
+
+                alert('Peça atualizada com sucesso!');
+                window.location.href = '../closet.html';
+            } catch (error) {
+                console.error('Erro ao atualizar peça:', error);
+                alert('Erro ao atualizar peça.');
+            }
+        });
+    </script>
+</body>
+</html>

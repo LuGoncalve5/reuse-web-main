@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (d.status !== 'Pendente') return;
             if (d.doadorUID !== userUID && d.instituicaoUID !== userUID) return;
 
-            const ehDoador = d.doadorUID === userUID;
+            const ehDoador = d.doadorUID === userUID; // só doador envia
+            const ehInstituicao = d.instituicaoUID === userUID;
 
             pendentesBody.appendChild(
                 criarLinha({
@@ -80,24 +81,45 @@ document.addEventListener('DOMContentLoaded', () => {
                                     pecaUID: d.pecaUID
                                 })
                             )
-                          ])
+                        ])
                         : botaoAguardando()
+
                 })
             );
         });
 
-        /* COMPRAS */
+        /* ================= COMPRAS ================= */
         Object.entries(compra).forEach(([id, c]) => {
             if (c.status !== 'Pendente') return;
-            if (c.vendedorUID !== userUID && c.compradorUID !== userUID) return;
 
-            const ehVendedor = c.vendedorUID === userUID;
+            const peca = pecas[c.pecaUID];
+            if (!peca) return;
+
+            // NORMALIZA CAMPOS
+            const vendedorUID = String(
+                c.vendedorUID ||
+                c.vendedorUid ||
+                peca.ownerUid || // fallback
+                ''
+            ).trim();
+
+            const compradorUID = String(
+                c.compradorUID ||
+                c.compradorUid ||
+                ''
+            ).trim();
+
+            // SE O USUÁRIO NÃO PARTICIPA, NÃO MOSTRA
+            if (userUID !== vendedorUID && userUID !== compradorUID) return;
+
+            const ehVendedor   = userUID === vendedorUID;
+            const ehComprador = userUID === compradorUID;
 
             pendentesBody.appendChild(
                 criarLinha({
                     transacaoId: id,
                     tipo: 'Venda',
-                    nomePeca: pecas[c.pecaUID]?.titulo || 'Peça não encontrada',
+                    nomePeca: peca.titulo || 'Peça não encontrada',
                     destino: c.enderecoDestino,
                     status: c.status,
                     botao: ehVendedor
@@ -112,8 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                     pecaUID: c.pecaUID
                                 })
                             )
-                          ])
-                        : botaoAguardando()
+                        ])
+                        : ehComprador
+                            ? botaoAguardando() // COMPRADOR VE “AGUARDANDO”
+                            : botaoAguardando()
                 })
             );
         });
@@ -154,11 +178,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         /* COMPRAS */
+        /* COMPRAS */
+        /* COMPRAS */
         Object.entries(compra).forEach(([id, c]) => {
             if (c.status !== 'Em andamento') return;
-            if (c.vendedorUID !== userUID && c.compradorUID !== userUID) return;
 
-            const podeConfirmar = c.compradorUID === userUID;
+            // normaliza os campos
+            const vendedorUID = String(c.vendedorUID || c.vendedorUid || c.ownerUid || c.vendedor || '').trim();
+            const compradorUID = String(c.compradorUID || c.compradorUid || c.comprador || '').trim();
+
+            // se o usuário não participa, sai
+            if (vendedorUID !== userUID && compradorUID !== userUID) return;
+
+            // comprador confirma
+            const podeConfirmar = compradorUID === userUID;
 
             andamentoBody.appendChild(
                 criarLinha({
@@ -172,13 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             confirmarEntrega({
                                 path: `transacoes/compra/${id}`,
                                 pecaUID: c.pecaUID,
-                                novoOwner: c.compradorUID
+                                novoOwner: compradorUID
                             })
-                          )
+                        )
                         : botaoAguardandoConfirmacao()
                 })
             );
         });
+
     }
 
     /* ================= ENTREGUES ================= */
@@ -358,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const botaoAguardandoConfirmacao = () => criarBotao('Aguardando confirmação', 'btn-aguardo', 'hourglass', null, true);
     const botaoConcluido = () => criarBotao('Pedido concluído!', 'btn-concluido', 'check-circle-fill', null, true);
     const botaoInserirGaveta = pecaUID => criarBotao('Inserir peça em gaveta', 'btn-gaveta', 'box-seam', () => {
-        window.location.href = `/gavetas/inserir.html?peca=${encodeURIComponent(pecaUID)}`;
+        window.location.href = `inserir.html?idPeca=${encodeURIComponent(pecaUID)}`;
     });
 
 });
