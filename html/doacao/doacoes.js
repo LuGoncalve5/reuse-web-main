@@ -174,6 +174,8 @@ async function carregarInstituicoes() {
     instituicoesComDistancia = [];
 
     for (const id in snapInst.val()) {
+        if (id === userUID) continue;
+        
         const inst = snapInst.val()[id];
         if (!inst.endereco) continue;
 
@@ -220,7 +222,7 @@ searchInput.addEventListener('input', () => {
 
     renderizarInstituicoes(
         instituicoesComDistancia
-            .filter(inst => inst.nomeCompleto.toLowerCase().includes(termo))
+            .filter(inst => inst.nomeCompleto.toLowerCase().includes(termo)  && inst.id !== "idQueNaoPodeAparecer" )
             .slice(0, 10)
     );
 });

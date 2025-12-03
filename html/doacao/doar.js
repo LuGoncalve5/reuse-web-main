@@ -1,11 +1,7 @@
 console.log('✅ doar.js carregado');
 
 import { database } from '../../../firebase_connection/firebaseConfig.js';
-import {
-    ref,
-    get,
-    push
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, get, push, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 /* =====================================================
    ELEMENTOS DOM
@@ -190,8 +186,12 @@ btnConfirmar.addEventListener('click', async () => {
         novaDoacao
     );
 
+    // Atualizar peça para "Reservada"
+    const pecaRef = ref(database, `pecas/${novaDoacao.pecaUID}`);
+    await update(pecaRef, { finalidade: "Reservada" });
+
     alert('✅ Doação registrada com sucesso!');
-    window.location.href = '../doacao/doacoes.html';
+    window.location.href = '../closet/rastreamento/rastreamento.html';
 });
 
 /* =====================================================

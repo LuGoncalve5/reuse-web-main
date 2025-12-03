@@ -1,3 +1,4 @@
+/* rastreamento.css */
 .rastreamento-opcoes {
     display: flex;
     justify-content: space-between;
@@ -126,6 +127,23 @@
     transform: translateX(2px); /* Efeito sutil de deslizar para a direita */
 }
 
+.spa-section {
+    display: none;
+}
+
+.spa-section.ativa {
+    display: block;
+}
+
+.btn-filtro {
+    cursor: pointer;
+}
+
+.btn-filtro.ativo {
+    font-weight: bold;
+    border-bottom: 2px solid var(--verde);
+}
+
 @media screen and (max-width: 768px) {
     .rastreamento-opcoes {
         flex-direction: column;
@@ -170,3 +188,129 @@
         font-weight: 600;
     }
 }
+
+.btn-acao {
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-enviar {
+    background: var(--verde);
+    color: #fff;
+}
+
+.btn-enviar:hover {
+    background: var(--verde-escuro);
+}
+
+.btn-aguardo {
+    background: #ddd;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.badge-tipo {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.badge-tipo.doação {
+    background: #d4f1e3;
+    color: #137b52;
+}
+
+.badge-tipo.venda {
+    background: #e5e9ff;
+    color: #2d3bb6;
+}
+
+.badge-status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+ /* grupo de botões (pendentes: enviar + cancelar) */
+.grupo-botoes {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* botões específicos */
+.btn-acao {
+    padding: 8px 12px;
+    border-radius: 14px;
+    border: none;
+    font-size: 0.85rem;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .08s ease;
+}
+
+.btn-acao i { font-size: 1.05rem; }
+
+/* ação positiva */
+.btn-enviar {
+    background: var(--verde, #5E7858);
+    color: #fff;
+}
+.btn-enviar:hover { transform: translateY(-1px); }
+
+/* cancelar - destaque em alerta */
+.btn-cancelar {
+    background: #fff6f6;
+    color: #b00020;
+    border: 1px solid #f0c0c0;
+}
+.btn-cancelar:hover { transform: translateY(-1px); }
+
+/* confirmar (entrega) */
+.btn-confirmar {
+    background: #e6f7e6;
+    color: #256029;
+    border: 1px solid #bfe6bf;
+}
+.btn-confirmar:hover { transform: translateY(-1px); }
+
+/* botões desabilitados */
+.btn-aguardo, .btn-concluido {
+    background: #efefef;
+    color: #777;
+    cursor: default;
+}
+
+/* inserir em gaveta */
+.btn-gaveta {
+    background: #fff;
+    color: var(--verde-principal, #5E7858);
+    border: 1px solid #e0e0e0;
+}
+
+/* badges */
+.badge-tipo {
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* classes geradas por slugifyClass: 'doacao' ou 'venda' */
+.badge-tipo.doacao { background: #d4f1e3; color: #137b52; }
+.badge-tipo.venda  { background: #e5e9ff; color: #2d3bb6; }
+
+/* status badges */
+.badge-status { padding: 6px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; display: inline-flex; gap:6px; align-items:center; }
+.badge-status.pendente { background:#fff8e6; color:#b07a00; }
+.badge-status.em-andamento { background:#e6f7ff; color:#0b63a3; }
+.badge-status.entregue { background:#e6ffe6; color:#137b52; }
+.badge-status.cancelado { background:#fff0f0; color:#a12020; }
