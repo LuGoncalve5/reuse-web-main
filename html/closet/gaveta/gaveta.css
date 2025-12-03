@@ -142,3 +142,15 @@ section {
 h5{
     font-weight: 450;
 }
+
+/* NOVA COR PARA STATUS ORGANIZAR */
+.status-organizar .status-badge {
+    background-color: #4a90e2; /* azul */
+}
+
+/* Descrição no modo ORGANIZAR */
+.closet-desc {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}

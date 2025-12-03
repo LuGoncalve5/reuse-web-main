@@ -37,9 +37,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Carrega peças
         const container = document.getElementById('pecas-container');
-        container.innerHTML = ''; // limpa antes
+        container.innerHTML = '';
 
-        // Faz query no nó 'pecas' filtrando por gavetaUid
         const pecasQuery = query(ref(database, 'pecas'), orderByChild('gavetaUid'), equalTo(gavetaId));
         const snapshotPecas = await get(pecasQuery);
 
@@ -54,14 +53,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                         ? `data:image/jpeg;base64,${peca.fotoBase64}`
                         : "../../../img/placeholder.png";
 
+                // TRATAMENTO CORRETO PARA: Vender / Doar / Organizar
+                const finalidadeRaw = peca.finalidade || "Vender";
+                const finalidade = finalidadeRaw.trim().toLowerCase();
+
+                const statusFinal =
+                    finalidade === "doar" ? "doacao" :
+                    finalidade === "organizar" ? "organizar" :
+                    "venda";
+
                 const card = criarCardPeca(
                     idPeca,
                     peca.titulo || "Sem título",
                     peca.preco || "0,00",
-                    peca.finalidade || "venda",
-                    fotoFinal
+                    statusFinal,
+                    fotoFinal,
+                    peca.descricao || "" // usado no modo ORGANIZAR
                 );
-
 
                 container.appendChild(card);
             }
@@ -71,7 +79,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Botão de adicionar nova peça
         document.getElementById('btn-nova-peca').addEventListener('click', () => {
-            window.location.href = `../../cadastro closet/cadastro roupa/cr_cpf.html?idGaveta=${gavetaId}&idUsuario=${usuarioId}&tipo=${tipo}`;
+            window.location.href = 
+                `../../cadastro closet/cadastro roupa/cr_cpf.html?idGaveta=${gavetaId}&idUsuario=${usuarioId}&tipo=${tipo}`;
         });
 
     } catch (error) {
