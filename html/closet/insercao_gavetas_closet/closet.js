@@ -49,9 +49,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Regras especiais continuam valendo
             if (gaveta.nome.toLowerCase() === 'doação' || gaveta.nome.toLowerCase() === 'doacao') {
-                imagemGaveta = '../../img/doacaomao.png';
+                imagemGaveta = '../../img/gavetas padrao/doacaomao.png';
             } else if (gaveta.nome.toLowerCase() === 'vendas') {
-                imagemGaveta = '../../img/dinheiro.png';
+                imagemGaveta = '../../img/gavetas padrao/dinheiro.png';
+            } else if (gaveta.nome.toLowerCase() === 'carrinho') {
+                imagemGaveta = '../../img/gavetas padrao/carrinho.png';
+            } else if (gaveta.nome.toLowerCase() === 'recebidos') {
+                imagemGaveta = '../../img/gavetas padrao/recebidos.png';
             }
 
             // --- Criar card e adicionar no DOM ---

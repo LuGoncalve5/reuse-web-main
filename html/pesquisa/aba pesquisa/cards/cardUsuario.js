@@ -16,14 +16,6 @@ export function criarCardUsuario({ id, nomeCompleto, nomeDeUsuario, fotoDePerfil
                 <p>@${nomeDeUsuario}</p>
             </div>
         </div>
-
-        <div class="user-rating">
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star"></i>
-        </div>
     `;
 
     card.addEventListener("click", () => {

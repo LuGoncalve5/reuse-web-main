@@ -43,8 +43,8 @@
 /* ---------------------- */
 /* TÍTULOS */
 /* ---------------------- */
-.int-produto h1,
-.int-produto h2 {
+.int-produto h4,
+.int-produto h5 {
     color: var(--verde-escuro);
     font-size: 22px;
     margin-top: 20px;

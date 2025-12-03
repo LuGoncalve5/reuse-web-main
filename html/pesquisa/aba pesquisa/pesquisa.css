@@ -55,7 +55,7 @@ section,
     position: relative;
 }
 
-.section h1 {
+.section h3 {
     text-align: center;
     color: var(--verde-escuro);
     margin-bottom: 20px;

@@ -38,64 +38,67 @@
 
 <!-- CONTEÚDO -->
 <div class="content">
-	<section class="perfil-card">
 
-		<!-- HEADER -->
+    <!-- ===== CARD HEADER ===== -->
+	<section class="perfil-card card-compacto">
+
+		<!-- SETINHA VOLTAR -->
+		<button class="btn-voltar" onclick="history.back()">
+			<i class="bi bi-chevron-left"></i> Voltar
+		</button>
+
 		<div class="perfil-header">
+			<div style="display: flex; gap: 20px; align-items: center;">
+				<div class="foto-perfil-box">
+					<img id="previewFoto" src="./img/default-avatar.png">
+					<input type="file" id="fotoPerfil" accept="image/*">
+				</div>
 
-            <div style="display: flex; flex-direction: row; gap: 20px; align-items: center;">
-                <!-- Foto -->
-                <div class="foto-perfil-box">
-                    <img id="previewFoto" src="./img/default-avatar.png">
-                    <input type="file" id="fotoPerfil" accept="image/*">
-                </div>
-
-                <!-- Nome de usuário -->
-                <div class="perfil-info">
-                    <h1>Meu Perfil</h1>
-                    <span class="username" id="nomeDeUsuario">@nomeDeUsuario</span>
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
-                <!-- Botão salvar -->
-                <button type="submit" class="btn-salvar">
-                    Salvar alterações
-                </button>
-
-                <!-- Ícone/ botão criar anúncio -->
-                <button type="button" id="btn-criar-anuncio" class="btn-criar-anuncio">
-                    <i class="bi bi-megaphone"></i>
-                    <span>Criar anúncio</span>
-                    <i class="bi bi-chevron-right"></i>
-                </button>
-            </div>
-		</div>
-
-		<!-- FORM USUARIO -->
-		<form class="perfil-form" id="form-perfil">
-			<div class="campo">
-				<label for="nomeCompleto">Nome completo</label>
-				<input type="text" id="nomeCompleto" name="nomeCompleto">
+				<div class="perfil-info">
+					<h3>Meu Perfil</h3>
+					<span class="username" id="nomeDeUsuario">@nomeDeUsuario</span>
+				</div>
 			</div>
+
+			<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+				<button type="submit" class="btn-salvar">Salvar alterações</button>
+
+				<button type="button" id="btn-criar-anuncio" class="btn-criar-anuncio">
+					<i class="bi bi-megaphone"></i> Criar anúncio
+					<i class="bi bi-chevron-right"></i>
+				</button>
+			</div>
+		</div>
+	</section>
+
+    <!-- ===== CARD DADOS PESSOAIS ===== -->
+    <section class="perfil-card card-compacto">
+
+        <h2 class="titulo-card-compacto">Informações pessoais</h2>
+
+        <form class="perfil-form" id="form-perfil">
+            <div class="campo">
+                <label for="nomeCompleto">Nome completo</label>
+                <input type="text" id="nomeCompleto" name="nomeCompleto">
+            </div>
 
             <div class="campo">
                 <label for="nomeDeUsuario">Nome de usuário</label>
                 <input type="text" id="nomeDeUsuario" name="nomeDeUsuario">
             </div>
 
-			<div class="campo">
-				<label for="email">Email</label>
-				<input type="email" id="email" name="email">
-			</div>
+            <div class="campo">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
 
-			<div class="campo">
-				<label for="senha">Senha</label>
-				<div class="input-icon">
-					<input type="password" id="senha" name="senha">
-					<i class="bi bi-eye-slash" id="toggleSenha"></i>
-				</div>
-			</div>
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <div class="input-icon">
+                    <input type="password" id="senha" name="senha">
+                    <i class="bi bi-eye-slash" id="toggleSenha"></i>
+                </div>
+            </div>
 
             <div class="campo" id="campo-cpf">
                 <label for="cpf">CPF</label>
@@ -107,91 +110,89 @@
                 <input type="text" id="cnpj" name="cnpj">
             </div>
 
-
-			<div class="campo">
-				<label for="telefone">Telefone</label>
-				<input type="tel" id="telefone" name="telefone">
-			</div>
-
-		</form>
-
-        <hr>
-
-        <!-- ===== FORM ENDEREÇO ===== -->
-        <form class="perfil-form" id="form-endereco">
-            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                <h2>Endereço</h2>
-                <button type="submit" class="btn-salvar">
-                    Salvar alterações
-                </button>
+            <div class="campo">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone">
             </div>
-            
-			<div class="campo">
-				<label for="cep">CEP</label>
-				<input type="text" id="cep" name="cep">
-			</div>
-
-			<div class="linha">
-				<div class="campo">
-					<label for="estado">Estado</label>
-					<input type="text" id="estado" name="estado">
-				</div>
-
-				<div class="campo">
-					<label for="cidade">Cidade</label>
-					<input type="text" id="cidade" name="cidade">
-				</div>
-			</div>
-
-			<div class="campo">
-				<label for="bairro">Bairro</label>
-				<input type="text" id="bairro" name="bairro">
-			</div>
-
-			<div class="campo">
-				<label for="complemento">Complemento</label>
-				<input type="text" id="complemento" name="complemento">
-			</div>
         </form>
 
-        <hr>
+    </section>
 
-        <!-- ===== FORM ANÚNCIO ===== -->
-        <form class="perfil-form" id="form-anuncio">
-            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                <h2>Anúncio</h2>
-                <button type="submit" class="btn-salvar">
-                    Salvar alterações
-                </button>
+
+    <!-- ===== CARD ENDEREÇO ===== -->
+    <section class="perfil-card card-compacto">
+
+        <h2 class="titulo-card-compacto">Endereço</h2>
+
+        <form class="perfil-form" id="form-endereco">
+
+            <div class="campo">
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" name="cep">
+            </div>
+
+            <div class="linha">
+                <div class="campo">
+                    <label for="estado">Estado</label>
+                    <input type="text" id="estado" name="estado">
+                </div>
+
+                <div class="campo">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade">
+                </div>
             </div>
 
             <div class="campo">
-				<label for="breveDescricao">Breve Descrição</label>
-				<input type="text" id="breveDescricao" name="breveDescricao">
-			</div>
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro">
+            </div>
 
-			<div class="campo">
-				<label for="detalhes">Detalhes</label>
-				<input type="text" id="detalhes" name="detalhes">
-			</div>
+            <div class="campo">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" name="complemento">
+            </div>
+
         </form>
 
-        <hr>
+    </section>
 
-        <!-- BOTÕES LOGOUT E EXCLUIR CONTA -->
-        <form>
-            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between align-items-center mt-3">
-                <button type="button" id="btn-logout" class="btn btn-outline-secondary btn-lg">
-                    <i class="bi bi-box-arrow-right me-2"></i> Sair da minha conta
-                </button>
 
-                <button type="button" id="btn-excluir-conta" class="btn btn-danger btn-lg">
-                    <i class="bi bi-trash me-2"></i> Excluir minha conta
-                </button>
+    <!-- ===== CARD ANÚNCIO ===== -->
+    <section class="perfil-card card-compacto">
+        
+        <h2 class="titulo-card-compacto">Anúncio</h2>
+
+        <form class="perfil-form" id="form-anuncio">
+            <div class="campo">
+                <label for="breveDescricao">Breve Descrição</label>
+                <input type="text" id="breveDescricao" name="breveDescricao">
             </div>
-        </form>       
 
-	</section>
+            <div class="campo">
+                <label for="detalhes">Detalhes</label>
+                <input type="text" id="detalhes" name="detalhes">
+            </div>
+        </form>
+
+    </section>
+
+
+    <!-- ===== CARD AÇÕES ===== -->
+    <section class="perfil-card card-compacto">
+
+        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between align-items-center mt-2">
+            <button type="button" id="btn-logout" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-box-arrow-right me-2"></i> Sair da minha conta
+            </button>
+
+            <button type="button" id="btn-excluir-conta" class="btn btn-danger btn-lg">
+                <i class="bi bi-trash me-2"></i> Excluir minha conta
+            </button>
+        </div>
+
+    </section>
+
 </div>
 
 <script type="module" src="perfil.js"></script>
