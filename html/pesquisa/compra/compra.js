@@ -1,6 +1,6 @@
 // compra.js
 import { database } from '../../../firebase_connection/firebaseConfig.js';
-import { ref, get, push } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import { ref, get, push, update } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 // ====================================
 // PEGAR idPeca DA URL
@@ -136,9 +136,16 @@ btnConfirmar.addEventListener('click', async () => {
 		enderecoDestino: enderecoCompleto,
 		formaEnvio: formaEnvio === 'correios' ? 'Correios' : formaEnvio,
 		formaPagamento: formaPagamento.toUpperCase(),
-		precoTotal: `R$ ${dadosDaPeca.preco}`
+		precoTotal: `R$ ${dadosDaPeca.preco}`,
+		status: 'Pendente'
 	});
 
+	// Atualizar peça para "Reservada"
+	const pecaRef = ref(database, `pecas/${idPeca}`);
+	await update(pecaRef, { finalidade: "Reservada" });
+
+	alert("Compra solicitada com sucesso!");
+	window.location.href = '../../closet/rastreamento/rastreamento.html';
 });
 
 // ====================================

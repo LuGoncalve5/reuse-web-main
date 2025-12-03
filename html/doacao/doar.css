@@ -1,152 +1,190 @@
-:root{
-  --verde: #5E7858;
-  --verde-escuro: #134313;
-  --branco: #FAFBF9;
-  --cinza: #ccc;
-  --card-bg: #ffffff;
-  --shadow: 0 3px 14px rgba(0,0,0,0.08);
-  --radius: 12px;
+:root {
+    --verde: #5E7858;
+    --verde-medio: #6f8a68;
+    --verde-escuro: #134313;
+    --verde-soft: #f1f4f1;
+    --verde-borda: #d7e0d7;
+    --branco: #ffffff;
 }
 
+/* ================= FUNDO GERAL ================= */
 .content {
+    padding: 40px 40px 40px 140px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    min-height: 100vh; /* ocupa toda a altura da tela */
-    box-sizing: border-box;
-    margin: none;
-    padding: 20px;
-}
-
-.select-pecas {
-    background-color: #93a98e56;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 900px;
-}
-
-.select-pecas hr { margin: 12px 0; }
-
-.voltar {
-    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 8px;
-    border-radius: 8px;
-    transition: background .15s, transform .08s;
+    gap: 32px;
+    background: var(--verde-soft);
 }
 
-.voltar:hover {
-    background: rgba(19,67,19,0.06);
-    transform: translateY(-2px);
+/* ================= CARD BASE ================= */
+.instituicao-card,
+.int-doacao {
+    background: var(--branco);
+    border-radius: 18px;
+
+    /* DELIMITAÇÃO SUAVE */
+    border: 1px solid var(--verde-borda);
+
+    /* SOMBRA ENVOLVENTE (NÃO PROJETADA) */
+    box-shadow: 0 0 0 3px rgba(94,120,88,0.05);
+
+    padding: 36px;
+    width: 100%;
+    max-width: 950px;
 }
 
-.header {
-    background-color: #5e785881;
+/* ================= INSTITUIÇÃO ================= */
+.instituicao-header {
     display: flex;
-    padding: 10px 340px;
-    gap: 15px
-}
-
-/*preciso ajustar*/
-.names{
     align-items: center;
-    justify-content: center;
-    color: aliceblue;
+    gap: 18px;
 }
 
 .profile-photo {
-    margin: 10px;
-    width: 100px;
-    height: 100px;
-    z-index: 99999;
-    border-radius: 100%;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--verde-medio);
 }
 
-.informations {
-    max-width: 900px;
-    display: flex;
-    align-items: center;
-    padding: 0 360px;
-    color: #134313;
-    justify-content: space-between;
-
+.instituicao-nome h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--verde-escuro);
 }
 
-/* Grids e Cards (seleção de produtos da gaveta de doação) */
-.product-grid {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px; 
+.instituicao-info {
+    margin-top: 22px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+    color: var(--verde-escuro);
+}
+
+/* ================= TÍTULOS ================= */
+.int-doacao h1 {
+    font-size: 26px;
+    margin: 18px 0;
+    color: var(--verde-escuro);
+}
+
+.int-doacao h2 {
+    margin-top: 30px;
+    color: var(--verde);
+}
+
+/* ================= HR ================= */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--verde-borda);
+    margin: 26px 0;
+}
+
+/* ================= GRID ================= */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px,1fr));
+    gap: 18px;
 }
 
 .product-image-container {
-    width: 100%;
-    padding-top: 100%;
     position: relative;
+    padding-top: 100%;
+    border-radius: 14px;
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
+    cursor: pointer;
+
+    border: 2px solid var(--verde-borda);
+    box-shadow: 0 0 0 2px rgba(94,120,88,0.04);
+
+    transition: 0.18s;
 }
 
 .product-image-container img {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
 }
 
+.product-image-container:hover,
+.product-image-container.active {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(94,120,88,0.12);
+}
+
+/* ================= OPÇÕES ENVIO ================= */
 .options {
-    display: block;
-    margin-top: 8px;
+    display: grid;
+    gap: 14px;
 }
 
-.options .option {
+.option {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    margin-bottom: 8px;
+    gap: 12px;
+
+    padding: 16px 18px;
+    border-radius: 14px;
+
+    background: var(--verde-soft);
+    border: 1px solid var(--verde-borda);
+
     cursor: pointer;
-    transition: transform .9s;
+    font-size: 15px;
+    transition: 0.15s;
 }
 
-.option input[type="radio"] {
-    width: 16px;
-    height: 16px;
-    transform: none;
+.option:hover,
+.option.active {
+    background: var(--verde);
+    color: white;
+}
+
+/* RADIO */
+.option input {
     accent-color: var(--verde-escuro);
-    cursor: pointer;
 }
 
-.option:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.03);
-}
-
+/* ================= BOTÃO FINAL ================= */
 .confirm {
-    display: flex;
-    margin: 20px auto;
-    min-width: 240px;
-    width: 50%;
-    max-width: 320px;
-    padding: 10px 16px;
-    align-items: center;
-    justify-content: center;
+    width: 55%;
+    margin: 40px auto 0;
+
+    padding: 16px;
+    border-radius: 30px;
     border: none;
-    background-color: #5e785845;
-    border-radius: 25px;
-    font-weight: bold;
-    font-family: "Lexend", sans-serif;
-    font-size: 16px;
+
+    background: var(--verde);
+    color: white;
+
+    font-size: 17px;
+    font-weight: 600;
+
     cursor: pointer;
-    transition: background 0.3s;
+    transition: 0.2s;
+}
+
+.confirm:hover,
+.confirm:active,
+.confirm:focus-visible {
+    background: var(--verde-escuro);
+}
+
+/* ================= VOLTAR ================= */
+.voltar {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: var(--verde-escuro);
+}
+
+.voltar:hover {
+    background: rgba(94,120,88,0.12);
 }
