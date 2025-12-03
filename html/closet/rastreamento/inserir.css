@@ -1,0 +1,96 @@
+:root {
+    --verde: #5E7858;
+    --verde-medio: #6f8a68;
+    --verde-escuro: #134313;
+    --verde-soft: #f1f4f1;
+    --verde-borda: #d7e0d7;
+    --branco: #ffffff;
+}
+
+/* ================= FUNDO GERAL ================= */
+.content {
+    height: 100vh;
+    padding: 40px 40px 40px 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    background: var(--verde-soft);
+}
+
+/* ================= CARD BASE ================= */
+.int-doacao {
+    background: var(--branco);
+    border-radius: 18px;
+    border: 1px solid var(--verde-borda);
+    box-shadow: 0 0 0 3px rgba(94,120,88,0.05);
+    padding: 36px;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* ================= TÍTULOS ================= */
+.int-doacao h1 {
+    font-size: 26px;
+    margin: 18px 0;
+    color: var(--verde-escuro);
+}
+
+/* ================= HR ================= */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--verde-borda);
+    margin: 26px 0;
+}
+
+/* ================= FORM ================= */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+select {
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--verde-borda);
+    font-size: 15px;
+    background: var(--verde-soft);
+}
+
+/* ================= BOTÃO FINAL ================= */
+.confirm {
+    width: 60%;
+    margin: 40px auto 0;
+    padding: 16px;
+    border-radius: 30px;
+    border: none;
+    background: var(--verde);
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.confirm:hover,
+.confirm:active,
+.confirm:focus-visible {
+    background: var(--verde-escuro);
+}
+
+/* ================= VOLTAR ================= */
+.voltar {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: var(--verde-escuro);
+}
+
+.voltar:hover {
+    background: rgba(94,120,88,0.12);
+}
