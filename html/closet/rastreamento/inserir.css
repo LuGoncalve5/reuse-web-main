@@ -30,7 +30,7 @@
 }
 
 /* ================= TÍTULOS ================= */
-.int-doacao h1 {
+.int-doacao h3 {
     font-size: 26px;
     margin: 18px 0;
     color: var(--verde-escuro);

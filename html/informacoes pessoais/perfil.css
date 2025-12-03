@@ -1,86 +1,135 @@
-/* ===============================
-   CONTAINER GERAL
-================================ */
-.content {
-    margin-left: 220px;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
+/* ========================================== */
+/*  PALETA E BASE                             */
+/* ========================================== */
+
+:root {
+    --verde-principal: #5E7858;
+    --verde-escuro: #134313;
+    --verde-transp: #5e785830;
+    --verde-soft: #f1f4f1;
+    --verde-borda: #d7e0d7;
+    --shadow-md: 0 2px 6px rgba(0,0,0,0.08);
+    --branco: #ffffff;
+
+    --font-principal: "Poppins", sans-serif;
 }
 
-.perfil-card {
-    background: #ffffff;
+body {
+    font-family: var(--font-principal);
+    background: var(--verde-soft);
+}
+
+/* ========================================== */
+/*  CONTENT                                    */
+/* ========================================== */
+.content {
+    padding: 40px 40px 40px 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* ========================================== */
+/*  CARDS                                      */
+/* ========================================== */
+.card-compacto {
+    background: var(--branco);
+    border: 1px solid var(--verde-borda);
+    border-radius: 18px;
+    padding: 28px 34px;
     width: 100%;
     max-width: 900px;
-    border-radius: 20px;
-    padding: 30px 40px 40px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    position: relative;
+    box-shadow: var(--shadow-md);
 }
 
-/* ===============================
-   HEADER PERFIL
-================================ */
+.titulo-card-compacto {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--verde-principal);
+    margin-bottom: 18px;
+}
+
+/* ========================================== */
+/*  BOTÃO VOLTAR                               */
+/* ========================================== */
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: var(--verde-principal);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: .25s;
+}
+.btn-voltar:hover {
+    transform: translateX(-5px);
+    color: var(--verde-escuro);
+}
+
+/* ========================================== */
+/*  HEADER DO PERFIL                           */
+/* ========================================== */
 .perfil-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 25px;
-    margin-bottom: 35px;
-    position: relative;
+    align-items: center;
+    gap: 32px;
 }
 
-/* ---------- Foto ---------- */
+/* FOTO */
 .foto-perfil-box {
+    width: 130px;
+    height: 130px;
     position: relative;
-    width: 110px;
-    height: 110px;
-    flex-shrink: 0;
 }
-
 .foto-perfil-box img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    border: 4px solid var(--verde-principal);
     object-fit: cover;
-    border: 3px solid var(--verde);
 }
-
 .foto-perfil-box input {
     position: absolute;
-    inset: 0;
+    bottom: 0;
+    right: 0;
+    transform: translate(20%, 20%);
+    width: 38px;
+    height: 38px;
     opacity: 0;
     cursor: pointer;
 }
-
-/* ---------- Info ---------- */
-.perfil-info h1 {
-    font-size: 26px;
-    color: var(--verde-escuro);
+.foto-perfil-box::after {
+    content: "\F4CA";
+    font-family: "bootstrap-icons";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--verde-principal);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.username {
-    margin-top: 4px;
-    font-size: 14px;
-    color: #6b6b6b;
-}
-
-/* ---------- Ícone anúncio ---------- */
-#icone-anuncio {
-    width: 26px;
-    height: 26px;
-}
-
-/* ===============================
-   FORMULÁRIO
-================================ */
+/* ========================================== */
+/* FORMULÁRIOS                                 */
+/* ========================================== */
 .perfil-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
 }
 
-/* ---------- Campos ---------- */
 .campo {
     display: flex;
     flex-direction: column;
@@ -88,103 +137,110 @@
 }
 
 .campo label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #444;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--verde-escuro);
 }
 
 .campo input {
     height: 44px;
     padding: 0 14px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    transition: 0.2s;
+    border-radius: 12px;
+    border: 1px solid var(--verde-borda);
+    background: var(--verde-soft);
+    font-size: 15px;
+    transition: .2s;
 }
 
 .campo input:focus {
-    border-color: var(--verde);
-    outline: none;
+    border-color: var(--verde-principal);
+    background: #fff;
 }
 
-/* ---------- Linha dupla ---------- */
+/* CAMPOS EM LINHA */
 .linha {
     display: flex;
     gap: 20px;
 }
-
 .linha .campo {
-    flex: 1;
+    width: 100%;
 }
 
-/* ---------- Input com ícone ---------- */
+/* SENHA */
 .input-icon {
     position: relative;
 }
-
 .input-icon i {
     position: absolute;
-    top: 50%;
     right: 14px;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #666;
+    font-size: 18px;
+    color: #555;
 }
 
-/* ===============================
-   BOTÃO
-================================ */
-.btn-salvar {
-    align-self: flex-end;
-    margin-top: 20px;
-    padding: 12px 28px;
-    border-radius: 25px;
-    border: none;
-    background: var(--verde);
-    color: white;
-    font-size: 14px;
+/* ========================================== */
+/* BOTÕES                                     */
+/* ========================================== */
+.btn-salvar,
+.btn-criar-anuncio {
+    padding: 12px 24px;
+    border-radius: 22px;
+    font-size: 15px;
     font-weight: 600;
+    border: none;
     cursor: pointer;
-    transition: 0.25s;
+    transition: .25s;
+    background: var(--verde-principal);
+    color: white;
 }
 
-.btn-salvar:hover {
+.btn-salvar:hover,
+.btn-criar-anuncio:hover {
     background: var(--verde-escuro);
 }
 
-/* ===============================
-   BOTÃO CRIAR ANÚNCIO
-================================ */
-.btn-criar-anuncio {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
+.btn-criar-anuncio i:last-child {
+    margin-left: 4px;
+}
 
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-
-    background: #82a37ad8; /* verde mais escuro */
-    color: white;
-
-    font-size: 5px;
+/* BOTÕES FINAIS */
+#btn-logout,
+#btn-excluir-conta {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fff;
+    border: 2px solid var(--verde-borda);
     font-weight: 600;
-
-    cursor: pointer;
-    transition: 0.25s;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
-
-.btn-criar-anuncio:hover {
-    background: #51664e;
-}
-
-.btn-criar-anuncio i {
-    font-size: 14px;
+#btn-excluir-conta {
+    background: #c0392b;
     color: white;
+    border-color: #a93226;
+}
+#btn-excluir-conta:hover {
+    background: #922b21;
 }
 
-.btn-criar-anuncio span {
-    font-size: 14px;
-    color: white;
+/* ========================================== */
+/* RESPONSIVIDADE                              */
+/* ========================================== */
+
+@media (max-width: 700px) {
+
+    .perfil-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .btn-salvar {
+        width: 100%;
+    }
+
+    .linha {
+        flex-direction: column;
+    }
 }
