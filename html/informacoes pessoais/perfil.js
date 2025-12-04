@@ -146,6 +146,10 @@ async function carregarEndereco() {
 	Object.keys(camposEndereco).forEach(chave => {
 		camposEndereco[chave].value = dadosEndereco[chave] || "";
 	});
+
+	// Atualiza cabeçalho do perfil
+	document.querySelector(".perfil-info h3").textContent = dadosUsuario.nomeCompleto || "Meu Perfil";
+	document.querySelector(".perfil-info .username").textContent = "@" + (dadosUsuario.nomeDeUsuario || "nomeDeUsuario");
 }
 
 /* ===============================
@@ -311,3 +315,11 @@ function configurarCriarAnuncio() {
    INIT
 ================================ */
 detectarUsuario();
+
+/* ===============================
+   CRIAR ANUNCIO
+================================ */
+document.getElementById('btn-criar-anuncio').addEventListener('click', function() {
+	// Redireciona para a página de criação de anúncio
+	window.location.href = '../anuncio/anuncio.html?idInstituicao=' + uid;
+});

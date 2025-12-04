@@ -6,7 +6,7 @@ import { ref, get, push, update } from "https://www.gstatic.com/firebasejs/12.3.
 /* =====================================================
    ELEMENTOS DOM
 ===================================================== */
-const nomeInstituicaoEl = document.querySelector('.instituicao-nome h2');
+const nomeInstituicaoEl = document.querySelector('.instituicao-nome h3');
 const userInstituicaoEl = document.querySelector('.instituicao-nome span');
 const cepEl = document.querySelector('.instituicao-info div:nth-child(1)');
 const cnpjEl = document.querySelector('.instituicao-info div:nth-child(2)');
@@ -191,7 +191,7 @@ btnConfirmar.addEventListener('click', async () => {
     await update(pecaRef, { finalidade: "Reservada" });
 
     alert('✅ Doação registrada com sucesso!');
-    window.location.href = '../closet/rastreamento/rastreamento.html';
+    window.location.href = '../../closet/rastreamento/rastreamento.html';
 });
 
 /* =====================================================

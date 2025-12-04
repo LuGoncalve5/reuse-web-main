@@ -1,4 +1,4 @@
-import { database } from '../../firebase_connection/firebaseConfig.js';
+import { database } from '../../../firebase_connection/firebaseConfig.js';
 import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 // =======================================
@@ -16,12 +16,11 @@ if (!idInstituicao) {
 // =======================================
 const fotoInstituicao = document.getElementById("fotoInstituicao");
 const nomeInstituicao = document.getElementById("nomeInstituicao");
-const descricaoInstituicao = document.getElementById("descricaoInstituicao");
+const descricaoAnuncio = document.getElementById("descricaoAnuncio");
 const detalhesAnuncio = document.getElementById("detalhesAnuncio");
 const cidadeEstado = document.getElementById("cidadeEstado");
 const enderecoEl = document.getElementById("endereco");
 const cnpj = document.getElementById("cnpj");
-const distancia = document.getElementById("distancia");
 const fazerDoacaoBtn = document.getElementById("fazerDoacao");
 
 // =======================================
@@ -54,9 +53,6 @@ async function carregarInstituicao() {
     // CNPJ
     cnpj.textContent =
         instituicao.cnpj || "CNPJ não informado";
-
-    // DISTÂNCIA (placeholder)
-    distancia.textContent = "Distância: —";
 
     // ENDEREÇO (vem APENAS pelo ID)
     if (instituicao.endereco) {
@@ -107,7 +103,7 @@ async function carregarAnuncio() {
     const snapshot = await get(anunciosRef);
 
     if (!snapshot.exists()) {
-        descricaoInstituicao.textContent = "Nenhuma descrição disponível.";
+        descricaoAnuncio.textContent = "Nenhuma descrição disponível.";
         detalhesAnuncio.textContent = "Nenhum detalhe disponível.";
         return;
     }
@@ -119,7 +115,7 @@ async function carregarAnuncio() {
         if (anuncio.idInstituicao === idInstituicao && !encontrou) {
 
             // DESCRIÇÃO CURTA (TOPO)
-            descricaoInstituicao.textContent =
+            descricaoAnuncio.textContent =
                 anuncio.breveDescricao || "Sem descrição disponível.";
 
             // DETALHES (SUBSTITUI 'NOSSA HISTÓRIA')
@@ -131,7 +127,7 @@ async function carregarAnuncio() {
     });
 
     if (!encontrou) {
-        descricaoInstituicao.textContent = "Sem anúncio ativo.";
+        descricaoAnuncio.textContent = "Sem anúncio ativo.";
         detalhesAnuncio.textContent =
             "Esta instituição não possui anúncios.";
     }
@@ -144,6 +140,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await carregarInstituicao();
     await carregarAnuncio();
     fazerDoacaoBtn.onclick = () => {
-        window.location.href = `doar.html?idInstituicao=${idInstituicao}`;
+        window.location.href = `../doar/doar.html?idInstituicao=${idInstituicao}`;
     }
 });

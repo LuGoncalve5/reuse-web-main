@@ -1,7 +1,7 @@
 // ================================
 // IMPORTS FIREBASE
 // ================================
-import { database } from '../../firebase_connection/firebaseConfig.js';
+import { database } from "../../../firebase_connection/firebaseConfig.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 // ================================
@@ -112,7 +112,7 @@ function esconderSpinner() {
 function criarCardInstituicao(inst) {
     const imagem = normalizarBase64(inst.fotoBase64) 
         || '../../img/instituicoes/default.png';
-    const url = `p_doacao.html?idInstituicao=${encodeURIComponent(inst.id)}`;
+    const url = `../perfil instituicao/p_doacao.html?idInstituicao=${encodeURIComponent(inst.id)}`;
     return `
         <a class="inst-link" href="${url}" style="text-decoration: none; color: inherit;">
         <div class="inst-card">
