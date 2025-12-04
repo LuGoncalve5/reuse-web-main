@@ -244,3 +244,22 @@ body {
         flex-direction: column;
     }
 }
+
+.btn-criar-anuncio {
+    padding: 8px 16px; /* menor que btn-salvar */
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none; /* sem borda sólida */
+    cursor: pointer;
+    transition: .25s;
+    background: var(--verde-soft); /* clarinho */
+    color: var(--verde-principal);
+    box-shadow: 0 0 4px 1px rgba(0,0,0,0.08); /* sombra suave delimitadora */
+}
+
+.btn-criar-anuncio:hover {
+    background: var(--verde-principal);
+    color: white;
+    box-shadow: 0 0 6px 1px rgba(0,0,0,0.12); /* levemente mais intensa no hover */
+}
